@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <Button
+        android:id="@+id/btn_delete_course"
+        android:layout_width="@dimen/dp150w"
+        android:layout_height="@dimen/dp30h"
+        android:layout_marginTop="@dimen/dp40h"
+        android:layout_marginStart="@dimen/dp15w"
+        android:layout_marginEnd="@dimen/dp15w"
+        android:background="@drawable/btn_no_corner_green"
+        android:text="@string/delete"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp16"
+        android:textStyle="bold"
+        android:layout_gravity="center|bottom"
+
+        />
+</LinearLayout>

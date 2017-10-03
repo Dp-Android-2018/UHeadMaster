@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "D:\\24.9\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
+        "source": "D:\\24.9\\UHeadMaster\\sampleapp\\src\\main\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "D:\\24.9\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\menu\\api.xml",
+        "source": "D:\\24.9\\UHeadMaster\\sampleapp\\src\\main\\res\\menu\\api.xml"
+    },
+    {
+        "merged": "D:\\10.2\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
+        "source": "D:\\10.2\\UHeadMaster\\sampleapp\\src\\main\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\menu\\deeplink.xml",
+        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\src\\main\\res\\menu\\deeplink.xml"
+    },
+    {
+        "merged": "D:\\10.2\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\menu\\api.xml",
+        "source": "D:\\10.2\\UHeadMaster\\sampleapp\\src\\main\\res\\menu\\api.xml"
+    },
+    {
+        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
+        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\src\\main\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\menu\\api.xml",
+        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\src\\main\\res\\menu\\api.xml"
+    },
+    {
+        "merged": "D:\\10.2\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\menu\\deeplink.xml",
+        "source": "D:\\10.2\\UHeadMaster\\sampleapp\\src\\main\\res\\menu\\deeplink.xml"
+    },
+    {
+        "merged": "D:\\24.9\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\menu\\deeplink.xml",
+        "source": "D:\\24.9\\UHeadMaster\\sampleapp\\src\\main\\res\\menu\\deeplink.xml"
+    }
+]

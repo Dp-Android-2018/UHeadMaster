@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:showIn="@layout/activity_mood">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp50h"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50h"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+        <Button
+            android:id="@+id/btn_browse_courses"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/browse_courses"
+            android:textAllCaps="false"
+            android:textColor="@color/signUpText"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            android:layout_height="match_parent"
+            android:background="@color/button_mood_gb"/>
+        <Button
+            android:id="@+id/btn_mood_signIn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/dp1w"
+            android:text="@string/sign_in"
+            android:textAllCaps="false"
+            android:textColor="@color/signUpText"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"
+            android:layout_height="match_parent"
+            android:background="@color/button_mood_gb"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDots"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp30h"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp60h"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

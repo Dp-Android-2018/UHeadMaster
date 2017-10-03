@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_message_title"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:textColor="@color/button_mood_gb"
+        android:layout_marginTop="40dp"
+        android:text="Thank you for complete the course"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp14"/>
+
+
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_ask_offer"
+            android:text="@string/write_review"
+            android:textSize="@dimen/sp14"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_dialog_button_background"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/tv_message_title"/>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <com.dp.uheadmaster.models.RoundRectCornerImageView
+            android:id="@+id/iv_student_image"
+            android:layout_width="@dimen/dp90h"
+            android:layout_height="@dimen/dp90w"
+            android:layout_marginTop="@dimen/dp10h"
+            android:layout_marginStart="@dimen/dp15w"
+            android:layout_marginEnd="@dimen/dp4h"
+            android:src="@drawable/ic_logo"
+            android:scaleType="fitXY" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20h"
+            android:orientation="vertical"
+            android:layout_toEndOf="@+id/iv_student_image">
+            <TextView
+                android:id="@+id/tv_student_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp16"
+                android:textStyle="bold"
+                android:textColor="@color/coursesbackground"
+                android:text="Bahaa Gabal" />
+            <TextView
+                android:id="@+id/tv_answer_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp10"
+                android:textColor="@color/coursesbackground"
+                android:text="12 sep 2015"
+                android:layout_marginTop="@dimen/dp5h"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp15w"
+        android:layout_marginEnd="@dimen/dp15w"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/dp10h"
+        android:textSize="@dimen/sp14"
+        android:inputType="textMultiLine"
+        android:layout_marginBottom="@dimen/dp10h"
+        android:text="6:37:02.101 15005-15005/com.dp.uheadmaster D/ViewRootImpl: ViewPostImeInputStage processPointer 0
+09-24 16:37:02.161 15005-15005/com.dp.uheadmaster D/ViewRootImpl: ViewPostImeInputStage processPointer 1
+09-24 16:37:02.801 15005-15005/com.dp.uheadmaster D/ViewRootImpl: ViewPostImeInputStage processPointer 0
+09-24 16:37:02.881 15005-15005/com.dp.uheadmaster D/ViewRootImpl: ViewPostImeInputStage proces"
+        android:textStyle="bold"
+        />
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp2h"
+        android:layout_marginEnd="@dimen/dp15h"
+        android:layout_marginStart="@dimen/dp15h"
+        android:layout_marginTop="@dimen/dp10h"
+        android:background="@color/category_item_bg" />
+
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="left"
+            android:layout_gravity="left">
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/chart"
+                android:layout_width="@dimen/dp150w"
+                android:layout_height="@dimen/dp100h"
+                android:layout_marginEnd="@dimen/dp2w"
+                android:layout_marginStart="@dimen/dp15w"
+                android:layout_marginTop="@dimen/dp10h"
+
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp1h"
+            android:layout_marginEnd="@dimen/dp10w"
+            android:layout_marginStart="@dimen/dp10w"
+            android:layout_marginTop="@dimen/dp10h"
+            android:background="@color/gray_btn_bg_color" />
+
+
+        <TextView
+            android:id="@+id/tv_review_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp15w"
+            android:layout_marginTop="@dimen/dp10h"
+            android:text="Review"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyler_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp10h"
+            android:layout_marginStart="@dimen/dp15w"
+            android:layout_marginTop="@dimen/dp15w"
+            android:background="@color/white"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/review_item_layout" />
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

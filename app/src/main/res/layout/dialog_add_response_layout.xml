@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp280w"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical">
+   <!-- <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_message_title"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:textColor="@color/dark_gray_color"
+        android:layout_marginTop="40dp"
+        android:text="@string/you_have_to_delete_the_course_in_your_account_first"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp14"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/tv_message_title">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/btn_ask_offer"
+            android:text="@string/cancel"
+            android:textSize="@dimen/sp14"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_dialog_button_left_background"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/btn_save"
+            android:text="@string/delete_course"
+            android:textSize="@dimen/sp14"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:background="@drawable/rounded_dialog_button_right_background"/>
+
+    </LinearLayout>-->
+    <EditText
+        android:id="@+id/ed_question_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/editStyle"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:layout_marginTop="@dimen/dp15h"
+        android:backgroundTint="@color/colorAccent"
+        android:hint="@string/enter_question_title"
+        android:textSize="@dimen/sp14"
+        android:textColorHint="@color/colorAccent"/>
+    <EditText
+        android:id="@+id/ed_question_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp120h"
+        android:gravity="start"
+        android:textSize="@dimen/sp14"
+        style="@style/editStyle"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:layout_marginTop="@dimen/dp15h"
+        android:backgroundTint="@color/colorAccent"
+        android:hint="@string/enter_question_details"
+        android:textColorHint="@color/colorAccent"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp35h"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:layout_marginTop="@dimen/dp5h"
+        android:id="@+id/btn_question_post"
+        android:text="@string/post"
+        android:textSize="@dimen/sp16"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:background="@drawable/button_corners"
+        android:layout_marginBottom="@dimen/dp15h"/>
+
+</LinearLayout>

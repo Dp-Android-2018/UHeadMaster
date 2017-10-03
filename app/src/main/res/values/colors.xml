@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#00887A</color>
+    <color name="signUpText">#f7aa09</color>
+    <color name="editTextBG">#6f000000</color>
+    <color name="black">#000000</color>
+    <color name="button_mood_gb">#00887a</color>
+<color name="gray">#c7c7c7</color>
+    <color name="category_bg">#f4f4f4</color>
+    <color name="category_view_strock">#d8d6d6</color>
+    <color name="white">#FFFFFF</color>
+    <color name="shadow">#AA000000</color>
+    <color name="item_menu_color">#8c8c8c</color>
+    <!-- dots inactive colors -->
+    <color name="dot_inactive_screen">#ccc5c7</color>
+    <color name="cource_item_bg">#d5d5d5</color>
+    <color name="home_main_section">#00887A</color>
+    <color name="cource_old_price">#515151</color>
+    <color name="course_constructor_name">#003E38</color>
+    <color name="category_item_bg">#C8C8C8</color>
+    <color name="button_delete_course_color">#037064</color>
+    <!-- dots active colors -->
+    <color name="dot_active_screen">#f7aa09</color>
+    <color name="open_green_color">#3ca499</color>
+    <color name="dark_green_color">#3d716c</color>
+    <color name="open_gray_color">#f5f5f5</color>
+    <color name="dark_green_filter_color">#115e57</color>
+    <color name="line_color">#989898</color>
+
+    <color name="blue_color">#6dbab2</color>
+    <color name="dark_blue_color">#35a196</color>
+    <color name="dark_gray_color">#00443E </color>
+    <color name="button_colors">#02897b</color>
+    <color name="transparent">#02897b</color>
+    <color name="border_gray_color">#95989A</color>
+    <color name="coursesbackground">#d0d0d0</color>
+
+    <color name="tab_color">#4c4c4c</color>
+    <color name="child_active_colr">#00ae9c</color>
+    <array name="array_dot_active">
+        <item>@color/dot_active_screen</item>
+        <item>@color/dot_active_screen</item>
+        <item>@color/dot_active_screen</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_inactive_screen</item>
+        <item>@color/dot_inactive_screen</item>
+        <item>@color/dot_inactive_screen</item>
+    </array>
+
+</resources>

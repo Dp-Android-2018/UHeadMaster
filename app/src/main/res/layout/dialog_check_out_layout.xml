@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_linear_layout"
+    android:paddingStart="@dimen/dp15w"
+    android:paddingEnd="@dimen/dp15w">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pay_via"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="@color/home_main_section"
+        android:paddingTop="@dimen/dp25h"
+        android:paddingBottom="@dimen/dp20h"
+        />
+
+
+    <Button
+        android:id="@+id/btn_credit_card"
+        android:layout_width="@dimen/dp200w"
+        android:layout_height="@dimen/dp40h"
+        android:layout_marginTop="@dimen/dp10h"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp10h"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_corner_blue_2"
+        android:text="Credit Card"
+        android:textAllCaps="false"
+        android:textColor="@color/home_main_section"
+        android:textSize="@dimen/sp16"
+       />
+
+
+    <Button
+        android:id="@+id/btn_paypal"
+        android:layout_width="@dimen/dp200w"
+        android:layout_height="@dimen/dp40h"
+        android:layout_marginTop="@dimen/dp10h"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp35h"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_corner_blue_2"
+        android:text="Paypal"
+        android:textAllCaps="false"
+        android:textColor="@color/home_main_section"
+        android:textSize="@dimen/sp16"
+       />
+</LinearLayout>

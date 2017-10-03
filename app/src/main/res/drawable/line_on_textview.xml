@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <shape android:shape="line">
+        <stroke android:width="@dimen/dp1h" android:color="@color/cource_old_price" />
+    </shape>
+    </item>
+    </selector>

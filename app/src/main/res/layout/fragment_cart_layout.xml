@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:layout_marginEnd="@dimen/dp15w"
+        android:layout_marginStart="@dimen/dp15w"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_courses_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="start"
+            android:gravity="start"
+             android:textColor="@color/open_green_color"
+            android:textDirection="anyRtl"
+            android:textSize="@dimen/sp10" />
+
+        <TextView
+            android:id="@+id/tv_courses_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:gravity="end"
+             android:textColor="@color/colorAccent"
+            android:textDirection="anyRtl"
+            android:textSize="@dimen/sp10" />
+
+    </RelativeLayout>
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/activity_main_swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp300h"
+        android:layout_marginEnd="@dimen/dp15w"
+        android:layout_marginStart="@dimen/dp15w"
+        android:layout_marginTop="@dimen/dp15h">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_courses"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_card"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="2.0sp" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_location"-->
+        <!--android:layout_width="@dimen/dp200w"-->
+        <!--android:layout_height="@dimen/dp30h"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="@dimen/dp15h"-->
+        <!--android:background="@drawable/rounded_relative_layout">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_check_out"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_margin="@dimen/dp5h"-->
+            <!--android:text="@string/check_out"-->
+            <!--android:textColor="@color/open_green_color"-->
+            <!--android:textSize="@dimen/sp15" />-->
+    <!--</RelativeLayout>-->
+
+    <Button
+        android:id="@+id/btn_cart_check"
+        android:layout_width="@dimen/dp200w"
+        android:layout_height="@dimen/dp40h"
+        android:layout_marginTop="@dimen/dp15h"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp30h"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button_corner_blue_2"
+        android:text="@string/check_out"
+        android:textAllCaps="false"
+        android:textColor="@color/home_main_section"
+        android:textSize="@dimen/sp16"
+        android:textStyle="bold" />
+</RelativeLayout>

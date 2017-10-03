@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <GridView
+        android:id="@+id/gridview_courses_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|center_horizontal"
+        android:background="@color/white"
+        android:gravity="center|center_horizontal"
+        android:horizontalSpacing="@dimen/dp15h"
+        android:numColumns="2"
+        android:paddingBottom="@dimen/dp12h"
+        android:paddingEnd="@dimen/dp3w"
+        android:paddingStart="@dimen/dp3w"
+        android:paddingTop="@dimen/dp12h"
+        android:verticalSpacing="@dimen/dp15h"
+        tools:listitem="@layout/item_course"
+        android:scrollbars="vertical"/>
+</LinearLayout>

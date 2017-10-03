@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp15h">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_resource_name"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Section 2 - the  project File"
+        android:textSize="@dimen/sp12"/>
+
+    <ImageView
+        android:id="@+id/iv_download"
+        android:layout_width="@dimen/dp15h"
+        android:layout_height="@dimen/dp15w"
+        android:layout_alignParentEnd="true"
+
+        android:src="@mipmap/downloadbutton"/>
+
+    <View
+        android:layout_below="@+id/iv_download"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp2h"
+        android:layout_marginEnd="@dimen/dp15h"
+        android:layout_marginStart="@dimen/dp15h"
+        android:layout_marginTop="@dimen/dp15h"
+        android:background="@color/category_item_bg" />
+
+</RelativeLayout>

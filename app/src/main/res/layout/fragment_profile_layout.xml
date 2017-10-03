@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+
+        android:id="@+id/sp_profile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp35h"
+        android:overlapAnchor="false"
+        android:layout_margin="@dimen/dp2h"
+        style="@style/spinner_style"/>
+    <FrameLayout
+        android:id="@+id/frame1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+</LinearLayout>

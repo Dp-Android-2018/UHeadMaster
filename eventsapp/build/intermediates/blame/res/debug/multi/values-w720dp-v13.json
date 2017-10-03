@@ -1,0 +1,74 @@
+[
+    {
+        "outputFile": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w720dp-v13\\values-w720dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 76,
+                    "endOffset": 127
+                },
+                "from": {
+                    "file": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\values-w720dp\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 280,
+                        "endColumn": 76,
+                        "endOffset": 352
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w720dp-v13\\values-w720dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 76,
+                    "endOffset": 127
+                },
+                "from": {
+                    "file": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\values-w720dp\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 280,
+                        "endColumn": 76,
+                        "endOffset": 352
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w720dp-v13\\values-w720dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 76,
+                    "endOffset": 127
+                },
+                "from": {
+                    "file": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\values-w720dp\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 280,
+                        "endColumn": 76,
+                        "endOffset": 352
+                    }
+                }
+            }
+        ]
+    }
+]

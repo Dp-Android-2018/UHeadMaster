@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "677861322573",
+    "firebase_url": "https://uheadmaster-20858.firebaseio.com",
+    "project_id": "uheadmaster-20858",
+    "storage_bucket": "uheadmaster-20858.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677861322573:android:7f441dee250788d7",
+        "android_client_info": {
+          "package_name": "com.dp.uheadmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677861322573-q8m41rmsdeevfkip74gta57kdt8a3bto.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0FTgm8uJ3S_TfdqdMTJwoqptZIoTkWU4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

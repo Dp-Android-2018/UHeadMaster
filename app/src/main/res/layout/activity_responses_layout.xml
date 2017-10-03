@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/question_answer_item_layout">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:text="Hello"
+        android:textSize="@dimen/sp16"
+        android:textColor="@color/colorAccent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:layout_marginTop="@dimen/dp15h"
+        android:layout_marginBottom="@dimen/dp10h"
+        android:weightSum="6">
+
+        <EditText
+            android:id="@+id/ed_answer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:hint="@string/submit_your_response"
+            android:inputType="textMultiLine"
+            android:textDirection="locale"
+            android:layout_marginEnd="@dimen/dp2w"
+            android:backgroundTint="@color/colorAccent"/>
+        <Button
+            android:id="@+id/btn_answer_post"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp30h"
+            android:layout_weight="2"
+            android:background="@drawable/button_corners"
+            android:text="@string/post"
+            android:textColor="@color/white"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>
