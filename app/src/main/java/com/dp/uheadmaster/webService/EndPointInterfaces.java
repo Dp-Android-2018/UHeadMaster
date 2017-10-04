@@ -1,5 +1,6 @@
 package com.dp.uheadmaster.webService;
 
+import com.dp.uheadmaster.models.CourseContentModel;
 import com.dp.uheadmaster.models.request.AddCourseQuestionRequest;
 import com.dp.uheadmaster.models.request.AddQuestionAnswerRequest;
 import com.dp.uheadmaster.models.request.ChangePasswordRequest;
@@ -155,5 +156,10 @@ public interface EndPointInterfaces {
 
     @POST(ConfigurationFile.EndPoints.ADD_ANSWER_URL)
     Call<DefaultResponse> addQuestionsAnswer(@Header("Key") String key, @Header("Lang") String lang, @Header("Authorization") String Authorization, @Header("Id") int Id,@Body AddQuestionAnswerRequest addQuestionAnswerRequest);
+
+
+    @GET(ConfigurationFile.EndPoints.COURSE_CONTENTS_URL)
+    Call<CourseContentModel> getCourseContent(@Header("Key") String key, @Header("Lang") String lang, @Header("Authorization") String Authorization, @Header("Id") int Id, @Path("id")  int CId);
+
 
 }

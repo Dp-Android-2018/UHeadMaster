@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.holders.QuestionAnswerHolder;
 import com.dp.uheadmaster.holders.ResourcesHolder;
+import com.dp.uheadmaster.models.Resource;
+
+import java.util.ArrayList;
 
 /**
  * Created by DELL on 24/09/2017.
@@ -16,8 +19,10 @@ import com.dp.uheadmaster.holders.ResourcesHolder;
 
 public class ResourcesAdapter extends RecyclerView.Adapter<ResourcesHolder> {
     private Context context;
-    public ResourcesAdapter(Context context) {
+    private ArrayList<Resource>resources;
+    public ResourcesAdapter(Context context, ArrayList<Resource>resources) {
         this.context=context;
+        this.resources=resources;
     }
 
     @Override
@@ -28,11 +33,12 @@ public class ResourcesAdapter extends RecyclerView.Adapter<ResourcesHolder> {
 
     @Override
     public void onBindViewHolder(ResourcesHolder holder, int position) {
+        holder.onBind(resources.get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return resources.size();
     }
 }

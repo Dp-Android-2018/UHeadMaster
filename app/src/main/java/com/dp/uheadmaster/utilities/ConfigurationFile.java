@@ -83,6 +83,7 @@ public class ConfigurationFile {
         public static final String QUESTIONSAnswersURL = "courses/{course_id}/questions/{question_id}/answers";
         public static final String ADD_QUESTION_URL = "questions/ask";
         public static final String ADD_ANSWER_URL = "questions/answer";
+        public static final String COURSE_CONTENTS_URL = "courses/content/{id}";
 
     }
 

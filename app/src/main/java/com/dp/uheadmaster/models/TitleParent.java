@@ -11,13 +11,20 @@ import java.util.List;
 public class TitleParent implements Parent<TitleChild>{
     List<Object>mChildrenlist;
     private String title;
+    private int id;
     private List<TitleChild>childs;
 
-    public TitleParent(String title,List<TitleChild>childs) {
+    public TitleParent(int id,String title,List<TitleChild>childs) {
         this.title=title;
         this.childs=childs;
+        this.id=id;
 
 
+    }
+
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

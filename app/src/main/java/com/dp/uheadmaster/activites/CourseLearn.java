@@ -65,13 +65,7 @@ public class CourseLearn extends AppCompatActivity implements RefreshFragmentInt
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view_parent_layout);
-       /* recyclerView=(RecyclerView)findViewById(R.id.recycler1);
-        mWebView=(WebView)findViewById(R.id.simpleVideoView) ;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-         expandedAdapter=new ExpandedAdapter(this,initiateData());
 
-    
-        recyclerView.setAdapter(expandedAdapter);*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         final TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);

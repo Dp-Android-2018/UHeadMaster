@@ -30,7 +30,7 @@ public class ResourcesFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerQustions.setLayoutManager(mLayoutManager);
         recyclerQustions.setItemAnimator(new DefaultItemAnimator());
-        recyclerQustions.setAdapter(new ResourcesAdapter(getActivity().getApplicationContext()));
+        recyclerQustions.setAdapter(new ResourcesAdapter(getActivity().getApplicationContext(),LecturesFrag.resources));
         return v;
     }
 }

@@ -179,7 +179,7 @@ public class MainAct extends AppCompatActivity implements CheckOutDialogInterfac
                         CategoriesFrag categoriesFrag = new CategoriesFrag();
                         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.frame, categoriesFrag);
+                        fragmentTransaction.replace(R.id.frame, categoriesFrag).addToBackStack(null);
                         fragmentTransaction.commit();
 
 
@@ -191,7 +191,7 @@ public class MainAct extends AppCompatActivity implements CheckOutDialogInterfac
                         MyCoursesFrag myCoursesFrag = new MyCoursesFrag();
                         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.frame, myCoursesFrag);
+                        fragmentTransaction.replace(R.id.frame, myCoursesFrag).addToBackStack(null);
                         fragmentTransaction.commit();
                         return true;
                     }
@@ -202,7 +202,7 @@ public class MainAct extends AppCompatActivity implements CheckOutDialogInterfac
                         cartFrag.verify=(CheckOutDialogInterface) MainAct.this;
                         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.frame, cartFrag);
+                        fragmentTransaction.replace(R.id.frame, cartFrag).addToBackStack(null);
                         fragmentTransaction.commit();
 
                         return true;
@@ -213,7 +213,7 @@ public class MainAct extends AppCompatActivity implements CheckOutDialogInterfac
                         ProfileFrag fragment = new ProfileFrag();
                         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.frame, fragment);
+                        fragmentTransaction.replace(R.id.frame, fragment).addToBackStack(null);
                         fragmentTransaction.commit();
 
                         return true;
@@ -230,7 +230,7 @@ public class MainAct extends AppCompatActivity implements CheckOutDialogInterfac
                         SettingsFragment fragment = new SettingsFragment();
                         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.frame, fragment);
+                        fragmentTransaction.replace(R.id.frame, fragment).addToBackStack(null);
                         fragmentTransaction.commit();
 
                         return true;
@@ -365,24 +365,32 @@ public class MainAct extends AppCompatActivity implements CheckOutDialogInterfac
         }
     }
 
+
+
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            SearchCategoriesFrag.search_category_id=0;
-            SearchSubCategoriesFrag.search_sub_category_id=0;
-            return;
+
+       if(getSupportFragmentManager().getBackStackEntryCount()>0){
+            getSupportFragmentManager().popBackStack();
         }
-        this.doubleBackToExitPressedOnce = true;
-        Toasty.info(this, getResources().getString(R.string.press_again), Toast.LENGTH_LONG).show();
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
+        else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                SearchCategoriesFrag.search_category_id = 0;
+                SearchSubCategoriesFrag.search_sub_category_id = 0;
+                return;
             }
-        }, 2000);
+            this.doubleBackToExitPressedOnce = true;
+            Toasty.info(this, getResources().getString(R.string.press_again), Toast.LENGTH_LONG).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
 
     }
 }

@@ -1,6 +1,8 @@
 package com.dp.uheadmaster.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,16 +14,37 @@ import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.activites.ChangePasswordAct;
+import com.dp.uheadmaster.activites.MainAct;
 import com.dp.uheadmaster.adapters.ExpandedAdapter;
 import com.dp.uheadmaster.interfaces.ParentPositionChecker;
 import com.dp.uheadmaster.interfaces.VideoPathChecker;
+import com.dp.uheadmaster.models.Content;
+import com.dp.uheadmaster.models.CourseContentModel;
+import com.dp.uheadmaster.models.CourseData;
+import com.dp.uheadmaster.models.Resource;
+import com.dp.uheadmaster.models.Section;
 import com.dp.uheadmaster.models.TitleChild;
 import com.dp.uheadmaster.models.TitleParent;
+import com.dp.uheadmaster.models.request.ChangePasswordRequest;
+import com.dp.uheadmaster.models.response.LoginResponse;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
+import com.dp.uheadmaster.utilities.NetWorkConnection;
+import com.dp.uheadmaster.utilities.SharedPrefManager;
+import com.dp.uheadmaster.webService.ApiClient;
+import com.dp.uheadmaster.webService.EndPointInterfaces;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by DELL on 24/09/2017.
@@ -30,8 +53,11 @@ import java.util.List;
 public class LecturesFrag extends Fragment implements ParentPositionChecker{
 
         private RecyclerView recyclerView;
-
+        private ProgressDialog progressDialog;
         private static ExpandedAdapter expandedAdapter;
+        private SharedPrefManager sharedPrefManager;
+        public static ArrayList<Resource>resources;
+        private int courseId;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,26 +80,95 @@ public class LecturesFrag extends Fragment implements ParentPositionChecker{
     }
 
     public void initializeUi(View v) {
+
+        resources=new ArrayList<>();
+        courseId=getActivity().getIntent().getIntExtra("CourseId",0);
+        sharedPrefManager=new SharedPrefManager(getActivity().getApplicationContext());
         recyclerView=(RecyclerView)v.findViewById(R.id.recycler1);
-        //mWebView=(WebView)v.findViewById(R.id.simpleVideoView) ;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        expandedAdapter=new ExpandedAdapter(getActivity().getApplicationContext(),initiateData());
 
-
-        recyclerView.setAdapter(expandedAdapter);
+        getCourseContents();
     }
 
-        public List<TitleParent> initiateData(){
-            TitleChild beef = new TitleChild("beef","https://www.youtube.com/watch?v=_nzx5ioXCO4");
-            TitleChild cheese = new TitleChild("cheese","https://www.youtube.com/watch?v=vEfW9sm70tg");
-            TitleChild salsa = new TitleChild("salsa","https://www.youtube.com/watch?v=D8VEwqef9XY");
-            TitleChild tortilla = new TitleChild("tortilla","https://www.youtube.com/watch?v=kEpOv49P6Yg");
 
-            TitleParent taco = new TitleParent("Meet", Arrays.asList(beef, cheese, salsa, tortilla));
-            TitleParent quesadilla = new TitleParent("Cheese",Arrays.asList(cheese, tortilla));
-            TitleParent parent3 = new TitleParent("Chicken",Arrays.asList(cheese, tortilla));
-            TitleParent parent4 = new TitleParent("Fish",Arrays.asList(cheese, tortilla));
-            List<TitleParent> parents = Arrays.asList(taco, quesadilla,parent3,parent4);
+    public void getCourseContents() {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext())) {
+            progressDialog = ConfigurationFile.showDialog(getActivity());
+
+
+            final EndPointInterfaces apiService =
+                    ApiClient.getClient().create(EndPointInterfaces.class);
+
+
+            Call<CourseContentModel> call = apiService.getCourseContent(ConfigurationFile.ConnectionUrls.HEAD_KEY,ConfigurationFile.GlobalVariables.APP_LANGAUGE,sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_TOKEN),sharedPrefManager.getIntegerFromSharedPrederances(ConfigurationFile.ShardPref.USER_ID),73);
+            call.enqueue(new Callback<CourseContentModel>() {
+                @Override
+                public void onResponse(Call<CourseContentModel> call, Response<CourseContentModel> response) {
+                    ConfigurationFile.hideDialog(progressDialog);
+
+                    try {
+
+                        CourseContentModel courseContentModel=response.body();
+                        if (courseContentModel.getStatus() == 200) {
+
+                            //initiateData();
+                            expandedAdapter=new ExpandedAdapter(getActivity().getApplicationContext(),initiateData(courseContentModel.getSections()));
+                            recyclerView.setAdapter(expandedAdapter);
+                        }
+                    }catch (NullPointerException ex){
+                        ex.printStackTrace();
+
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CourseContentModel> call, Throwable t) {
+                    ConfigurationFile.hideDialog(progressDialog);
+
+                    Toasty.error(getActivity().getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    System.out.println(" Fialer :" + t.getMessage());
+                }
+            });
+
+        } else {
+            Toasty.warning(getActivity().getApplicationContext(),getString(R.string.check_internet_connection),Toast.LENGTH_LONG).show();
+        }
+    }
+
+        public List<TitleParent> initiateData(ArrayList<Section>sections){
+            ArrayList<TitleParent>parents=new ArrayList<>();
+            ArrayList<TitleChild>children=new ArrayList<>();
+            for (int i=0;i<sections.size();i++){
+                Section section=sections.get(i);
+                children=new ArrayList<>();
+
+                for (int j=0;j<section.getCourseDatas().size();j++){
+                    CourseData courseData=section.getCourseDatas().get(j);
+                    for (int z=0;z<courseData.getContents().size();z++){
+                        Content content=courseData.getContents().get(z);
+                        if(courseData.getType().equals("lecture")){
+
+                            if(!content.getType().equals("resource")){
+
+
+                                children.add(new TitleChild(courseData.getId(),courseData.getTitle(),content.getId(),content.getType(),content.getContent()));
+                            }else {
+                                ///  public Resource(int lectureId, String lectureTitle, int resourceId, String resourceTitle, String resourcePath)
+                                resources.add(new Resource(courseData.getId(),courseData.getTitle(),content.getId(),content.getName(),content.getContent()));
+                            }
+
+                        }
+
+
+                    }
+
+
+                }
+                parents.add(new TitleParent(section.getId(),section.getTitle(),children));
+            }
+
             return parents;
         }
 

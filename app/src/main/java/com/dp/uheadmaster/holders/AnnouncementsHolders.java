@@ -24,6 +24,10 @@ public class AnnouncementsHolders extends RecyclerView.ViewHolder {
         ivStudentImage=(ImageView)itemView.findViewById(R.id.iv_student_image);
     }
 
+    public void onBind(int position){
+
+    }
+
     public TextView getTvStudentName() {
         return tvStudentName;
     }
