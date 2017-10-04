@@ -112,6 +112,8 @@ public class MainAct extends AppCompatActivity implements CheckOutDialogInterfac
                     else
                         fragmentTransaction.replace(R.id.frame, new MainFrag());
                     fragmentTransaction.commit();
+
+
                 }
             }
         });
