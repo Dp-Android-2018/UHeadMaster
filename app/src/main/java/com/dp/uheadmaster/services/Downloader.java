@@ -24,7 +24,7 @@ import java.net.URL;
 
 public class Downloader extends IntentService {
     private static final String AUTHORITY=
-            BuildConfig.APPLICATION_ID+".provider";
+          "com.dp.uheadmaster.provider";
     private static int NOTIFY_ID=1337;
     private static int FOREGROUND_ID=1338;
 

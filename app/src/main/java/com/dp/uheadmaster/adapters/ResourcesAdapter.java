@@ -1,5 +1,6 @@
 package com.dp.uheadmaster.adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.holders.QuestionAnswerHolder;
 import com.dp.uheadmaster.holders.ResourcesHolder;
+import com.dp.uheadmaster.interfaces.OnItemClickInterface;
 import com.dp.uheadmaster.models.Resource;
 
 import java.util.ArrayList;
@@ -20,9 +22,11 @@ import java.util.ArrayList;
 public class ResourcesAdapter extends RecyclerView.Adapter<ResourcesHolder> {
     private Context context;
     private ArrayList<Resource>resources;
-    public ResourcesAdapter(Context context, ArrayList<Resource>resources) {
+    private OnItemClickInterface listener;
+    public ResourcesAdapter(Context context, ArrayList<Resource>resources, OnItemClickInterface listener) {
         this.context=context;
         this.resources=resources;
+        this.listener=listener;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class ResourcesAdapter extends RecyclerView.Adapter<ResourcesHolder> {
 
     @Override
     public void onBindViewHolder(ResourcesHolder holder, int position) {
-        holder.onBind(resources.get(position));
+        holder.onBind(resources.get(position),listener);
 
     }
 

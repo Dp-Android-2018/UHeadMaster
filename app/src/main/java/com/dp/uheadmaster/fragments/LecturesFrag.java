@@ -25,6 +25,7 @@ import com.dp.uheadmaster.interfaces.VideoPathChecker;
 import com.dp.uheadmaster.models.Content;
 import com.dp.uheadmaster.models.CourseContentModel;
 import com.dp.uheadmaster.models.CourseData;
+import com.dp.uheadmaster.models.QuizAnswer;
 import com.dp.uheadmaster.models.Resource;
 import com.dp.uheadmaster.models.Section;
 import com.dp.uheadmaster.models.TitleChild;
@@ -57,6 +58,7 @@ public class LecturesFrag extends Fragment implements ParentPositionChecker{
         private static ExpandedAdapter expandedAdapter;
         private SharedPrefManager sharedPrefManager;
         public static ArrayList<Resource>resources;
+        private ArrayList<Content>quizes;
         private int courseId;
     @Nullable
     @Override
@@ -82,6 +84,7 @@ public class LecturesFrag extends Fragment implements ParentPositionChecker{
     public void initializeUi(View v) {
 
         resources=new ArrayList<>();
+        quizes=new ArrayList<>();
         courseId=getActivity().getIntent().getIntExtra("CourseId",0);
         sharedPrefManager=new SharedPrefManager(getActivity().getApplicationContext());
         recyclerView=(RecyclerView)v.findViewById(R.id.recycler1);
@@ -159,6 +162,8 @@ public class LecturesFrag extends Fragment implements ParentPositionChecker{
                                 resources.add(new Resource(courseData.getId(),courseData.getTitle(),content.getId(),content.getName(),content.getContent()));
                             }
 
+                        }else if(courseData.getType().equals("quiz")){
+                            quizes.add(content);
                         }
 
 

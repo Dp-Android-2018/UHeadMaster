@@ -161,5 +161,8 @@ public interface EndPointInterfaces {
     @GET(ConfigurationFile.EndPoints.COURSE_CONTENTS_URL)
     Call<CourseContentModel> getCourseContent(@Header("Key") String key, @Header("Lang") String lang, @Header("Authorization") String Authorization, @Header("Id") int Id, @Path("id")  int CId);
 
+    @GET(ConfigurationFile.EndPoints.ANNOUNCEMENTS_DATA)
+    Call<CourseContentModel> getAnnouncements(@Header("Key") String key, @Header("Lang") String lang, @Header("Authorization") String Authorization, @Header("Id") int Id, @Path("course_id")  int CId);
+
 
 }

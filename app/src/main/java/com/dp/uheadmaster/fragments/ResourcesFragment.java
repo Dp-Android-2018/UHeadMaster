@@ -9,10 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.adapters.QuestionAnswerAdapter;
 import com.dp.uheadmaster.adapters.ResourcesAdapter;
+import com.dp.uheadmaster.interfaces.OnItemClickInterface;
+import com.dp.uheadmaster.models.Resource;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by DELL on 24/09/2017.
@@ -30,7 +35,12 @@ public class ResourcesFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerQustions.setLayoutManager(mLayoutManager);
         recyclerQustions.setItemAnimator(new DefaultItemAnimator());
-        recyclerQustions.setAdapter(new ResourcesAdapter(getActivity().getApplicationContext(),LecturesFrag.resources));
+        recyclerQustions.setAdapter(new ResourcesAdapter(getActivity().getApplicationContext(), LecturesFrag.resources, new OnItemClickInterface() {
+            @Override
+            public void clickedItem(Resource resource) {
+                Toasty.success(getActivity().getApplicationContext()," "+resource.getResourceId(), Toast.LENGTH_LONG).show();
+            }
+        }));
         return v;
     }
 }
