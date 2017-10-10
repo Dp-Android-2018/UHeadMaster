@@ -42,7 +42,19 @@
             android:tint="@color/black"
             android:layout_gravity="center"
             android:layout_alignParentEnd="true"
+            android:visibility="gone"
             />
+
+        <Button
+            android:layout_width="@dimen/dp80w"
+            android:layout_height="@dimen/dp30h"
+            android:id="@+id/preview"
+            android:layout_gravity="center"
+            android:layout_alignParentEnd="true"
+            android:text="@string/preview"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:background="@drawable/transparent_background_colored_border"/>
 
         <TextView
             android:layout_marginStart="@dimen/dp35w"

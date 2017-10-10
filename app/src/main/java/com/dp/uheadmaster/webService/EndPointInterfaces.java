@@ -10,6 +10,7 @@ import com.dp.uheadmaster.models.request.UpdatePrivacyRequest;
 import com.dp.uheadmaster.models.request.UpdateProfile;
 import com.dp.uheadmaster.models.request.UserDataSocialMediaLogin;
 import com.dp.uheadmaster.models.CourseIDRequest;
+import com.dp.uheadmaster.models.response.AnnounceMentResponse;
 import com.dp.uheadmaster.models.response.AnswersResponse;
 import com.dp.uheadmaster.models.response.CartListResponse;
 import com.dp.uheadmaster.models.response.CategoriesResponse;
@@ -162,7 +163,7 @@ public interface EndPointInterfaces {
     Call<CourseContentModel> getCourseContent(@Header("Key") String key, @Header("Lang") String lang, @Header("Authorization") String Authorization, @Header("Id") int Id, @Path("id")  int CId);
 
     @GET(ConfigurationFile.EndPoints.ANNOUNCEMENTS_DATA)
-    Call<CourseContentModel> getAnnouncements(@Header("Key") String key, @Header("Lang") String lang, @Header("Authorization") String Authorization, @Header("Id") int Id, @Path("course_id")  int CId);
+    Call<AnnounceMentResponse> getAnnouncements(@Header("Key") String key, @Header("Lang") String lang, @Header("Authorization") String Authorization, @Header("Id") int Id, @Path("course_id")  int CId,@Query("page") int page);
 
 
 }

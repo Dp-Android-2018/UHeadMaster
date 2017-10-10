@@ -56,7 +56,7 @@ public class CourseDetailAct extends AppCompatActivity {
     private static int IsInCart = -1;
     public static int instructord_id = -1;
     private CourseDetailsModel courseDetailsModel;
-    private Button btnStartCourse;
+    private Button preview,buyCourse;
     private ViewPagerAdapter viewPagerAdapter;
 
     @Override
@@ -159,7 +159,7 @@ public class CourseDetailAct extends AppCompatActivity {
 
     public void initializeUi() {
 
-        btnStartCourse=(Button)findViewById(R.id.btn_start_course);
+        preview=(Button)findViewById(R.id.btn_preview_course);
         imgCourseIntro = (ImageView) findViewById(R.id.img_course_intro);
         imgPlayVideo = (ImageView) findViewById(R.id.img_play_video);
         tvCourseTitle = (TextView) findViewById(R.id.tv_course_title);
@@ -211,7 +211,7 @@ public class CourseDetailAct extends AppCompatActivity {
             tvLecture.setTypeface(ApplyCustomFont.getInstance(getApplicationContext()).chooseFont("ar_font"));
             tvLangauge.setTypeface(ApplyCustomFont.getInstance(getApplicationContext()).chooseFont("ar_font"));
         }
-        btnStartCourse.setOnClickListener(new View.OnClickListener() {
+        preview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

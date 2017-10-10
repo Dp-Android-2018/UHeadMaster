@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.holders.AnnouncementsHolders;
+import com.dp.uheadmaster.models.AnnouncementData;
+
+import java.util.ArrayList;
 
 /**
  * Created by DELL on 24/09/2017.
@@ -16,9 +19,11 @@ import com.dp.uheadmaster.holders.AnnouncementsHolders;
 public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementsHolders> {
 
     private Context context;
-
-    public AnnouncementAdapter(Context context) {
+    private ArrayList<AnnouncementData> announcementDatas;
+    public AnnouncementAdapter(Context context,ArrayList<AnnouncementData> announcementDatas) {
         this.context=context;
+        this.announcementDatas=announcementDatas;
+
 
     }
 
@@ -30,12 +35,12 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementsHolde
 
     @Override
     public void onBindViewHolder(AnnouncementsHolders holder, int position) {
-        holder.onBind(position);
+        holder.onBind(announcementDatas.get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return announcementDatas.size();
     }
 }

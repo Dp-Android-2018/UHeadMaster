@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.models.AnnouncementData;
+import com.dp.uheadmaster.models.response.AnnounceMentResponse;
 
 /**
  * Created by DELL on 27/09/2017.
@@ -24,8 +26,10 @@ public class AnnouncementsHolders extends RecyclerView.ViewHolder {
         ivStudentImage=(ImageView)itemView.findViewById(R.id.iv_student_image);
     }
 
-    public void onBind(int position){
-
+    public void onBind(AnnouncementData announcementData){
+        tvStudentName.setText(announcementData.getTitle());
+        tvAnswerDate.setText(announcementData.getUpatedAt());
+        tvAnswer.setText(announcementData.getContent());
     }
 
     public TextView getTvStudentName() {
