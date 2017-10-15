@@ -39,6 +39,11 @@
 
     <color name="tab_color">#4c4c4c</color>
     <color name="child_active_colr">#00ae9c</color>
+
+
+
+
+
     <array name="array_dot_active">
         <item>@color/dot_active_screen</item>
         <item>@color/dot_active_screen</item>

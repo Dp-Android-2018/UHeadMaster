@@ -34,6 +34,8 @@ import com.dp.uheadmaster.models.response.WishListResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.google.gson.JsonElement;
 
+import org.json.JSONObject;
+
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -164,6 +166,10 @@ public interface EndPointInterfaces {
 
     @GET(ConfigurationFile.EndPoints.ANNOUNCEMENTS_DATA)
     Call<AnnounceMentResponse> getAnnouncements(@Header("Key") String key, @Header("Lang") String lang, @Header("Authorization") String Authorization, @Header("Id") int Id, @Path("course_id")  int CId,@Query("page") int page);
+
+
+    @GET(ConfigurationFile.EndPoints.VIDEO_LINKS)
+    Call<JsonElement> getVideoLinksUrl(@Header("Key") String key, @Header("Lang") String lang, @Header("Authorization") String Authorization, @Header("Id") int Id, @Path("course_id")  int CId, @Path("video_file") String videoFile);
 
 
 }

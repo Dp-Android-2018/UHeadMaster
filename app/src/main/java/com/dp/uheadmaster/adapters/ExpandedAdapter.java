@@ -10,6 +10,7 @@ import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.holders.TitleChildViewHolder;
 import com.dp.uheadmaster.holders.TitleParentViewHolder;
+import com.dp.uheadmaster.interfaces.VideoLinksInterface;
 import com.dp.uheadmaster.models.TitleChild;
 import com.dp.uheadmaster.models.TitleParent;
 
@@ -23,11 +24,13 @@ public class ExpandedAdapter extends ExpandableRecyclerAdapter<TitleParent,Title
 
 
     private LayoutInflater inflater;
+    private VideoLinksInterface videoLinksInterface;
     private Context context;
-    public ExpandedAdapter(Context context, @NonNull List<TitleParent> parentList) {
+    public ExpandedAdapter(Context context, @NonNull List<TitleParent> parentList,VideoLinksInterface videoLinksInterface) {
         super(parentList);
         this.context=context;
         inflater=LayoutInflater.from(context);
+        this.videoLinksInterface=videoLinksInterface;
     }
 
     @NonNull
@@ -41,7 +44,7 @@ public class ExpandedAdapter extends ExpandableRecyclerAdapter<TitleParent,Title
     @Override
     public TitleChildViewHolder onCreateChildViewHolder(@NonNull ViewGroup childViewGroup, int viewType) {
         View v=inflater.inflate(R.layout.recycler_view_child_layout,childViewGroup,false);
-        return new TitleChildViewHolder(context,v);
+        return new TitleChildViewHolder(context,v,videoLinksInterface);
     }
 
     @Override

@@ -8,6 +8,10 @@
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_dark.xml"
     },
     {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_right_holo_light.xml"
+    },
+    {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
@@ -32,6 +36,10 @@
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear_holo_light.xml"
     },
     {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_dark.xml"
+    },
+    {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
@@ -44,7 +52,23 @@
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_light.xml"
     },
     {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear.xml"
+    },
+    {
         "merged": "D:\\10.2\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_ab_holo.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_tab_indicator_ab_holo.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_light.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_light.xml"
     },
     {
@@ -72,6 +96,14 @@
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear_holo_light.xml"
     },
     {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_right_holo_dark.xml"
+    },
+    {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_item_background_holo_light.xml"
     },
@@ -84,12 +116,12 @@
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
     },
     {
-        "merged": "D:\\24.9\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_light.xml"
-    },
-    {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_holo_light.xml",
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_ic_clear_holo_light.xml"
+    },
+    {
+        "merged": "D:\\24.9\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_light.xml"
     },
     {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
@@ -108,8 +140,24 @@
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_dark.xml"
     },
     {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_dark.xml"
+    },
+    {
         "merged": "D:\\10.2\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_dark.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_dark.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
     },
     {
         "merged": "D:\\10.2\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_ab_holo.xml",
@@ -122,6 +170,10 @@
     {
         "merged": "D:\\10.2\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear_holo_light.xml"
     },
     {
         "merged": "D:\\24.9\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear.xml",
@@ -152,6 +204,10 @@
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_textfield_searchview_right_holo_light.xml"
     },
     {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
     },
@@ -162,6 +218,10 @@
     {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_light.xml",
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_spinner_ab_holo_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
     {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_dark.xml",
@@ -180,6 +240,10 @@
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_search_dropdown_dark.xml"
     },
     {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_dark.xml"
+    },
+    {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
     },
@@ -194,6 +258,10 @@
     {
         "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_light.xml",
         "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_search_dropdown_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_item_background_holo_light.xml"
     },
     {
         "merged": "D:\\10.2\\UHeadMaster\\sampleapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",

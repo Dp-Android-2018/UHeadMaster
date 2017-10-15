@@ -70,5 +70,29 @@
                 }
             }
         ]
+    },
+    {
+        "outputFile": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w500dp-v13\\values-w500dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 54,
+                    "endOffset": 105
+                },
+                "from": {
+                    "file": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\values-w500dp\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 281,
+                        "endColumn": 54,
+                        "endOffset": 331
+                    }
+                }
+            }
+        ]
     }
 ]

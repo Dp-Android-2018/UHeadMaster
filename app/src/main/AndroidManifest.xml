@@ -69,7 +69,15 @@
         <activity android:name=".activites.ResponsesAct">
 
             </activity>
-
+        <activity
+            android:name=".jwplayer.JWPlayerViewExample"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".jwplayer.JWPlayerFragmentExample"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+        </activity>
 
         <service android:name=".services.Downloader"/>
 
@@ -82,6 +90,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
+
+
+        <meta-data
+            android:name="JW_LICENSE_KEY"
+            android:value="IP+Q8MABjl3bBSbHqrY2HZ2KOebjXt8Bru8a7Q==" />
     </application>
 
 </manifest>

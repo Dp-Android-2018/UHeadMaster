@@ -85,6 +85,7 @@ public class ConfigurationFile {
         public static final String ADD_ANSWER_URL = "questions/answer";
         public static final String COURSE_CONTENTS_URL = "courses/content/{id}";
         public static final String ANNOUNCEMENTS_DATA = "announcements/{course_id}";
+        public static final String VIDEO_LINKS = "courses/videos/{course_id}/{video_file}";
 
     }
 

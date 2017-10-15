@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.activites.CourseLearn;
+import com.dp.uheadmaster.interfaces.VideoLinksInterface;
 import com.dp.uheadmaster.interfaces.VideoPathChecker;
 import com.dp.uheadmaster.models.TitleChild;
 
@@ -23,12 +24,13 @@ public class TitleChildViewHolder extends ChildViewHolder {
     private TextView tvLectureType;
     private TextView tvVideoDuration;
     private Context context;
+    private VideoLinksInterface videoLinksInterface;
     //public ListView listView;
 
-    public TitleChildViewHolder(Context context,View itemView) {
+    public TitleChildViewHolder(Context context, View itemView, VideoLinksInterface videoLinksInterface) {
         super(itemView);
         this.context=context;
-
+        this.videoLinksInterface=videoLinksInterface;
         tvLectureName=(TextView)itemView.findViewById(R.id.tv_lecture_name);
         tvLectureType=(TextView)itemView.findViewById(R.id.tv_lecture_type);
         tvVideoDuration=(TextView)itemView.findViewById(R.id.tv_lecture_duration);
@@ -49,13 +51,26 @@ public class TitleChildViewHolder extends ChildViewHolder {
             }
         });
 
+
         if(titleChild.getContentType().equals("doc")) {
             tvLectureType.setText("Doc");
             tvVideoDuration.setVisibility(View.GONE);
         }else if(titleChild.getContentType().equals("video")) {
             tvLectureType.setText("Video");
+            tvVideoDuration.setText(titleChild.getVideoDuration());
             tvVideoDuration.setVisibility(View.VISIBLE);
         }
+
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(titleChild.getContentType().equals("video")){
+                   videoLinksInterface.getVideoName(titleChild.getContentPath());
+
+                }
+            }
+        });
 
     }
 

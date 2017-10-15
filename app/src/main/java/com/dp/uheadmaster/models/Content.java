@@ -23,6 +23,14 @@ public class Content {
     private String type;
 
 
+    @SerializedName("duration")
+    private String duration;
+
+
+    public String getDuration() {
+        return duration;
+    }
+
     @SerializedName("answers")
     private ArrayList<QuizAnswer> answers;
 
