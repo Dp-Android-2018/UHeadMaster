@@ -6,47 +6,54 @@
         <item
             android:id="@+id/home"
             android:checked="true"
-            android:icon="@mipmap/ic_home_menu"
+            android:icon="@mipmap/home"
             android:title="@string/home"
             />
         <item
             android:id="@+id/categories"
-            android:icon="@mipmap/promos"
+            android:icon="@mipmap/black_shop_tag"
             android:title="@string/categories"
             />
 
         <item
             android:id="@+id/courses"
-            android:icon="@mipmap/ic_courses_menu"
+            android:icon="@mipmap/online_course_item"
             android:title="@string/my_courses"
             />
         <item
             android:id="@+id/shopping_cart"
-            android:icon="@mipmap/purchases"
+            android:icon="@mipmap/shopping_cart"
             android:title="@string/shopping_cart"
+            />
+
+
+        <item
+            android:id="@+id/become_instructor_item"
+            android:icon="@mipmap/users_linked"
+            android:title="@string/become_instructor"
             />
 
         <item
             android:id="@+id/edit_profile"
-            android:icon="@mipmap/social"
+            android:icon="@mipmap/users"
             android:title="@string/edit_profile"
             />
 
         <item
             android:id="@+id/policy"
-            android:icon="@mipmap/spam"
+            android:icon="@mipmap/settings_work_tool"
             android:title="@string/policy"
             />
 
         <item
             android:id="@+id/settings"
-            android:icon="@mipmap/spam"
+            android:icon="@mipmap/settings_work_tool"
             android:title="@string/settings"
             />
 
         <item
             android:id="@+id/logout"
-            android:icon="@mipmap/inbox"
+            android:icon="@mipmap/email_inbox"
             android:title="@string/logout" />
     </group>
 </menu>

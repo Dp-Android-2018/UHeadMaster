@@ -33,6 +33,7 @@ import com.dp.uheadmaster.dialogs.DeleteCourseDialog;
 import com.dp.uheadmaster.fragments.BasicSearchFrag;
 import com.dp.uheadmaster.fragments.CartFrag;
 import com.dp.uheadmaster.fragments.CategoriesFrag;
+import com.dp.uheadmaster.fragments.InstructorFragment;
 import com.dp.uheadmaster.fragments.MainFrag;
 import com.dp.uheadmaster.fragments.MyCoursesFrag;
 import com.dp.uheadmaster.fragments.ProfileFrag;
@@ -205,6 +206,19 @@ public class MainAct extends AppCompatActivity implements CheckOutDialogInterfac
                         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.frame, cartFrag).addToBackStack(null);
+                        fragmentTransaction.commit();
+
+                        return true;
+                    }
+
+
+                    case R.id.become_instructor_item: {
+                        nexFragment=new InstructorFragment();
+                        InstructorFragment instructorFragment = new InstructorFragment();
+                       // InstructorFragment.verify=(CheckOutDialogInterface) MainAct.this;
+                        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.frame, instructorFragment).addToBackStack(null);
                         fragmentTransaction.commit();
 
                         return true;

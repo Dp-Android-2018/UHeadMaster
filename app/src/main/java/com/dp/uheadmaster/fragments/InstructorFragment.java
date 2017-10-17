@@ -20,26 +20,17 @@ import com.dp.uheadmaster.interfaces.CheckOutDialogInterface;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.dp.uheadmaster.utilities.SharedPrefManager;
 
-import java.util.Locale;
-
 /**
- * Created by DELL on 21/08/2017.
+ * Created by DELL on 17/10/2017.
  */
 
-public class MainFrag extends Fragment {
-
+public class InstructorFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
     private SharedPrefManager sharedPrefManager;
 
-    private int[] tabIcons = {
-            R.mipmap.home3,
-            R.mipmap.black_shop_tag,
-            R.mipmap.online_course,
-            R.mipmap.shopping_cart4
 
-    };
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,10 +53,8 @@ public class MainFrag extends Fragment {
             viewPagerAdapter=new ViewPagerAdapter(getChildFragmentManager(),false);
 
 
-        viewPagerAdapter.addFragment(new HomeFrag(), getResources().getString(R.string.home));
-        viewPagerAdapter.addFragment(new CategoriesFrag(), getResources().getString(R.string.categories));
-        viewPagerAdapter.addFragment(new MyCoursesFrag(), getResources().getString(R.string.my_courses));
-        viewPagerAdapter.addFragment(new CartFrag(), getResources().getString(R.string.cart));
+        viewPagerAdapter.addFragment(new HomeFrag(), "Dashboard");
+        viewPagerAdapter.addFragment(new CategoriesFrag(), "Create Course");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout=(TabLayout)v.findViewById(R.id.tablayout);
@@ -95,7 +84,7 @@ public class MainFrag extends Fragment {
                     }
                 }
         );
-        setupTabIcons();
+
         if(ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN))
             viewPager.setCurrentItem(0,false);
         else if(ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR))
@@ -108,21 +97,7 @@ public class MainFrag extends Fragment {
     }
 
 
-    private void setupTabIcons() {
-        if(ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN)) {
-            tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-            tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-            tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-            tabLayout.getTabAt(3).setIcon(tabIcons[3]);
-        }
 
-        else if(ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR)){
-            tabLayout.getTabAt(0).setIcon(tabIcons[3]);
-            tabLayout.getTabAt(1).setIcon(tabIcons[2]);
-            tabLayout.getTabAt(2).setIcon(tabIcons[1]);
-            tabLayout.getTabAt(3).setIcon(tabIcons[0]);
-        }
-    }
 
 
 
@@ -145,6 +120,5 @@ public class MainFrag extends Fragment {
             }
         }
     }
-
 
 }
