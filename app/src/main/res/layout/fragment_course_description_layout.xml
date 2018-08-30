@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-   android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -15,10 +15,10 @@
             android:layout_marginStart="@dimen/dp15w"
             android:layout_marginEnd="@dimen/dp5w"
             android:textColor="@color/black"
-           android:layout_marginTop="@dimen/dp5h"
-            android:textSize="@dimen/sp14"
+            android:layout_marginTop="@dimen/dp5h"
+            android:textSize="@dimen/sp12"
             android:lines="2"
-            android:text="Requirment ..."
+            android:text="@string/requirment"
             />
         <TextView
             android:id="@+id/tv_description_text"
@@ -27,9 +27,9 @@
             android:layout_marginStart="@dimen/dp15w"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/dp15h"
-            android:textSize="@dimen/sp16"
-           android:textStyle="bold"
-           android:text="@string/description"
+            android:textSize="@dimen/sp13"
+            android:textStyle="bold"
+            android:text="@string/description"
             />
 
         <TextView
@@ -40,9 +40,8 @@
             android:layout_marginEnd="@dimen/dp15w"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/dp5h"
-            android:textSize="@dimen/sp14"
+            android:textSize="@dimen/sp13"
             android:inputType="textMultiLine"
-            android:text=""
             android:layout_marginBottom="@dimen/dp10h"
             />
     </LinearLayout>

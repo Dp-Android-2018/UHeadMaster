@@ -1,7 +1,10 @@
 package com.dp.uheadmaster.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.activites.CourseDetailAct;
 import com.dp.uheadmaster.models.CourseModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,6 +31,7 @@ public class CoursesSearchResultAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<CourseModel> courseModel;
+    private FontChangeCrawler fontChanger;
     public CoursesSearchResultAdapter(Context context, ArrayList<CourseModel> courseModel){
        this.context=context;
         this.courseModel=courseModel;
@@ -52,10 +58,19 @@ public class CoursesSearchResultAdapter extends BaseAdapter {
 
         View v=new View(context);
         v = inflater.inflate(R.layout.item_course, null);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
 
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
 
         LinearLayout item = (LinearLayout) v.findViewById(R.id.item);
-        ImageView imgCourseImage = (ImageView) v.findViewById(R.id.img_course_logo);
+        final ImageView imgCourseImage = (ImageView) v.findViewById(R.id.img_course_logo);
         RatingBar rbRate = (RatingBar) v.findViewById(R.id.rating_bar);
         TextView tvCourseTitle= (TextView) v.findViewById(R.id.tv_course_title);
         TextView tvInstructorName= (TextView) v.findViewById(R.id.tv_instructor_name);
@@ -97,10 +112,19 @@ public class CoursesSearchResultAdapter extends BaseAdapter {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context , CourseDetailAct.class);
-                    intent.putExtra("course_id" , courseModel.get(position).getId());
-
-                    context.startActivity(intent);
+                    if(Build.VERSION.SDK_INT>=21) {
+                        imgCourseImage.setTransitionName("selectedImage");
+                        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, imgCourseImage, imgCourseImage.getTransitionName());
+                        Intent intent = new Intent(context, CourseDetailAct.class);
+                        intent.putExtra("course_id", courseModel.get(position).getId());
+                        intent.putExtra("Image_Path", courseModel.get(position).getImagePath());
+                        context.startActivity(intent, activityOptionsCompat.toBundle());
+                    }else {
+                        Intent intent = new Intent(context, CourseDetailAct.class);
+                        intent.putExtra("course_id", courseModel.get(position).getId());
+                        intent.putExtra("Image_Path", courseModel.get(position).getImagePath());
+                        context.startActivity(intent);
+                    }
                 }
             });
 

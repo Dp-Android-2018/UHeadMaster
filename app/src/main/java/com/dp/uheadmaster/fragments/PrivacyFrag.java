@@ -1,8 +1,10 @@
 package com.dp.uheadmaster.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.request.UpdateEmailRequest;
 import com.dp.uheadmaster.models.request.UpdatePrivacyRequest;
 import com.dp.uheadmaster.models.response.DefaultResponse;
@@ -22,7 +25,7 @@ import com.dp.uheadmaster.utilities.SharedPrefManager;
 import com.dp.uheadmaster.webService.ApiClient;
 import com.dp.uheadmaster.webService.EndPointInterfaces;
 
-import es.dmoral.toasty.Toasty;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,11 +42,28 @@ public class PrivacyFrag extends Fragment {
     private Button btnSave;
     private ProgressDialog progressDialog;
     private SharedPrefManager sharedPrefManager;
+    private FontChangeCrawler fontChanger;
+    private Activity mHostActivity;
+    View v;
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
 
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_privace_layout, container, false);
+         v = inflater.inflate(R.layout.fragment_privace_layout, container, false);
 
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
         chBoxPrivacy = (CheckBox) v.findViewById(R.id.ch_box_privcy);
@@ -62,7 +82,7 @@ public class PrivacyFrag extends Fragment {
     }
 
     private void updatePrivacy(boolean privacy) {
-        if (NetWorkConnection.isConnectingToInternet(getActivity())) {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext(),mHostActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog(getActivity());
 
             final EndPointInterfaces apiService =
@@ -76,9 +96,9 @@ public class PrivacyFrag extends Fragment {
                     LoginResponse resp = response.body();
                     try {
                         if (resp.getStatus() == 200) {
-                            Toasty.success(getActivity(), getString(R.string.done), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mHostActivity.findViewById(R.id.content), getString(R.string.done), Snackbar.LENGTH_LONG).show();
                         }else{
-                            Toasty.error(getActivity(), resp.getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mHostActivity.findViewById(R.id.content), resp.getMessage(), Snackbar.LENGTH_LONG).show();
 
                         }
 
@@ -91,7 +111,7 @@ public class PrivacyFrag extends Fragment {
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(getActivity(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println("updateEmail / Fialer :" + t.getMessage());
                 }
             });
@@ -101,4 +121,16 @@ public class PrivacyFrag extends Fragment {
         }
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mHostActivity=activity;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHostActivity=null;
+
+    }
 }

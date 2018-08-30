@@ -10,9 +10,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,8 +28,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
-import com.dp.uheadmaster.activites.TempAct;
+
+import com.dp.uheadmaster.activites.SplashAct;
 import com.dp.uheadmaster.adapters.ProfileSpinnerAdapter;
+import com.dp.uheadmaster.interfaces.IvUserProfileChangedListener;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.ProgressRequestBody;
 import com.dp.uheadmaster.models.request.UpdateProfile;
 import com.dp.uheadmaster.models.response.LoginResponse;
@@ -46,7 +51,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import es.dmoral.toasty.Toasty;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -76,10 +81,31 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
     private String selectedKey=null;
     private String selectedValue=null;
     private int selectedPosition=-1;
+    public IvUserProfileChangedListener listener;
+    View v;
+
+
+    private FontChangeCrawler fontChanger;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.basic_profile_layout,container,false);
+        v=inflater.inflate(R.layout.basic_profile_layout,container,false);
         initializeUi(v);
      //
         return v;
@@ -89,6 +115,7 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
     {
         sharedPrefManager =new SharedPrefManager(getActivity().getApplicationContext());
         ivUserProfile=(ImageView)v.findViewById(R.id.iv_user_profile);
+        ivUserProfile.setScaleType(ImageView.ScaleType.FIT_XY);
         spCountryCodes=(Spinner) v.findViewById(R.id.sp_country_code);
         spCountryCodes.setOnItemSelectedListener(this);
         keys=new ArrayList<>();
@@ -122,7 +149,7 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
             public void onClick(View v) {
                 if(picturePath==null)
                 {
-                    Toasty.error(mHostActivity,getString(R.string.choose_image),Toast.LENGTH_LONG).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), getString(R.string.choose_image), Snackbar.LENGTH_LONG).show();
                 }
                 else {
 
@@ -141,10 +168,10 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
                             sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_Describtion).equals(etDescription.getText().toString().trim())) ) {
                         updateProfile();
                     }else {
-                        Toasty.error(mHostActivity,getString(R.string.no_changes),Toast.LENGTH_LONG).show();
+                        Snackbar.make(mHostActivity.findViewById(R.id.content),getString(R.string.no_changes),Snackbar.LENGTH_LONG).show();
                     }
                 } else{
-                    Toasty.error(mHostActivity,getString(R.string.fill_data),Toast.LENGTH_LONG).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content),getString(R.string.fill_data),Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -152,7 +179,7 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
     }
 
     public void  geContryCodes(){
-        if (NetWorkConnection.isConnectingToInternet(mHostActivity)) {
+        if (NetWorkConnection.isConnectingToInternet(mHostActivity.getApplicationContext(),mHostActivity.findViewById(R.id.content))) {
             progressDialog2 = ConfigurationFile.showDialog(mHostActivity);
 
             final EndPointInterfaces apiService =
@@ -191,7 +218,7 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
                                  }
                                 profileSpinnerAdapter.notifyDataSetChanged();
                                  spCountryCodes.setSelection(selectedPosition);
-                                 //Toasty.success(mHostActivity," "+values.size()+"\n"+keys.size(),Toast.LENGTH_LONG).show();
+                                 //Snackbar.success(mHostActivity," "+values.size()+"\n"+keys.size(),Snackbar.LENGTH_LONG).show();
                                  setDataToUi();
                             }
                     }catch (NullPointerException ex){
@@ -205,19 +232,28 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
                 public void onFailure(Call<JsonElement> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog2);
 
-                    Toasty.error(mHostActivity, t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println(" Fialer :" + t.getMessage());
                 }
             });
 
         } else {
-            Toasty.warning(mHostActivity,getString(R.string.check_internet_connection),Toast.LENGTH_LONG).show();
+//            Snackbar.make(v,getString(R.string.check_internet_connection),Snackbar.LENGTH_LONG).show();
         }
     }
 
     public void setDataToUi(){
         if(!sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_IMAGE_URL).equals("")){
             Picasso.with(getActivity().getApplicationContext()).load(sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_IMAGE_URL)).into(ivUserProfile);
+        }else {
+            if(sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_TYPE).equals("instructor")){
+                ivUserProfile.setImageResource(R.drawable.ic_instructor_default);
+                ivUserProfile.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            }else {
+                ivUserProfile.setImageResource(R.drawable.ic_student_default);
+                ivUserProfile.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
         }
         etUserName.setText(sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_NAME));
         etMobileNumber.setText(sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_MOBILE));
@@ -252,7 +288,7 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
 
     private void uploadImage(String path)
     {
-        if (NetWorkConnection.isConnectingToInternet(mHostActivity)) {
+        if (NetWorkConnection.isConnectingToInternet(mHostActivity.getApplicationContext(),mHostActivity.findViewById(R.id.content))) {
         File originalFile= new File(path);
         ProgressRequestBody fileBody = new ProgressRequestBody(originalFile, this);
         // create RequestBody instance from file
@@ -278,7 +314,17 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
                     JSONObject object = new JSONObject(element.toString());
                     int status = object.getInt("status");
                     if (status == 200) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+                        Snackbar.make(mHostActivity.findViewById(R.id.content), R.string.profile_updated_successfully, Snackbar.LENGTH_LONG).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent i=new Intent(mHostActivity, SplashAct.class);
+                                mHostActivity.startActivity(i);
+                                mHostActivity.finish();
+                            }
+                        },2000
+
+                        );
                         if(!(object.getString("url")==null && object.getString("url").equals("")))
                         sharedPrefManager.addStringToSharedPrederances(ConfigurationFile.ShardPref.USER_IMAGE_URL , object.getString("url"));
                         picturePath=null;
@@ -295,11 +341,11 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
                 ConfigurationFile.hideDialog(progressDialog);
-                Toast.makeText(getActivity().getApplicationContext(), "Error:"+t.getMessage(), Toast.LENGTH_LONG).show();
+                Snackbar.make(mHostActivity.findViewById(R.id.content), "Error:"+t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
         } else {
-            Toasty.warning(mHostActivity,getString(R.string.check_internet_connection),Toast.LENGTH_LONG).show();
+            //Snackbar.make(v,getString(R.string.check_internet_connection),Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -334,7 +380,7 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
 
     public void updateProfile()
     {
-        if (NetWorkConnection.isConnectingToInternet(mHostActivity)) {
+        if (NetWorkConnection.isConnectingToInternet(mHostActivity.getApplicationContext(),mHostActivity.findViewById(R.id.content))) {
             progressDialog2 = ConfigurationFile.showDialog(mHostActivity);
 
             UpdateProfile updateProfile=new UpdateProfile(etUserName.getText().toString().trim(),etMobileNumber.getText().toString().trim(),selectedKey,etDescription.getText().toString().trim());
@@ -353,7 +399,7 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
 
                         if (response.body().getStatus() == 200) {
                             // use response data and do some fancy stuff :)
-                            Toasty.success(mHostActivity, getString(R.string.profile_updated), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mHostActivity.findViewById(R.id.content), getString(R.string.profile_updated), Snackbar.LENGTH_LONG).show();
                             sharedPrefManager.addStringToSharedPrederances(ConfigurationFile.ShardPref.USER_NAME,etUserName.getText().toString().trim());
                             sharedPrefManager.addStringToSharedPrederances(ConfigurationFile.ShardPref.USER_MOBILE,etMobileNumber.getText().toString().trim());
                             sharedPrefManager.addStringToSharedPrederances(ConfigurationFile.ShardPref.USER_COUNTRY_KEY,selectedValue);
@@ -361,7 +407,7 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
                         } else {
                             // parse the response body …
                             System.out.println("error Code message :" + response.body().getMessage());
-                            Toasty.error(mHostActivity, response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mHostActivity.findViewById(R.id.content), response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
 
                         }
@@ -376,13 +422,13 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog2);
 
-                    Toasty.error(mHostActivity, t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println(" Fialer :" + t.getMessage());
                 }
             });
 
         } else {
-            Toasty.warning(mHostActivity,getString(R.string.check_internet_connection),Toast.LENGTH_LONG).show();
+          //  Snackbar.make(v,getString(R.string.check_internet_connection),Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -436,7 +482,7 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
         else {
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
                 if (shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    Toast.makeText(getActivity(), "Storage Permission Denided", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), "Storage Permission Denided", Snackbar.LENGTH_LONG).show();
                 }
             }
         }
@@ -451,14 +497,22 @@ public class BasicProfileFrag extends Fragment implements ProgressRequestBody.Up
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
        /* String selectedItem=values.get(position);
         System.out.println("Spinnners:"+selectedItem);
-        Toasty.success(getActivity().getApplicationContext()," "+position,Toast.LENGTH_LONG).show();*/
+        Snackbar.success(getActivity().getApplicationContext()," "+position,Snackbar.LENGTH_LONG).show();*/
          selectedKey=keys.get(position);
         selectedValue=values.get(position);
-      //  Toasty.success(getActivity().getApplicationContext()," "+position,Toast.LENGTH_LONG).show();
+      //  Snackbar.success(getActivity()
+        //
+        // .getApplicationContext()," "+position,Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHostActivity=null;
     }
 }

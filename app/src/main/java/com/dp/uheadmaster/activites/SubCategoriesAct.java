@@ -3,7 +3,10 @@ package com.dp.uheadmaster.activites;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import com.dp.uheadmaster.fragments.MainFrag;
 import com.dp.uheadmaster.fragments.SearchFrag;
 import com.dp.uheadmaster.fragments.SubCategoriesFrag;
 import com.dp.uheadmaster.models.CategoryModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.request.SubCategoryRequest;
 import com.dp.uheadmaster.models.response.CategoriesResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
@@ -41,12 +45,29 @@ public class SubCategoriesAct extends AppCompatActivity {
     private String categoryTitle = "";
     private int categoryID = -1;
     private boolean isSearchOpened=false;
-
+    private FontChangeCrawler fontChanger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_sub_categories);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+      //  toolbar.setHom
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+        }
 
         if (getIntent().getExtras() != null) {
             categoryID = getIntent().getExtras().getInt("category_id" , -1);
@@ -59,6 +80,17 @@ public class SubCategoriesAct extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void initView() {
 

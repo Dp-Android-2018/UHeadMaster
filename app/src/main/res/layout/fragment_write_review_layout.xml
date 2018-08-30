@@ -15,7 +15,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginStart="@dimen/dp15h"
-                android:layout_marginBottom="@dimen/dp10h">
+                android:layout_marginBottom="@dimen/dp10h"
+                android:visibility="gone">
                 <TextView
                     android:id="@+id/tv_fname"
                     android:layout_width="@dimen/dp80w"
@@ -33,6 +34,8 @@
                     android:layout_width="@dimen/dp150w"
                     android:layout_height="@dimen/dp30h"
                     android:background="@drawable/edittext_border"
+                    android:paddingStart="@dimen/dp5w"
+                    android:paddingEnd="@dimen/dp5w"
                     />
             </LinearLayout>
 
@@ -41,7 +44,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginStart="@dimen/dp15h"
-            android:layout_marginBottom="@dimen/dp10h">
+            android:layout_marginBottom="@dimen/dp10h"
+            android:visibility="gone">
             <TextView
                 android:id="@+id/tv_lname"
                 android:layout_width="@dimen/dp80w"
@@ -59,6 +63,8 @@
                 android:layout_width="@dimen/dp150w"
                 android:layout_height="@dimen/dp30h"
                 android:background="@drawable/edittext_border"
+                android:paddingStart="@dimen/dp5w"
+                android:paddingEnd="@dimen/dp5w"
               />
         </LinearLayout>
 
@@ -81,6 +87,7 @@
                 android:layout_gravity="center"
                 />
             <RatingBar
+                android:id="@+id/contentRate"
                 android:theme="@style/RatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,6 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:id="@+id/instructorRate"
                 style="?android:attr/ratingBarStyleSmall"
                 android:isIndicator="false"
                 android:numStars="5"
@@ -142,6 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:id="@+id/providerRate"
                 style="?android:attr/ratingBarStyleSmall"
                 android:isIndicator="false"
                 android:numStars="5"
@@ -154,6 +163,8 @@
             android:layout_height="@dimen/dp50h"
             android:layout_marginEnd="@dimen/dp15h"
             android:layout_marginStart="@dimen/dp15w"
+            android:paddingStart="@dimen/dp5w"
+            android:paddingEnd="@dimen/dp5w"
             android:background="@drawable/edittext_border"
             android:gravity="top"
             android:hint="@string/comment"

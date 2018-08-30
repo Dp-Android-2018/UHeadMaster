@@ -35,8 +35,9 @@
                 android:layout_height="wrap_content"
                 android:text="Bahaa Gabal"
                 android:textColor="@color/coursesbackground"
-                android:textSize="@dimen/sp16"
-                android:textStyle="bold" />
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/dp5w"/>
 
             <TextView
                 android:id="@+id/tv_answer_date"
@@ -45,7 +46,7 @@
                 android:layout_marginTop="@dimen/dp5h"
                 android:text="12 sep 2015"
                 android:textColor="@color/coursesbackground"
-                android:textSize="@dimen/sp10" />
+                android:textSize="@dimen/sp9" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -57,7 +58,7 @@
         android:layout_marginEnd="@dimen/dp15w"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/dp10h"
-        android:textSize="@dimen/sp14"
+        android:textSize="@dimen/sp13"
         android:inputType="textMultiLine"
         android:layout_marginBottom="@dimen/dp10h"
         android:text="6:37:02.101 15005-15005/com.dp.uheadmaster D/ViewRootImpl: ViewPostImeInputStage processPointer 0
@@ -66,6 +67,24 @@
 09-24 16:37:02.881 15005-15005/com.dp.uheadmaster D/ViewRootImpl: ViewPostImeInputStage proces"
         android:textStyle="bold"
         />
+
+
+
+    <TextView
+        android:id="@+id/tv_comments_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp15w"
+        android:layout_marginEnd="@dimen/dp15w"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="@dimen/dp10h"
+        android:textSize="@dimen/sp14"
+        android:layout_marginBottom="@dimen/dp10h"
+        android:text="0 Comments"
+        android:textStyle="bold"
+        android:visibility="gone"
+        />
+
 
 
 

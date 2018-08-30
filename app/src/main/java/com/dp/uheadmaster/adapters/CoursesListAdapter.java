@@ -1,7 +1,11 @@
 package com.dp.uheadmaster.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +18,8 @@ import android.widget.TextView;
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.activites.CourseDetailAct;
 import com.dp.uheadmaster.models.CourseModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -26,10 +32,13 @@ public class CoursesListAdapter extends BaseAdapter {
 
     private Context context;
     private List<CourseModel> wishCoursesList;
+    private FontChangeCrawler fontChanger;
 
-    public CoursesListAdapter(Context context, List<CourseModel> wishCoursesList) {
+    private Activity activity;
+    public CoursesListAdapter(Context context, List<CourseModel> wishCoursesList,Activity activity) {
         this.context = context;
         this.wishCoursesList = wishCoursesList;
+        this.activity=activity;
     }
 
     @Override
@@ -49,12 +58,30 @@ public class CoursesListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        if(Build.VERSION.SDK_INT>=21){
+            activity.getWindow().setSharedElementExitTransition(TransitionInflater.from(activity).inflateTransition(R.transition.shared_element_transition));
+        //    activity.getWindow().setSharedElementReturnTransition(TransitionInflater.from(activity).inflateTransition(R.transition.shared_element_transition));
+        }
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v;
         v = new View(context);
         v = inflater.inflate(R.layout.item_course, null);
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
         LinearLayout item = (LinearLayout) v.findViewById(R.id.item);
-        ImageView imgCourseImage = (ImageView) v.findViewById(R.id.img_course_logo);
+        final ImageView imgCourseImage = (ImageView) v.findViewById(R.id.img_course_logo);
+        imgCourseImage.setScaleType(ImageView.ScaleType.FIT_XY);
+
         RatingBar rbRate = (RatingBar) v.findViewById(R.id.rating_bar);
         TextView tvCourseTitle = (TextView) v.findViewById(R.id.tv_course_title);
         TextView tvInstructorName = (TextView) v.findViewById(R.id.tv_instructor_name);
@@ -70,7 +97,7 @@ public class CoursesListAdapter extends BaseAdapter {
             tvCourseTitle.setText(courseModel.getTitle());
             tvInstructorName.setText(courseModel.getInstructorName());
             tvOldPrice.setText(courseModel.getOldProice() + courseModel.getCurrency());
-            tvOldPrice.setText(courseModel.getPrice() + courseModel.getCurrency());
+            tvPrice.setText(courseModel.getPrice() + courseModel.getCurrency());
             tvViewsCount.setText("(" + courseModel.getViewsCount() + ")");
             float rate = Float.parseFloat(courseModel.getRate());
             rbRate.setRating(rate);
@@ -78,14 +105,26 @@ public class CoursesListAdapter extends BaseAdapter {
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, CourseDetailAct.class);
-                    intent.putExtra("course_id", courseModel.getId());
+                    if(Build.VERSION.SDK_INT>=21) {
+                        imgCourseImage.setTransitionName("selectedImage");
+                        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, imgCourseImage, imgCourseImage.getTransitionName());
+                        Intent intent = new Intent(context, CourseDetailAct.class);
+                        intent.putExtra("course_id", courseModel.getId());
+                        intent.putExtra("Image_Path", courseModel.getImagePath());
+                        context.startActivity(intent,activityOptionsCompat.toBundle());
+                    }else {
 
-                    context.startActivity(intent);
+                        Intent intent = new Intent(context, CourseDetailAct.class);
+                        intent.putExtra("course_id", courseModel.getId());
+                        intent.putExtra("Image_Path", courseModel.getImagePath());
+                        context.startActivity(intent);
+                    }
+
+
                 }
             });
             if (courseModel.getImagePath() == null && courseModel.getImagePath().isEmpty()) {
-                imgCourseImage.setImageResource(R.drawable.ic_logo);
+                imgCourseImage.setImageResource(R.drawable.ic_course_default);
             } else {
                 Picasso.with(context)
                         .load(courseModel.getImagePath())

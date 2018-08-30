@@ -6,8 +6,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.dp.uheadmaster.R;
+
 
 import java.util.Locale;
 
@@ -41,10 +43,14 @@ public class ConfigurationFile {
         public static final String USER_IMAGE_URL = "IMAGE_URL";
         public static final String USER_COUNTRY_KEY = "COUNTRY_KEY";
         public static final String USER_Describtion = "Description";
+        public static final String IS_SUBSCRIBED = "Subscribe";
+        public static final String CONFIRMED = "Confirmed";
     }
 
     public static class ConnectionUrls {
-        public static final String BASE_URL = "http://192.168.1.100/master/uheadmaster/public/api/";
+
+        public static final String BASE_URL = "http://uheadmaster.com/api/";
+       // public static final String BASE_URL = "http://192.168.1.22/master/uheadmaster/public/api/";
         public static final String HEAD_KEY = "lHmTZOLHUcDgWImY3fZDvMnCmsJg3IyCjYQolwDlVeFIxBdiXC4frsDXlR";
 
 
@@ -86,7 +92,34 @@ public class ConfigurationFile {
         public static final String COURSE_CONTENTS_URL = "courses/content/{id}";
         public static final String ANNOUNCEMENTS_DATA = "announcements/{course_id}";
         public static final String VIDEO_LINKS = "courses/videos/{course_id}/{video_file}";
+        public static final String Add_ANNOUNCEMENTS = "announcements/create";
+        public static final String Post_Announcement_Comment = "announcements/comments/comment";
+        public static final String Get_Announcement_Comments = "announcements/{announcement_id}/comments";
+        public static final String Get_Instructor_Courses = "instructor/{id}/courses/{status}";
+        public static final String LAST_WATCHED = "courses/last-watched/{course_id}";
+        public static final String ROOD_MAP = "roadmap";
+        public static final String CRAETION_PROCESS = "creation_process";
+        public static final String ADD_ANSWER="questions/answer";
+        public static final String Get_Lang="langs/{lang}";
+        public static final String Get_Reviews="courses/reviews/{course_id}";
+        public static final String Become_Instructor="become-instructor";
+        public static final String MyCourses="mycourses";
+        public static final String Delete_User_Account="profile/delete";
+        public static final String Add_To_Learn_GOALS="courses/add-to-learn";
+        public static final String TARGET_GOALS="courses/add-target-students";
+        public static final String PREREQUIREMENTS_GOALS="courses/add-prerequisites";
+        public static final String Create_Course="courses/create";
+        public static final String AUTOMATIC_MESSAGE = "courses/add-automatic-message";
+        public static final String Get_Instructor_DahBoard = "instructor/dashboard_info";
+        public static final String ENROLLED_COURSE = "courses/enroll";
+        public static final String SUBSCRIBE_URL = "subscribe";
+        public static final String UNSUBSCRIBE_URL = "un_subscribe";
+        public static  final String COURSE_SUBSCRIBTION="subscription/set";
+        public static  final String GET_COURSE_SUBSCRIBTION="subscription/{course_id}/get";
+        public static  final String ADD_COURSE_REVIEW="courses/reviews/add";
 
+        //add-to-learn
+       // public static final String Get_Lang="langs";
     }
 
     public static ProgressDialog showDialog(Activity activity) {
@@ -97,8 +130,11 @@ public class ConfigurationFile {
                 protected void onCreate(Bundle savedInstanceState) {
                     super.onCreate(savedInstanceState);
                     setContentView(R.layout.fill_dialog);
-                    getWindow().setLayout(LinearLayoutCompat.LayoutParams.FILL_PARENT,
-                            LinearLayoutCompat.LayoutParams.FILL_PARENT);
+                  /*  getWindow().setLayout(LinearLayoutCompat.LayoutParams.FILL_PARENT,
+                            LinearLayoutCompat.LayoutParams.FILL_PARENT);*/
+                  /*  ProgressBar progressBar = (ProgressBar)findViewById(R.id.spin_kit);
+                    Wave doubleBounce = new Wave();
+                    progressBar.setIndeterminateDrawable(doubleBounce);*/
                 }
             };
 
@@ -115,12 +151,18 @@ public class ConfigurationFile {
 
     public static void hideDialog(ProgressDialog progressDialog) {
         if (progressDialog != null) {
-            progressDialog.dismiss();
-            progressDialog = null;
+            try {
+
+                progressDialog.dismiss();
+                progressDialog = null;
+            }catch (IllegalArgumentException ex){
+                ex.printStackTrace();
+            }
         }
     }
 
-    public static void saveUserData(Context context, String name, String email, String token, String mobile, String type, int id, String imgUrl, String countryKey, String description) {
+    public static void saveUserData(Context context, String name, String email, String token, String mobile, String type, int id, String imgUrl, String countryKey, String description,String isSubScribed,
+                                    int confirmed) {
         try {
             SharedPrefManager sharedPrefManager = new SharedPrefManager(context);
             if (name != null && !name.equals("")) {
@@ -152,9 +194,15 @@ public class ConfigurationFile {
                 sharedPrefManager.addStringToSharedPrederances(ConfigurationFile.ShardPref.USER_Describtion, description);
             }
 
+            if (isSubScribed != null && !isSubScribed.equals("")) {
+                sharedPrefManager.addStringToSharedPrederances(ConfigurationFile.ShardPref.IS_SUBSCRIBED, isSubScribed);
+            }
 
             if (id != -1) {
                 sharedPrefManager.addIntegerToSharedPrederances(ShardPref.USER_ID, id);
+            }
+            if (confirmed ==1 || confirmed ==0){
+                sharedPrefManager.addIntegerToSharedPrederances(ShardPref.CONFIRMED, confirmed);
             }
         } catch (Exception e) {
             System.out.println("Error in save user data :" + e.getMessage());

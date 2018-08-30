@@ -1,8 +1,10 @@
 package com.dp.uheadmaster.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,13 +12,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.activites.CourseLearn;
 import com.dp.uheadmaster.adapters.AnnouncementAdapter;
 import com.dp.uheadmaster.adapters.QuestionAnswerAdapter;
 import com.dp.uheadmaster.models.AnnouncementData;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.response.AnnounceMentResponse;
 import com.dp.uheadmaster.models.response.QuestionsResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
@@ -27,7 +32,7 @@ import com.dp.uheadmaster.webService.EndPointInterfaces;
 
 import java.util.ArrayList;
 
-import es.dmoral.toasty.Toasty;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,8 +47,7 @@ public class AnnouncementsFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private ProgressDialog progressDialog;
     private SharedPrefManager sharedPrefManager;
-    private int courseId;
-    private AnnouncementAdapter announcementAdapter;
+     private AnnouncementAdapter announcementAdapter;
     private ArrayList<AnnouncementData>announcementDatas;
     private TextView emptyView;
     private String next_page=null;
@@ -51,28 +55,60 @@ public class AnnouncementsFragment extends Fragment {
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     private int position=0;
+    private ImageView ivEmptyView;
+    View v;
+    private FontChangeCrawler fontChanger;
+    private Activity mActivity;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.frag_questions_answers_layout,container,false);
+        v=inflater.inflate(R.layout.frag_questions_answers_layout,container,false);
         initializeUi(v);
-        getAnnounceMents();
+
         return v;
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(CourseLearn.enrolled) {
+            getAnnounceMents();
+        }else {
+            recyclerQustions.setVisibility(View.GONE);
+
+            ivEmptyView.setImageResource(R.drawable.ic_not_enrolled);
+            ivEmptyView.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void initializeUi(View v){
-        courseId=getActivity().getIntent().getIntExtra("CourseId",0);
-        emptyView=(TextView)v.findViewById(R.id.empty_view) ;
+         emptyView=(TextView)v.findViewById(R.id.empty_view) ;
         announcementDatas=new ArrayList<>();
         sharedPrefManager=new SharedPrefManager(getActivity().getApplicationContext());
         recyclerQustions = (RecyclerView) v.findViewById(R.id.recycler1);
+        ivEmptyView = (ImageView)v.findViewById(R.id.iv_resources_empty);
 
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerQustions.setLayoutManager(mLayoutManager);
         recyclerQustions.setItemAnimator(new DefaultItemAnimator());
-        announcementAdapter=new AnnouncementAdapter(getActivity().getApplicationContext(),announcementDatas);
-        recyclerQustions.setAdapter(announcementAdapter);
+
 
 
         recyclerQustions.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -107,12 +143,13 @@ public class AnnouncementsFragment extends Fragment {
 
 
     public void getAnnounceMents(){
-        if (NetWorkConnection.isConnectingToInternet(getContext())) {
+     //   Toast.makeText(getActivity().getApplicationContext(), "Course Id:"+CourseLearn.courseID, Toast.LENGTH_SHORT).show();
+        if (NetWorkConnection.isConnectingToInternet(mActivity.getApplicationContext(),mActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog(getActivity());
 
             final EndPointInterfaces apiService =
                     ApiClient.getClient().create(EndPointInterfaces.class);
-            Call<AnnounceMentResponse> call = apiService.getAnnouncements(ConfigurationFile.ConnectionUrls.HEAD_KEY, ConfigurationFile.GlobalVariables.APP_LANGAUGE, sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_TOKEN), sharedPrefManager.getIntegerFromSharedPrederances(ConfigurationFile.ShardPref.USER_ID),36,pageId);
+            Call<AnnounceMentResponse> call = apiService.getAnnouncements(ConfigurationFile.ConnectionUrls.HEAD_KEY, ConfigurationFile.GlobalVariables.APP_LANGAUGE, sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_TOKEN), sharedPrefManager.getIntegerFromSharedPrederances(ConfigurationFile.ShardPref.USER_ID), CourseLearn.courseID,pageId);
             call.enqueue(new Callback<AnnounceMentResponse>() {
                 @Override
                 public void onResponse(Call<AnnounceMentResponse> call, Response<AnnounceMentResponse> response) {
@@ -122,30 +159,46 @@ public class AnnouncementsFragment extends Fragment {
 
                         if (announceMentResponse.getStatus() == 200) {
 
+                            announcementDatas.clear();
+                          //  Toast.makeText(getActivity().getApplicationContext(), "sUCCESS", Toast.LENGTH_LONG).show();
                             if(!announceMentResponse.getAnnouncements().getAnnouncementData().isEmpty()) {
+                            //    Toast.makeText(getActivity().getApplicationContext(), "Fill", Toast.LENGTH_LONG).show();
                                 for (int i = 0; i < announceMentResponse.getAnnouncements().getAnnouncementData().size(); i++) {
+                                  //  Toast.makeText(getActivity().getApplicationContext(), "sIZE :"+announceMentResponse.getAnnouncements().getAnnouncementData().size(), Toast.LENGTH_LONG).show();
                                     announcementDatas.add(announceMentResponse.getAnnouncements().getAnnouncementData().get(i));
                                 }
 
                                 loading = true;
-                                if (announceMentResponse.getAnnouncements().getNextPage()!= null) {
+                                if (announceMentResponse.getAnnouncements().getNextPage()!= null && !announceMentResponse.getAnnouncements().getNextPage().equals("")) {
                                     next_page = announceMentResponse.getAnnouncements().getNextPage();
                                     pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
                                 } else {
                                     next_page = null;
 
                                 }
-                                announcementAdapter.notifyDataSetChanged();
+
+                                announcementAdapter=new AnnouncementAdapter(getActivity().getApplicationContext(),announcementDatas);
+                                recyclerQustions.setAdapter(announcementAdapter);
+                               // announcementAdapter.notifyDataSetChanged();
                             }else {
-                                emptyView.setVisibility(View.VISIBLE);
+                              //  Toast.makeText(getActivity().getApplicationContext(), "Empty", Toast.LENGTH_LONG).show();
+                             /*   emptyView.setVisibility(View.VISIBLE);
                                 emptyView.setText(R.string.no_responses);
+                                recyclerQustions.setVisibility(View.GONE);*/
                                 recyclerQustions.setVisibility(View.GONE);
+
+                                ivEmptyView.setImageResource(R.drawable.ic_announcement_empty);
+                                ivEmptyView.setVisibility(View.VISIBLE);
                             }
 
+                        }else {
+                         //   Toast.makeText(getActivity().getApplicationContext(), " "+announceMentResponse.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }catch (NullPointerException ex){
+                        System.out.println("Exception :"+ex.getMessage());
                         ex.printStackTrace();
                     }catch (Exception ex){
+                        System.out.println("Exception :"+ex.getMessage());
                         ex.printStackTrace();
                     }
 
@@ -154,7 +207,7 @@ public class AnnouncementsFragment extends Fragment {
                 @Override
                 public void onFailure(Call<AnnounceMentResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
-                    Toasty.error(getContext(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
             });
 
@@ -163,7 +216,13 @@ public class AnnouncementsFragment extends Fragment {
 
         } else {
             ConfigurationFile.hideDialog(progressDialog);
-            Toasty.error(getActivity().getApplicationContext(),getActivity().getResources().getString(R.string.internet_message),Toast.LENGTH_LONG).show();
+            Snackbar.make(mActivity.findViewById(R.id.content),getActivity().getResources().getString(R.string.internet_message),Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity=activity;
     }
 }

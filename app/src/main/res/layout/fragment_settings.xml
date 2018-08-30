@@ -6,7 +6,32 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/layout_setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:gravity="start|center"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:gravity="start"
+            android:text="@string/settings"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textColor="@color/setting_color"
+            android:textSize="@dimen/sp14" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/gray" />
     <LinearLayout
         android:id="@+id/layout_langauge"
         android:layout_width="match_parent"
@@ -22,7 +47,7 @@
             android:layout_weight="7"
             android:gravity="start"
             android:text="@string/language_word"
-            android:textStyle="bold"
+
             android:textColor="@color/black"
             android:textSize="@dimen/sp14" />
 
@@ -40,6 +65,79 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_back_setting" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/gray" />
+
+    <LinearLayout
+        android:id="@+id/ll_delete_account"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:gravity="start|center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:gravity="start"
+            android:text="@string/delete_account"
+
+
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp14" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/gray" />
+    <LinearLayout
+        android:id="@+id/ll_subscribe"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:gravity="start|center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:orientation="vertical"
+            android:gravity="start">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/subscribe"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subscribe_auto_send_email_for_any_resource"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/sp10"
+                android:layout_marginTop="@dimen/dp5h"/>
+
+        </LinearLayout>
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:id="@+id/sc_subscribe"/>
+
     </LinearLayout>
 
     <View

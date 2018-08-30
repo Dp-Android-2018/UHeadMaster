@@ -1,11 +1,17 @@
 package com.dp.uheadmaster.activites;
 
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.transition.TransitionInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +21,7 @@ import com.dp.uheadmaster.fragments.CoursesListFrag;
 import com.dp.uheadmaster.fragments.SearchFrag;
 import com.dp.uheadmaster.fragments.SubCategoriesFrag;
 import com.dp.uheadmaster.models.CourseModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.response.CourseListResponse;
 import com.dp.uheadmaster.models.response.CourseResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
@@ -40,11 +47,27 @@ public class CoursesListAct extends AppCompatActivity {
     private int subCategoryID = -1;
     private int reqestType = -1;
     private boolean isSearchOpened=false;
+    private FontChangeCrawler fontChanger;
+    private LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses_list);
 
+        setContentView(R.layout.activity_courses_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+        }
 
         if (getIntent().getExtras() != null) {
             subCategoryID = getIntent().getExtras().getInt("sub_category_id", -1);
@@ -57,8 +80,19 @@ public class CoursesListAct extends AppCompatActivity {
 
     }
 
-    public void initializeUi() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
+    public void initializeUi() {
+        linearLayout=(LinearLayout) findViewById(R.id.content);
         tvActionBarTitle = (TextView) findViewById(R.id.toolbar_title);
         if (!subCategoryTitle.equals("")) {
             tvActionBarTitle.setText(subCategoryTitle);

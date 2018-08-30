@@ -1,5 +1,6 @@
 package com.dp.uheadmaster.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import com.dp.uheadmaster.activites.SubCategoriesAct;
 import com.dp.uheadmaster.adapters.CoursesAdapter;
 import com.dp.uheadmaster.adapters.CoursesSearchResultAdapter;
 import com.dp.uheadmaster.models.CourseModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.response.SearchCoursesResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.dp.uheadmaster.utilities.NetWorkConnection;
@@ -47,11 +49,28 @@ public class SearchFrag extends Fragment{
     private GridView gvSearchResult;
     private CoursesSearchResultAdapter searchResultAdapter;
     private ArrayList<CourseModel> coursesSearchResult;
+    private FontChangeCrawler fontChanger;
+    private  View v;
+    private Activity mActivity;
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
 
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_search_layout,container,false);
+        v=inflater.inflate(R.layout.fragment_search_layout,container,false);
         initializeUi(v);
         etSearchKeyWord.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -87,7 +106,7 @@ public class SearchFrag extends Fragment{
 
         keyWord = etSearchKeyWord.getText().toString().trim();
        // Toast.makeText(getActivity().getApplicationContext(), " "+CategoriesFrag.categoryId+"\n"+SubCategoriesAct.subCategoryId, Toast.LENGTH_LONG).show();
-        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext())) {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext(),mActivity.findViewById(R.id.content))) {
             EndPointInterfaces apiServices = ApiClient.getClient().create(EndPointInterfaces.class);
             Call<SearchCoursesResponse> call = apiServices.coursesSearch(ConfigurationFile.ConnectionUrls.HEAD_KEY, ConfigurationFile.GlobalVariables.APP_LANGAUGE, sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_TOKEN), sharedPrefManager.getIntegerFromSharedPrederances(ConfigurationFile.ShardPref.USER_ID), keyWord, CategoriesFrag.categoryId, SubCategoriesAct.subCategoryId, pageId);
             call.enqueue(new Callback<SearchCoursesResponse>() {
@@ -113,5 +132,11 @@ public class SearchFrag extends Fragment{
             });
 
         }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity=activity;
     }
 }

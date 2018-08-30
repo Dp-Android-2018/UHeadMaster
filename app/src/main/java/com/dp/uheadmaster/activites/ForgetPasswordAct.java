@@ -1,15 +1,19 @@
 package com.dp.uheadmaster.activites;
 
 import android.app.ProgressDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.request.ResetPasswordRequest;
 import com.dp.uheadmaster.models.response.ResetPasswordResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
@@ -17,7 +21,7 @@ import com.dp.uheadmaster.utilities.NetWorkConnection;
 import com.dp.uheadmaster.webService.ApiClient;
 import com.dp.uheadmaster.webService.EndPointInterfaces;
 
-import es.dmoral.toasty.Toasty;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,13 +33,23 @@ public class ForgetPasswordAct extends AppCompatActivity {
     private Button btnReset;
     private String email = "";
     private ProgressDialog progressDialog;
-
+    private FontChangeCrawler fontChanger;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+        }
 
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+        }
         //hidden keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         overridePendingTransition(R.anim.left_in, R.anim.left_out);   // open with animation
@@ -60,7 +74,7 @@ public class ForgetPasswordAct extends AppCompatActivity {
         try{
 
 
-        if (NetWorkConnection.isConnectingToInternet(ForgetPasswordAct.this)) {
+        if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
             progressDialog = ConfigurationFile.showDialog(ForgetPasswordAct.this);
 
             ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest(email);
@@ -77,13 +91,13 @@ public class ForgetPasswordAct extends AppCompatActivity {
                         System.out.println("Response : " + response.body());
                         if (response.body().getStatus() == 200) {
                             // use response data and do some fancy stuff :)
-                            Toasty.success(ForgetPasswordAct.this, "Done!", Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(linearLayout, "Done!", Snackbar.LENGTH_LONG).show();
                             System.out.println("Response : " + response.body().getMessage());
                             finish();
                         } else {
                             // parse the response body …
                             System.out.println("error Code message :" + response.body().getMessage());
-                            Toasty.error(ForgetPasswordAct.this, response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(linearLayout, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
 
                         }
@@ -98,7 +112,7 @@ public class ForgetPasswordAct extends AppCompatActivity {
                 public void onFailure(Call<ResetPasswordResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(ForgetPasswordAct.this, t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(linearLayout, t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println(" Fialer :" + t.getMessage());
                 }
             });
@@ -114,6 +128,7 @@ public class ForgetPasswordAct extends AppCompatActivity {
     }
 
     private void initView() {
+        linearLayout=(LinearLayout) findViewById(R.id.content);
         edEmail = (EditText) findViewById(R.id.ed_reset_email);
          btnReset= (Button) findViewById(R.id.btn_reset_password);
 
@@ -124,12 +139,12 @@ public class ForgetPasswordAct extends AppCompatActivity {
                     return true;
             } else {
                 edEmail.setError(getString(R.string.email_format));
-                Toasty.error(ForgetPasswordAct.this, getString(R.string.email_format), Toast.LENGTH_LONG, true).show();
+                Snackbar.make(linearLayout, getString(R.string.email_format), Snackbar.LENGTH_LONG).show();
 
             }
         } else {
             edEmail.setError(getString(R.string.email_required));
-            Toasty.error(ForgetPasswordAct.this, getString(R.string.email_required), Toast.LENGTH_LONG, true).show();
+            Snackbar.make(linearLayout, getString(R.string.email_required), Snackbar.LENGTH_LONG).show();
         }
 
         return false;

@@ -19,6 +19,7 @@ import com.dp.uheadmaster.interfaces.SwitchFragmentInterface;
 import com.dp.uheadmaster.models.CategoryModel;
 import com.dp.uheadmaster.models.CourseIDRequest;
 import com.dp.uheadmaster.models.CourseModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.response.DefaultResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.dp.uheadmaster.utilities.NetWorkConnection;
@@ -46,7 +47,7 @@ public class CategorySearchAdapter extends RecyclerView.Adapter<SearchCategoryHo
     public static SwitchFragmentInterface delegate=null;
     private boolean mainCategory;
     View view;
-
+    FontChangeCrawler fontChanger;
     public CategorySearchAdapter(Context context, List<CategoryModel> categories,boolean mainCategory) {
         this.context = context;
         sharedPrefManager = new SharedPrefManager(context);
@@ -58,6 +59,16 @@ public class CategorySearchAdapter extends RecyclerView.Adapter<SearchCategoryHo
     @Override
     public SearchCategoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_search_item, parent, false);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
         view=v;
         return new SearchCategoryHolder(v);
     }

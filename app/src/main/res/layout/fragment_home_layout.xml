@@ -11,12 +11,14 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:layoutDirection="ltr"
-        app:tabGravity="fill"
+
+
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:tabIndicatorColor="@color/dot_active_screen"
         app:tabSelectedTextColor="@color/dot_active_screen"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-        app:tabTextColor="@color/course_constructor_name"/>
+        app:tabTextColor="@color/course_constructor_name"
+        />
 
 
     <android.support.v4.view.ViewPager

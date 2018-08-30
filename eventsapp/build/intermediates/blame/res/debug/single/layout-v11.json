@@ -1,34 +1,10 @@
 [
     {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_simple_decor.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\layout-v11\\abc_simple_decor.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_simple_decor.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\layout-v11\\abc_simple_decor.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_action_bar_decor.xml",
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_action_bar_decor.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\layout-v11\\abc_action_bar_decor.xml"
     },
     {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_action_bar_decor.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\layout-v11\\abc_action_bar_decor.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_simple_decor.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\layout-v11\\abc_simple_decor.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_action_bar_decor.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\layout-v11\\abc_action_bar_decor.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_simple_decor.xml",
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_simple_decor.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\layout-v11\\abc_simple_decor.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\layout-v11\\abc_action_bar_decor.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\layout-v11\\abc_action_bar_decor.xml"
     }
 ]

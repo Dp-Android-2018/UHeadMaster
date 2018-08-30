@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/button_mood_gb</item>
         <item name="colorPrimaryDark">@color/button_mood_gb</item>
         <item name="colorAccent">@color/colorAccent</item>
+       <!-- <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowTransitionBackgroundFadeDuration">5000</item>-->
     </style>
 
 
@@ -17,6 +19,11 @@
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
 
     </style>
+
+    <style name="TabLayout_Theme" parent="@style/AppTheme">
+        <item name="android:singleLine">false</item>
+    </style>
+
 
     <style name="MyTheme" parent="android:Theme.Holo.Dialog">
         <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
@@ -63,6 +70,12 @@
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
 
+    <style name="RatingBar3" parent="Theme.AppCompat">
+
+        <item name="android:thumbTint">@color/secondary_white</item>
+        <item name="colorControlNormal">@color/secondary_white</item>
+        <item name="colorControlActivated">@color/dot_active_screen</item>
+    </style>
 
     <style name="SpinnerTheme" parent="android:Widget.Spinner">
         <item name="android:background">@mipmap/ic_arrow_drop_down</item>
@@ -71,6 +84,13 @@
 
     <style name="spinner_style">
         <item name="android:background">@drawable/custom_spinner_background</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="spinner_style2">
+        <item name="android:background">@drawable/custom_spinner_green_background</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>

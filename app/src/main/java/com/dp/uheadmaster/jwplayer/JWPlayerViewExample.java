@@ -1,31 +1,76 @@
 package com.dp.uheadmaster.jwplayer;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.activites.AnnounceMentAct;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
+import com.dp.uheadmaster.utilities.SharedPrefManager;
+import com.google.android.exoplayer.MediaFormat;
+import com.google.android.exoplayer.util.PlayerControl;
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Format;
+import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MergingMediaSource;
+import com.google.android.exoplayer2.source.SingleSampleMediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.MimeTypes;
 import com.longtailvideo.jwplayer.JWPlayerView;
+import com.longtailvideo.jwplayer.c.m;
 import com.longtailvideo.jwplayer.cast.CastManager;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
+import com.longtailvideo.jwplayer.media.captions.Caption;
 import com.longtailvideo.jwplayer.media.playlists.MediaSource;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
+import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-public class JWPlayerViewExample extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
+import es.dmoral.toasty.Toasty;
+
+public class JWPlayerViewExample extends AppCompatActivity {
 
     /**
      * Reference to the {@link JWPlayerView}
@@ -48,192 +93,181 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
      */
     private CoordinatorLayout mCoordinatorLayout;
 
-    List<MediaSource> mediaSources = new ArrayList<>();
+    List<MediaSource> mediaSources;
+    private SharedPrefManager sharedPrefManager;
+    SimpleExoPlayerView exoPlayerView;
+    SimpleExoPlayer exoPlayer;
+    private BandwidthMeter bandwidthMeter;
+    private DefaultTrackSelector trackSelector;
+    private  com.google.android.exoplayer2.source.MediaSource subtitleSource;
+    private ProgressDialog progressBar;
+    Uri videoURI = null;
+    private ImageView ivSubtitle;
+    private   com.google.android.exoplayer2.source.MediaSource mediaSource;
+    private  Format subtitleFormat;
+    private  MergingMediaSource mergedSource;
+    private Uri subtitleUri;
+    private  DefaultHttpDataSourceFactory dataSourceFactory;
+    private Long seekingval;
+    private PopupMenu popup;
+    private  HashMap<String, String> subtitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jwplayerview);
-        mPlayerView = (JWPlayerView) findViewById(R.id.jwplayer);
-        TextView outputTextView = (TextView) findViewById(R.id.output);
+        sharedPrefManager = new SharedPrefManager(getApplicationContext());
+        exoPlayerView = (SimpleExoPlayerView) findViewById(R.id.exo_player_view);
+        exoPlayerView.requestFocus();
+        if (getIntent()!=null) {
+            if ((HashMap<String, String>) getIntent().getSerializableExtra("SubTiltes") != null) {
+                subtitle = (HashMap<String, String>) getIntent().getSerializableExtra("SubTiltes");
+            }
+        }
 
-        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
+        try {
 
-        // Handle hiding/showing of ActionBar
-        mPlayerView.addOnFullscreenListener(this);
 
-        // Keep the screen on during playback
-        new KeepScreenOnHandler(mPlayerView, getWindow());
+            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+            TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
+            ivSubtitle = (ImageView) findViewById(R.id.exo_subtiltle);
+            ivSubtitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        // Instantiate the JW Player event handler class
-        mEventHandler = new JWEventHandler(mPlayerView, outputTextView);
+                    try {
+                        popup = new PopupMenu(JWPlayerViewExample.this, v,Gravity.CENTER);
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
 
-        Intent intent = getIntent();
-        if(intent!=null) {
-            HashMap<String, String> hashMap = (HashMap<String, String>) intent.getSerializableExtra("Links");
-            Set<String>keys=hashMap.keySet();
-            for (Iterator<String> it = keys.iterator(); it.hasNext(); ) {
-                String key = it.next();
-                Toast.makeText(this, "key:"+key, Toast.LENGTH_SHORT).show();
-                MediaSource mediaSource = new MediaSource();
-                if(!hashMap.get(key).equals("")) {
-                    mediaSource.setLabel(key);
-                    mediaSource.setFile(hashMap.get(key));
-                    mediaSources.add(mediaSource);
+                                if (!item.getTitle().equals(getApplicationContext().getString(R.string.video_subtitle))) {
+                                    seekingval = exoPlayer.getCurrentPosition();
+                                    setupMerge(item.getTitle().toString());
+                                    exoPlayer.seekTo(seekingval);
+                                }
+                                    return false;
+
+                            }
+                        });
+
+                        if (subtitle!=null) {
+                            Set<String> keys = subtitle.keySet();
+                            Menu menu = popup.getMenu();
+                            menu.add(Menu.NONE, 0, 0, R.string.video_subtitle);
+                            for (Iterator<String> it = keys.iterator(); it.hasNext(); ) {
+                                String key = it.next();
+                                menu.add(key);
+                                menu.setGroupCheckable(1, true, true);
+                                popup.show();
+                            }
+                        }
+
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+            exoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+            exoPlayer.addListener(new ExoPlayer.EventListener() {
+                @Override
+                public void onTimelineChanged(Timeline timeline, Object manifest) {
+
+                }
+
+                @Override
+                public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+                }
+
+                @Override
+                public void onLoadingChanged(boolean isLoading) {
+
+                }
+
+                @Override
+                public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                    if (playbackState == ExoPlayer.STATE_BUFFERING) {
+                        //progressBar.setVisibility(View.VISIBLE);
+                        progressBar = ConfigurationFile.showDialog(JWPlayerViewExample.this);
+                    } else {
+                        ConfigurationFile.hideDialog(progressBar);
+                    }
+                }
+
+                @Override
+                public void onPlayerError(ExoPlaybackException error) {
+
+                }
+
+                @Override
+                public void onPositionDiscontinuity() {
+
+                }
+
+                @Override
+                public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+                }
+            });
+
+
+            Intent intent = getIntent();
+            if (intent != null) {
+                if ((HashMap<String, String>) intent.getSerializableExtra("Links") != null) {
+                    HashMap<String, String> hashMap = (HashMap<String, String>) intent.getSerializableExtra("Links");
+                    Set<String> keys = hashMap.keySet();
+                    for (Iterator<String> it = keys.iterator(); it.hasNext(); ) {
+                        String key = it.next();
+                        //   Toast.makeText(this, "key:"+key, Toast.LENGTH_SHORT).show();
+                        MediaSource mediaSource = new MediaSource();
+                        if (!hashMap.get(key).equals("")) {
+                            videoURI = Uri.parse(hashMap.get(key));
+                        }
+                    }
+                }else if (intent.getStringExtra("Course_Video") != null && !intent.getStringExtra("Course_Video").equals("")) {
+                    MediaSource mediaSource = new MediaSource();
+                    videoURI = Uri.parse(intent.getStringExtra("Course_Video"));
                 }
             }
-            /*for (int i = 0; i < hashMap.keySet().size(); i++) {
-                Toast.makeText(this, "key:"+hashMap.keySet()., Toast.LENGTH_SHORT).show();
-                MediaSource mediaSource = new MediaSource();
-                mediaSource.setLabel(hashMap.keySet().toString());
-                mediaSource.setFile(hashMap.get(hashMap.keySet().toString()));
-                mediaSources.add(mediaSource);
-            }*/
-            PlaylistItem playlistItem = new PlaylistItem.Builder()
-                    .sources(mediaSources)
-                    .build();
 
 
+          dataSourceFactory = new DefaultHttpDataSourceFactory("exoplayer_video");
+            dataSourceFactory.setDefaultRequestProperty("Key", ConfigurationFile.ConnectionUrls.HEAD_KEY);
+            dataSourceFactory.setDefaultRequestProperty("Authorization", sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_TOKEN));
+            dataSourceFactory.setDefaultRequestProperty("mobile", "Yarb Tshtghl");
+            dataSourceFactory.setDefaultRequestProperty("Lang", ConfigurationFile.GlobalVariables.APP_LANGAUGE);
+            dataSourceFactory.setDefaultRequestProperty("Id", String.valueOf(sharedPrefManager.getIntegerFromSharedPrederances(ConfigurationFile.ShardPref.USER_ID)));
 
-        /*MediaSource mediaSource2 = new MediaSource();
-        mediaSource2.setLabel("360");
-        mediaSource2.setFile("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8");
-
-
-
-        MediaSource mediaSource3 = new MediaSource();
-        mediaSource3.setLabel("720");
-        mediaSource3.setFile("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8");*/
-
-
-
-
-       /* mediaSources.add(mediaSource);
-        mediaSources.add(mediaSource2);
-        mediaSources.add(mediaSource3);*/
-
-       /* PlaylistItem pi = new PlaylistItem.Builder()
-                .sources(mediaSources)
-                .description("A video player testing video.")
-                .build();*/
-            // Create a list to contain the PlaylistItems
-            //List<PlaylistItem> playlist = new ArrayList<>();
-
-
-// Add another PlaylistItem pointing to the second piece of content
-// This time using the Builder
-    /*    playlist.add(new PlaylistItem.Builder()
-                .sources(mediaSources)
-                .title("Multi Resolution File")
-                .description("Multi Resolution Source")
-
-                .build());
-
-        playlist.add(new PlaylistItem.Builder()
-                .file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
-                .title("Video 2")
-                .description("Video 2")
-                .build());
-
-        playlist.add(new PlaylistItem.Builder()
-                .file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
-                .title("Video 3")
-                .description("Video 3 ")
-                .build());
-
-        playlist.add(new PlaylistItem.Builder()
-                .file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
-                .title("Video 4")
-                .description("Video 4")
-                .build());*/
-
-
-            mPlayerView.load(playlistItem);
-            mPlayerView.setControls(true);
+            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+            mediaSource = new ExtractorMediaSource(videoURI, dataSourceFactory, extractorsFactory, null, null);
+            exoPlayerView.setPlayer(exoPlayer);
+            exoPlayer.prepare(mediaSource);
+            exoPlayer.setPlayWhenReady(true);
+        } catch (Exception e) {
+            Log.e("MainAcvtivity", " exoplayer error " + e.toString());
         }
+    }
 
+    public void setupMerge(String title){
+        subtitleUri = Uri.parse("http://uheadmaster.com" + subtitle.get(title));
+        subtitleFormat = Format.createTextSampleFormat(
+                null, // An identifier for the track. May be null.
+                MimeTypes.APPLICATION_SUBRIP, // The mime type. Must be set correctly.
+                null,
+                Format.NO_VALUE,
+                Format.NO_VALUE,
+                "en",
+                null); // The subtitle language. May be null.
 
-
-        // Get a reference to the CastManager
-      //  mCastManager = CastManager.getInstance();
+        subtitleSource = new SingleSampleMediaSource(subtitleUri, dataSourceFactory, subtitleFormat, C.TIME_UNSET);
+        mergedSource = new MergingMediaSource(mediaSource, subtitleSource);
+        exoPlayer.prepare(mergedSource);
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        // Set fullscreen when the device is rotated to landscape
-        mPlayerView.setFullscreen(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE, true);
-        super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    protected void onResume() {
-        // Let JW Player know that the app has returned from the background
-        super.onResume();
-        mPlayerView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        // Let JW Player know that the app is going to the background
-        mPlayerView.onPause();
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        // Let JW Player know that the app is being destroyed
-        mPlayerView.onDestroy();
-        super.onDestroy();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // Exit fullscreen when the user pressed the Back button
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mPlayerView.getFullscreen()) {
-                mPlayerView.setFullscreen(false, true);
-                return false;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    /**
-     * Handles JW Player going to and returning from fullscreen by hiding the ActionBar
-     *
-     * @param fullscreen true if the player is fullscreen
-     */
-    @Override
-    public void onFullscreen(boolean fullscreen) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            if (fullscreen) {
-                actionBar.hide();
-            } else {
-                actionBar.show();
-            }
-        }
-
-        // When going to Fullscreen we want to set fitsSystemWindows="false"
-        mCoordinatorLayout.setFitsSystemWindows(!fullscreen);
-    }
-
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_jwplayerview, menu);
-        // Register the MediaRouterButton on the JW Player SDK
-        mCastManager.addMediaRouterButton(menu, R.id.media_route_menu_item);
-        return true;
-    }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.switch_to_fragment:
-                Intent i = new Intent(this, JWPlayerFragmentExample.class);
-                startActivity(i);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public void onBackPressed() {
+        super.onBackPressed();
+        exoPlayer.stop();
+        finish();
     }
 }

@@ -25,6 +25,7 @@ import com.longtailvideo.jwplayer.media.captions.Caption;
 import com.longtailvideo.jwplayer.media.meta.Metadata;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
+import java.io.EOFException;
 import java.util.List;
 
 /**
@@ -81,7 +82,10 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
         jwPlayerView.addOnPauseListener(this);
         jwPlayerView.addOnBufferListener(this);
         jwPlayerView.addOnIdleListener(this);
-        jwPlayerView.addOnErrorListener(this);
+
+
+            jwPlayerView.addOnErrorListener(this);
+
         jwPlayerView.addOnSeekListener(this);
         jwPlayerView.addOnTimeListener(this);
         jwPlayerView.addOnFullscreenListener(this);

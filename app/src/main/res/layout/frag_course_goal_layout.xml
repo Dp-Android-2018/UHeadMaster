@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="@dimen/dp10h"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_course_goal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10h"
+            android:gravity="center"
+            android:text="@string/course_goals"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_course_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10h"
+            android:gravity="center|start"
+            android:maxLines="3"
+            android:text="Does Your Course Have Any Pre?"
+            android:textColor="@color/dark_gray_color"
+            android:textSize="@dimen/sp14" />
+
+        <EditText
+            android:id="@+id/et_course_answer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp70h"
+            android:layout_marginEnd="@dimen/dp10h"
+            android:layout_marginTop="@dimen/dp5h"
+            android:background="@drawable/rounded_edit_text_border_layout"
+            android:gravity="top|start"
+            android:hint="@string/your_answer"
+            android:inputType="textMultiLine"
+            android:padding="@dimen/dp5w"
+            android:textColor="@color/dark_gray_color"
+            android:textColorHint="@color/line_color" />
+
+        <Button
+            android:id="@+id/btn_add_answer"
+            android:layout_width="@dimen/dp150w"
+            android:layout_height="@dimen/dp40h"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp15h"
+            android:background="@drawable/btn_corner_border"
+            android:gravity="center"
+            android:text="@string/add_answer"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_answers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp20h"
+            android:layout_marginBottom="@dimen/dp50h"
+            android:background="@drawable/recycler_goals_bg"
+            android:padding="@dimen/dp3w">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next_question"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_out_corner_border"
+        android:gravity="center"
+        android:text="@string/continue_course"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp16"
+        android:textStyle="bold" />
+</RelativeLayout>

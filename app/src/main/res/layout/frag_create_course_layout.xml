@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+<include android:id="@+id/toolbar"
+    layout="@layout/toolbar_layout"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/create_course"
+        android:layout_marginStart="@dimen/dp5w"
+        android:layout_marginEnd="@dimen/dp5w"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp18"
+        android:layout_marginTop="@dimen/dp10h"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="@string/lets_get_start_to_create_new_course_write_the_title_below"
+        android:layout_marginStart="@dimen/dp25w"
+        android:layout_marginEnd="@dimen/dp25w"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp14"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dp50h"
+        android:textDirection="locale"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_course_name"
+        android:text="@string/course_name"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp30h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp16"/>
+
+    <EditText
+        android:id="@+id/et_congratulations_message"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:background="@drawable/rounded_edit_text_border_layout"
+        android:gravity="start"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:hint="@string/message"
+        android:padding="@dimen/dp5h"
+        android:textColorHint="@color/cource_item_bg" />
+
+    <Button
+        android:layout_width="@dimen/dp150w"
+        android:layout_height="@dimen/dp40h"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/btn_corner_border"
+        android:layout_marginTop="@dimen/dp25h"
+        android:text="@string/create"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAllCaps="false"/>
+
+
+</LinearLayout>

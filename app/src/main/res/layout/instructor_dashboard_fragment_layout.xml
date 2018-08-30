@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:layout_marginTop="@dimen/dp5h"
+        android:layout_marginBottom="@dimen/dp5h">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/dp5w"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="@dimen/dp90w"
+                android:layout_height="@dimen/dp90h"
+                android:background="@drawable/rounded_linear_layout_instructor"
+                android:gravity="center"
+
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="@dimen/dp25w"
+                    android:layout_height="@dimen/dp25h"
+                    android:src="@mipmap/students_cap"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5w"
+                    android:layout_marginEnd="@dimen/dp5w"
+                    android:id="@+id/tv_total_students_num"
+                    android:text="0"
+                    android:layout_marginTop="@dimen/dp5h"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp14"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp5w"
+                android:layout_marginEnd="@dimen/dp5w"
+                android:id="@+id/tv_total_students"
+                android:text="@string/total_students"
+                android:layout_marginTop="@dimen/dp10h"
+                android:textColor="@color/colorAccent"
+
+                android:textSize="@dimen/sp12"
+                android:gravity="center"
+               />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/dp5w"
+            android:gravity="center"
+
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="@dimen/dp90w"
+                android:layout_height="@dimen/dp90h"
+                android:background="@drawable/rounded_linear_layout_instructor"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="@dimen/dp25w"
+                    android:layout_height="@dimen/dp25h"
+                    android:src="@mipmap/star"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5w"
+                    android:layout_marginEnd="@dimen/dp5w"
+                    android:id="@+id/tv_rating_value"
+                    android:text="4.5"
+                    android:layout_marginTop="@dimen/dp5h"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp14"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp5w"
+                android:layout_marginEnd="@dimen/dp5w"
+                android:id="@+id/tv_rating"
+                android:text="@string/rating"
+                android:layout_marginTop="@dimen/dp10h"
+                android:textColor="@color/colorAccent"
+
+                android:textSize="@dimen/sp12"
+                android:gravity="center"
+               />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="left"
+        android:layout_gravity="left"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginTop="@dimen/dp10h">
+
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp80h"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:text="@string/my_courses"
+        android:layout_marginTop="@dimen/dp10h"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp16"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_courses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/instructor_course_item_layout"
+        android:layout_marginTop="@dimen/dp10h"
+        android:layout_marginStart="@dimen/dp5w"
+        android:layout_marginEnd="@dimen/dp5w"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/iv_courses_empty"
+            android:layout_width="@dimen/dp125w"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:contentDescription="@string/empty_view"
+            android:src="@drawable/ic_courses_empty"
+            android:visibility="gone"
+
+            />
+        <Button
+            android:id="@+id/btn_load_more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/more_courses"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_marginTop="@dimen/dp10h"
+            android:background="@drawable/btn_no_corner_green"
+             android:layout_marginStart="@dimen/dp10w"
+            android:layout_marginEnd="@dimen/dp10w"
+            android:layout_marginBottom="@dimen/dp10h"
+            android:elevation="@dimen/dp10h"
+            />
+
+</LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

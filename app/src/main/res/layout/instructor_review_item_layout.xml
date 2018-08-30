@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.dp.uheadmaster.models.RoundRectCornerImageView
+            android:id="@+id/iv_reviewer_image"
+            android:layout_width="@dimen/dp90h"
+            android:layout_height="@dimen/dp90h"
+
+            android:src="@drawable/ic_logo"
+            android:scaleType="fitXY" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_toEndOf="@+id/iv_reviewer_image">
+            <TextView
+                android:id="@+id/tv_reviewer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp16"
+                android:textStyle="bold"
+                android:textColor="@color/reviewr_name"
+                android:text="@string/instructor_name"
+                android:textDirection="locale"/>
+            <TextView
+                android:id="@+id/tv_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp8"
+                android:textColor="@color/dark_blue_color"
+                android:text=".uheadmaster.activites.MainAct}} show : true
+10-18 12:42:17.895 6575-20077/com.dp.uheadmaster V/FA: Inactivity, disconnecting "
+                android:layout_marginTop="@dimen/dp5h"
+                android:textDirection="locale"
+                />
+
+            <RatingBar
+                android:layout_alignParentBottom="true"
+                android:id="@+id/rating_value"
+                android:theme="@style/RatingBar2"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/dp5h"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="1"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

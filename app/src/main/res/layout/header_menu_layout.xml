@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/button_mood_gb"
-   >
+    android:layout_height="@dimen/dp150h"
+    android:background="@drawable/ic_nav_header"
+    android:layout_marginBottom="@dimen/dp5h"
+    >
 
-    <de.hdodenhof.circleimageview.CircleImageView
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/iv_user_img"
-        android:layout_width="@dimen/dp100h"
+        android:layout_width="@dimen/dp100w"
         android:layout_height="@dimen/dp100w"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/dp5w"
+        android:layout_marginEnd="@dimen/dp5w"
+       android:layout_marginTop="@dimen/dp15h"
+        android:padding="10dip"
         android:src="@drawable/ic_logo"
-        android:layout_marginTop="@dimen/dp20h"
-        android:layout_marginStart="@dimen/dp10h"
-        android:layout_marginEnd="@dimen/dp10h"/>
+
+        app:riv_corner_radius="10dip"
+        app:riv_border_width="3dip"
+        app:riv_oval="false"
+        app:riv_border_color="@color/white"
+      />
 
     <TextView
         android:id="@+id/tv_user_name"
@@ -21,9 +36,10 @@
         android:text="Ahmed Ali"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:layout_marginTop="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
         android:layout_marginStart="@dimen/dp30h"
         android:layout_marginEnd="@dimen/dp30h"
+
         />
 
 </LinearLayout>

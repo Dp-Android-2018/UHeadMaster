@@ -4,16 +4,23 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.adapters.ProfileSpinnerAdapter;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.request.RegisterRequest;
 import com.dp.uheadmaster.models.request.UserDataSocialMediaLogin;
 import com.dp.uheadmaster.models.response.RegisterResponse;
@@ -38,6 +45,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.FirebaseApp;
+import com.google.gson.JsonElement;
 import com.linkedin.platform.APIHelper;
 import com.linkedin.platform.LISessionManager;
 import com.linkedin.platform.errors.LIApiError;
@@ -57,27 +65,31 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
-import es.dmoral.toasty.Toasty;
+
 import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener , AdapterView.OnItemSelectedListener{
 
     private EditText edName, edEmail, edPassword, edRePassword;
     private Button btnSignUp;
+    private ArrayList<String>keys;
     private TextView tvSignin;
     private ImageView imgFB, imgGoogle, imgTwt, imgLinked;
     private String name = "", email = "", password = "", repassword = "";
-    private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog,progressDialog2;
     private GoogleApiClient mGoogleApiClient;
     private TwitterLoginButton btnTwitterLogin;
     private LoginButton btnFacebookLogin;
     private CallbackManager callbackManager;
+    private Spinner spCountryCodes;
     public static final String TWITTER_KEY = "gYfcyWDt04iRU0zVP0Wt6NgnV";
     public static final String TWITTER_SECRET = "2c6VHDYGabPnM7y6bzhckkaKU2FNjsD8blvVdCjNCnf8c5q3za";
     public static int checker = 1;
@@ -85,16 +97,33 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
     public static Retrofit retrofit;
     TwitterSession session ;
     private String  userName;
+    private FontChangeCrawler fontChanger;
+    private ArrayList<String> values;
+    private ProfileSpinnerAdapter profileSpinnerAdapter;
+    private String selectedKey=null;
+    private String selectedValue=null;
+    private int selectedPosition=-1;
+    private LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+        Fabric.with(getApplicationContext(), new Twitter(authConfig));
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_sign_up);
 
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)findViewById(android.R.id.content));
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)findViewById(android.R.id.content));
+        }
         final MyFirebaseInstanceIdService mfs = new MyFirebaseInstanceIdService();
-        FirebaseApp.initializeApp(this);
+        FirebaseApp.initializeApp(getApplicationContext());
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -122,7 +151,7 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
                 .requestEmail()
                 .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
@@ -132,7 +161,8 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
         tvSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignUpAct.this, LoginAct.class));
+                finishAffinity();
+                startActivity(new Intent(getApplicationContext(), LoginAct.class));
                 //finish();
             }
         });
@@ -144,7 +174,7 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
                 email = edEmail.getText().toString().trim();
                 password = edPassword.getText().toString().trim();
                 repassword = edRePassword.getText().toString().trim();
-                if (checkData(name, email, password, repassword)) {
+                if (checkData(name, email, password, repassword,selectedKey)) {
                     register();
                 }
 
@@ -174,7 +204,7 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
             @Override
             public void success(Result<TwitterSession> result) {
 
-                 session = result.data;
+                session = result.data;
                 userName = session.getUserName();
 
 
@@ -188,11 +218,11 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
                     public void success(Result<String> result) {
                         System.out.println("Twitter Data Email:" + result.data);
 
-                        if (NetWorkConnection.isConnectingToInternet(SignUpAct.this)) {
+                        if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
                             progressDialog = ConfigurationFile.showDialog(SignUpAct.this);
                             twitterMediaLogin(String.valueOf(session.getUserId()), result.data,userName, deviceToken);
                         } else {
-                            Toast.makeText(SignUpAct.this, R.string.internet_message, Toast.LENGTH_LONG).show();
+                            Snackbar.make(linearLayout, R.string.internet_message, Snackbar.LENGTH_LONG).show();
                         }
                     }
 
@@ -251,11 +281,12 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
                                     System.out.println("Facebook Data birthday:" + birthday);
                                     System.out.println("Facebook Data id:" + id);
 
-                                    if (NetWorkConnection.isConnectingToInternet(SignUpAct.this)) {
+                                    if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
                                         progressDialog = ConfigurationFile.showDialog(SignUpAct.this);
-                                       facebookMediaLogin(id, email,name, deviceToken);
+
+                                        facebookMediaLogin(id, email,name, deviceToken);
                                     } else {
-                                        Toast.makeText(SignUpAct.this, R.string.internet_message, Toast.LENGTH_LONG).show();
+                                        Snackbar.make(linearLayout, R.string.internet_message, Snackbar.LENGTH_LONG).show();
                                     }
 
 
@@ -290,34 +321,38 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
         startActivityForResult(signInIntent, 4);
     }
 
-    private boolean checkData(String name, String email, String password, String repassword) {
+    private boolean checkData(String name, String email, String password, String repassword,String selectedKey) {
         if (!name.equals("")) {
-            if (!email.equals("")) {
-                if (isEmailValid(email)) {
-                    if (!password.equals("")) {
-                        if (password.equals(repassword)) {
-                            return true;
+            if(! selectedKey.equals("")) {
+                if (!email.equals("")) {
+                    if (isEmailValid(email)) {
+                        if (!password.equals("")) {
+                            if (password.equals(repassword)) {
+                                return true;
+                            } else {
+                                edRePassword.setText("");
+                                edPassword.setError(getString(R.string.password_not_match));
+                                Snackbar.make(linearLayout, getString(R.string.password_not_match), Snackbar.LENGTH_LONG).show();
+                            }
                         } else {
-                            edRePassword.setText("");
-                            edPassword.setError(getString(R.string.password_not_match));
-                            Toasty.error(SignUpAct.this, getString(R.string.password_not_match), Toast.LENGTH_LONG, true).show();
+                            edPassword.setError(getString(R.string.password_required));
+                            Snackbar.make(linearLayout, getString(R.string.password_required), Snackbar.LENGTH_LONG).show();
                         }
                     } else {
-                        edPassword.setError(getString(R.string.password_required));
-                        Toasty.error(SignUpAct.this, getString(R.string.password_required), Toast.LENGTH_LONG, true).show();
+                        edEmail.setError(getString(R.string.email_format));
+                        Snackbar.make(linearLayout, getString(R.string.email_format), Snackbar.LENGTH_LONG).show();
+
                     }
                 } else {
-                    edEmail.setError(getString(R.string.email_format));
-                    Toasty.error(SignUpAct.this, getString(R.string.email_format), Toast.LENGTH_LONG, true).show();
-
+                    edEmail.setError(getString(R.string.email_required));
+                    Snackbar.make(linearLayout, getString(R.string.email_required), Snackbar.LENGTH_LONG).show();
                 }
-            } else {
-                edEmail.setError(getString(R.string.email_required));
-                Toasty.error(SignUpAct.this, getString(R.string.email_required), Toast.LENGTH_LONG, true).show();
+            }else {
+                Snackbar.make(linearLayout,"Please Enter Country Code", Snackbar.LENGTH_LONG).show();
             }
         } else {
             edName.setError(getString(R.string.name_required));
-            Toasty.error(SignUpAct.this, getString(R.string.name_required), Toast.LENGTH_LONG, true).show();
+            Snackbar.make(linearLayout, getString(R.string.name_required), Snackbar.LENGTH_LONG).show();
         }
         return false;
     }
@@ -326,7 +361,79 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+
+    public void  geContryCodes(){
+        if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
+            progressDialog2 = ConfigurationFile.showDialog(this);
+
+            final EndPointInterfaces apiService =
+                    ApiClient.getClient().create(EndPointInterfaces.class);
+
+
+            Call<JsonElement> call = apiService.getCountryCodes(ConfigurationFile.ConnectionUrls.HEAD_KEY, ConfigurationFile.GlobalVariables.APP_LANGAUGE);
+            call.enqueue(new Callback<JsonElement>() {
+                @Override
+                public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                    ConfigurationFile.hideDialog(progressDialog2);
+                    JsonElement element=response.body();
+
+                    try {
+
+                        JSONObject object=new JSONObject(element.toString());
+                        int status=object.getInt("status");
+                        if (status == 200) {
+                            JSONObject json=object.getJSONObject("countries_keys");
+                            Iterator<String> iter = json.keys();
+                            int i=0;
+                            while (iter.hasNext()) {
+                                String key = iter.next();
+                                keys.add(key);
+                                try {
+                                    String value = json.getString(key);
+                                   /* if(sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_COUNTRY_KEY).equals(value))
+                                    {
+                                        selectedPosition=i;
+                                    }*/
+                                    values.add(value);
+                                } catch (JSONException e) {
+                                    // Something went wrong!
+                                }
+                                i++;
+                            }
+                            profileSpinnerAdapter.notifyDataSetChanged();
+                            //   spCountryCodes.setSelection(selectedPosition);
+                            //Snackbar.success(this," "+values.size()+"\n"+keys.size(),Snackbar.LENGTH_LONG).show();
+                            // setDataToUi();
+                        }
+                    }catch (NullPointerException ex){
+                        ex.printStackTrace();
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonElement> call, Throwable t) {
+                    ConfigurationFile.hideDialog(progressDialog2);
+
+                    Snackbar.make(linearLayout, t.getMessage(), Snackbar.LENGTH_LONG).show();
+                    System.out.println(" Fialer :" + t.getMessage());
+                }
+            });
+
+        } else {
+            Snackbar.make(linearLayout,getString(R.string.check_internet_connection),Snackbar.LENGTH_LONG).show();
+        }
+    }
+
     private void initView() {
+        linearLayout=(LinearLayout) findViewById(R.id.content);
+        keys=new ArrayList<>();
+        values=new ArrayList<>();
+        spCountryCodes=(Spinner) findViewById(R.id.sp_country_code);
+        spCountryCodes.setOnItemSelectedListener(this);
+        profileSpinnerAdapter=new ProfileSpinnerAdapter(getApplicationContext(),values);
+        spCountryCodes.setAdapter(profileSpinnerAdapter);
         edName = (EditText) findViewById(R.id.ed_sign_up_name);
         edEmail = (EditText) findViewById(R.id.ed_sign_up_email);
         edPassword = (EditText) findViewById(R.id.ed_sign_up_password);
@@ -343,14 +450,19 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
         callbackManager = CallbackManager.Factory.create();
         btnFacebookLogin.setReadPermissions(Arrays.asList(
                 "email"));
+
+        geContryCodes();
     }
 
 
     public void register() {
-        if (NetWorkConnection.isConnectingToInternet(SignUpAct.this)) {
+        if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
 
             progressDialog = ConfigurationFile.showDialog(SignUpAct.this);
-            RegisterRequest registerRequest = new RegisterRequest(name, email, password,deviceToken);
+          //  Snackbar.make(this, ""+selectedKey
+
+              //      , Snackbar.LENGTH_LONG).show();
+            RegisterRequest registerRequest = new RegisterRequest(name, email, password,deviceToken,selectedKey);
             final EndPointInterfaces apiService =
                     ApiClient.getClient().create(EndPointInterfaces.class);
             Call<RegisterResponse> call = apiService.register(ConfigurationFile.ConnectionUrls.HEAD_KEY, ConfigurationFile.GlobalVariables.APP_LANGAUGE, registerRequest);
@@ -361,21 +473,21 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
                     try {
 
 
-                    if (response.body().getStatus() == 200) {
-                        // use response data and do some fancy stuff :)
-                        Toasty.success(SignUpAct.this, "Done!", Toast.LENGTH_LONG, true).show();
-                        RegisterResponse registerResponse = response.body();
-                        System.out.println("Response : " + registerResponse.getEmail());
-                        ConfigurationFile.saveUserData(SignUpAct.this, registerResponse.getName(), registerResponse.getEmail(), registerResponse.getToken(),registerResponse.getMobile(), registerResponse.getType(),registerResponse.getId(),registerResponse.getImage(),registerResponse.getCountryKey(),registerResponse.getAbout());
-                        startActivity(new Intent(SignUpAct.this, MainAct.class));
-                        finish();
-                    } else {
-                        // parse the response body …
-                        System.out.println("error Code  message :" + response.body().getMessage());
-                        Toasty.error(SignUpAct.this, response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                        if (response.body().getStatus() == 200) {
+                            // use response data and do some fancy stuff :)
+                           // Snackbar.success(SignUpAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
+                            RegisterResponse registerResponse = response.body();
+                            System.out.println("Response : " + registerResponse.getEmail());
+                            ConfigurationFile.saveUserData(getApplicationContext(), registerResponse.getName(), registerResponse.getEmail(), registerResponse.getToken(),registerResponse.getMobile(), registerResponse.getType(),registerResponse.getId(),registerResponse.getImage(),registerResponse.getCountryKey(),registerResponse.getAbout(),registerResponse.getIsSubScribed(),0);
+                            startActivity(new Intent(getApplicationContext(), MainAct.class));
+                            finishAffinity();
+                        } else {
+                            // parse the response body …
+                            System.out.println("error Code  message :" + response.body().getMessage());
+                            Snackbar.make(linearLayout, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
 
-                    }
+                        }
 
                     }catch (NullPointerException ex){
                         ex.printStackTrace();
@@ -386,7 +498,7 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
 
                 @Override
                 public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                    Toasty.error(SignUpAct.this, t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(linearLayout, t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println(" Fialer :" + t.getMessage());
                     ConfigurationFile.hideDialog(progressDialog);
                 }
@@ -478,11 +590,11 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
             System.out.println("Google Data Email:" + acct.getEmail());
             System.out.println("Google Data Photo:" + acct.getPhotoUrl());
 
-            if (NetWorkConnection.isConnectingToInternet(SignUpAct.this)) {
+            if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
                 progressDialog = ConfigurationFile.showDialog(SignUpAct.this);
                 googleMediaLogin(acct.getId(), acct.getEmail(),acct.getDisplayName(), deviceToken);
             } else {
-                Toast.makeText(SignUpAct.this, R.string.internet_message, Toast.LENGTH_LONG).show();
+                Snackbar.make(linearLayout, R.string.internet_message, Snackbar.LENGTH_LONG).show();
             }
 
         } else {
@@ -495,7 +607,7 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
         String url = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,public-profile-url,picture-url,email-address,picture-urls::(original))";
 
         APIHelper apiHelper = APIHelper.getInstance(getApplicationContext());
-        apiHelper.getRequest(this, url, new ApiListener() {
+        apiHelper.getRequest(getApplicationContext(), url, new ApiListener() {
             @Override
             public void onApiSuccess(ApiResponse apiResponse) {
                 JSONObject jsonObject = apiResponse.getResponseDataAsJson();
@@ -513,11 +625,11 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
                     System.out.println("Linked In pictureUrl:" + pictureUrl);
                     System.out.println("Linked In Email:" + emailAddress);
 
-                    if (NetWorkConnection.isConnectingToInternet(SignUpAct.this)) {
+                    if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
                         progressDialog = ConfigurationFile.showDialog(SignUpAct.this);
                         linkedinMediaLogin(id, emailAddress, fname + " " + lname, deviceToken);
                     } else {
-                        Toast.makeText(SignUpAct.this, R.string.internet_message, Toast.LENGTH_LONG).show();
+                        Snackbar.make(linearLayout, R.string.internet_message, Snackbar.LENGTH_LONG).show();
                     }
 
                 } catch (JSONException e) {
@@ -545,27 +657,27 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
             @Override
             public void onResponse(Call<UserDataLoginResponse> call, Response<UserDataLoginResponse> response) {
 
-                    UserDataLoginResponse user = response.body();
-                    // Toast.makeText(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
+                UserDataLoginResponse user = response.body();
+                // Snackbar.make(SignUpAct.this, ""+user.getStatus(), Snackbar.LENGTH_LONG).show();
                 try {
 
                     if(user.getStatus()==200) {
-                        Toasty.success(SignUpAct.this, "Done!", Toast.LENGTH_LONG, true).show();
+                        //Snackbar.success(SignUpAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
                         System.out.println("User Response token:" + user.getToken());
                         System.out.println("User Response name:" + user.getName());
                         System.out.println("User Response email:" + user.getEmail());
                         System.out.println("User Response type:" + user.getType());
                         System.out.println("User Response Id:" + user.getId());
-                        ConfigurationFile.saveUserData(SignUpAct.this, user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout());
-                        startActivity(new Intent(SignUpAct.this, MainAct.class));
-                        finish();
+                        ConfigurationFile.saveUserData(getApplicationContext(), user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout(),user.getIsSubScribed(),0);
+                        startActivity(new Intent(getApplicationContext(), MainAct.class));
+                        finishAffinity();
                     }else {
-                        Toasty.error(SignUpAct.this,user.getMessage(), Toast.LENGTH_LONG, true).show();
+                        Snackbar.make(linearLayout,user.getMessage(), Snackbar.LENGTH_LONG).show();
                     }
-                    //  Toast.makeText(SignUpAct.this, "Success", Toast.LENGTH_LONG).show();
+                    //  Snackbar.make(SignUpAct.this, "Success", Snackbar.LENGTH_LONG).show();
 
 
-                ConfigurationFile.hideDialog(progressDialog);
+                    ConfigurationFile.hideDialog(progressDialog);
                 }catch (NullPointerException ex){
                     ex.printStackTrace();
                 }catch (Exception ex){
@@ -597,25 +709,25 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
             public void onResponse(Call<UserDataLoginResponse> call, Response<UserDataLoginResponse> response) {
 
                 UserDataLoginResponse user = response.body();
-                // Toast.makeText(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
+                // Snackbar.make(SignUpAct.this, ""+user.getStatus(), Snackbar.LENGTH_LONG).show();
                 try {
 
-                if(user.getStatus()==200) {
-                    Toasty.success(SignUpAct.this, "Done!", Toast.LENGTH_LONG, true).show();
-                    System.out.println("User Response token:" + user.getToken());
-                    System.out.println("User Response name:" + user.getName());
-                    System.out.println("User Response email:" + user.getEmail());
-                    System.out.println("User Response type:" + user.getType());
-                    ConfigurationFile.saveUserData(SignUpAct.this, user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout());
-                    startActivity(new Intent(SignUpAct.this, MainAct.class));
-                    finish();
-                }else {
-                    Toasty.error(SignUpAct.this,user.getMessage(), Toast.LENGTH_LONG, true).show();
-                }
-                //  Toast.makeText(SignUpAct.this, "Success", Toast.LENGTH_LONG).show();
+                    if(user.getStatus()==200) {
+                       // Snackbar.success(SignUpAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
+                        System.out.println("User Response token:" + user.getToken());
+                        System.out.println("User Response name:" + user.getName());
+                        System.out.println("User Response email:" + user.getEmail());
+                        System.out.println("User Response type:" + user.getType());
+                        ConfigurationFile.saveUserData(getApplicationContext(), user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout(),user.getIsSubScribed(),0);
+                        startActivity(new Intent(getApplicationContext(), MainAct.class));
+                        finishAffinity();
+                    }else {
+                        Snackbar.make(linearLayout,user.getMessage(), Snackbar.LENGTH_LONG).show();
+                    }
+                    //  Snackbar.make(SignUpAct.this, "Success", Snackbar.LENGTH_LONG).show();
 
 
-                ConfigurationFile.hideDialog(progressDialog);
+                    ConfigurationFile.hideDialog(progressDialog);
                 }catch (NullPointerException ex){
                     ex.printStackTrace();
                 }catch (Exception ex){
@@ -649,23 +761,26 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
                 try {
 
 
-                // Toast.makeText(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
-                if(user.getStatus()==200) {
-                    Toasty.success(SignUpAct.this, "Done!", Toast.LENGTH_LONG, true).show();
-                    System.out.println("User Response token:" + user.getToken());
-                    System.out.println("User Response name:" + user.getName());
-                    System.out.println("User Response email:" + user.getEmail());
-                    System.out.println("User Response type:" + user.getType());
-                    ConfigurationFile.saveUserData(SignUpAct.this, user.getName(), user.getEmail(), user.getToken(),user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout());
-                    startActivity(new Intent(SignUpAct.this, MainAct.class));
-                    finish();
-                }else {
-                    Toasty.error(SignUpAct.this,user.getMessage(), Toast.LENGTH_LONG, true).show();
-                }
-                //  Toast.makeText(SignUpAct.this, "Success", Toast.LENGTH_LONG).show();
+                    // Snackbar.make(SignUpAct.this, ""+user.getStatus(), Snackbar.LENGTH_LONG).show();
+                    if(user.getStatus()==200) {
+                      //  Snackbar.success(SignUpAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
+                        System.out.println("User Response token:" + user.getToken());
+                        System.out.println("User Response name:" + user.getName());
+                        System.out.println("User Response email:" + user.getEmail());
+                        System.out.println("User Response type:" + user.getType());
+                        ConfigurationFile.saveUserData(getApplicationContext(), user.getName(), user.getEmail(), user.getToken(),user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout(),user.getIsSubScribed(),0);
+                        Intent i=new Intent(getApplicationContext(), MainAct.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                        startActivity(i);
+                        finishAffinity();
+                    }else {
+                        Snackbar.make(linearLayout,user.getMessage(), Snackbar.LENGTH_LONG).show();
+                    }
+                    //  Snackbar.make(SignUpAct.this, "Success", Snackbar.LENGTH_LONG).show();
 
 
-                ConfigurationFile.hideDialog(progressDialog);
+                    ConfigurationFile.hideDialog(progressDialog);
 
                 }catch (NullPointerException ex){
                     ex.printStackTrace();
@@ -699,26 +814,26 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
             public void onResponse(Call<UserDataLoginResponse> call, Response<UserDataLoginResponse> response) {
 
                 UserDataLoginResponse user = response.body();
-                // Toast.makeText(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
+                // Snackbar.make(SignUpAct.this, ""+user.getStatus(), Snackbar.LENGTH_LONG).show();
                 try {
 
 
-                if(user.getStatus()==200) {
-                    Toasty.success(SignUpAct.this, "Done!", Toast.LENGTH_LONG, true).show();
-                    System.out.println("User Response token:" + user.getToken());
-                    System.out.println("User Response name:" + user.getName());
-                    System.out.println("User Response email:" + user.getEmail());
-                    System.out.println("User Response type:" + user.getType());
-                    ConfigurationFile.saveUserData(SignUpAct.this, user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout());
-                    startActivity(new Intent(SignUpAct.this, MainAct.class));
-                    finish();
-                }else {
-                    Toasty.error(SignUpAct.this,user.getMessage(), Toast.LENGTH_LONG, true).show();
-                }
-                //  Toast.makeText(SignUpAct.this, "Success", Toast.LENGTH_LONG).show();
+                    if(user.getStatus()==200) {
+                     //   Snackbar.success(SignUpAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
+                        System.out.println("User Response token:" + user.getToken());
+                        System.out.println("User Response name:" + user.getName());
+                        System.out.println("User Response email:" + user.getEmail());
+                        System.out.println("User Response type:" + user.getType());
+                        ConfigurationFile.saveUserData(getApplicationContext(), user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout(),user.getIsSubScribed(),0);
+                        startActivity(new Intent(getApplicationContext(), MainAct.class));
+                        finishAffinity();
+                    }else {
+                        Snackbar.make(linearLayout,user.getMessage(), Snackbar.LENGTH_LONG).show();
+                    }
+                    //  Snackbar.make(SignUpAct.this, "Success", Snackbar.LENGTH_LONG).show();
 
 
-                ConfigurationFile.hideDialog(progressDialog);
+                    ConfigurationFile.hideDialog(progressDialog);
 
                 }catch (NullPointerException ex){
                     ex.printStackTrace();
@@ -735,5 +850,16 @@ public class SignUpAct extends AppCompatActivity implements GoogleApiClient.OnCo
 
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedKey=keys.get(position);
+        selectedValue=values.get(position);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

@@ -1,5 +1,6 @@
 package com.dp.uheadmaster.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -22,6 +23,7 @@ import com.dp.uheadmaster.adapters.ViewPagerAdapter;
 import com.dp.uheadmaster.holders.SearchCategoryHolder;
 import com.dp.uheadmaster.interfaces.CheckOutDialogInterface;
 import com.dp.uheadmaster.interfaces.SwitchFragmentInterface;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.response.SearchCoursesResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.dp.uheadmaster.utilities.NetWorkConnection;
@@ -31,7 +33,7 @@ import com.google.gson.Gson;
 
 import java.util.Locale;
 
-import es.dmoral.toasty.Toasty;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +47,54 @@ public class BasicSearchFrag extends Fragment implements SwitchFragmentInterface
    private Button btnCategories,btnSubCategories;
     private EditText etSearchKeyWord;
     private String keyWord=null;
+
+    private FontChangeCrawler fontChanger;
+
+    private class HandleCategoriesAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            btnCategories.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.dot_active_screen));
+            btnSubCategories.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.black));
+            SearchCategoriesFrag fragment = new SearchCategoriesFrag();
+            SearchCategoriesFrag.delegate=(SwitchFragmentInterface) BasicSearchFrag.this;
+            android.support.v4.app.FragmentManager fragmentManager = getChildFragmentManager();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame, fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    private class HandleSubCategoriesAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            btnCategories.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.black));
+            btnSubCategories.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.dot_active_screen));
+            SearchSubCategoriesFrag fragment = new SearchSubCategoriesFrag();
+            SearchSubCategoriesFrag.delegate=(SwitchFragmentInterface) BasicSearchFrag.this;
+            android.support.v4.app.FragmentManager fragmentManager = getChildFragmentManager();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame, fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,33 +131,9 @@ public class BasicSearchFrag extends Fragment implements SwitchFragmentInterface
         });
         btnCategories=(Button)v.findViewById(R.id.btn_categories);
         btnSubCategories=(Button)v.findViewById(R.id.btn_sub_categories);
-        btnCategories.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnCategories.setTextColor(getActivity().getResources().getColor(R.color.dot_active_screen));
-                btnSubCategories.setTextColor(getActivity().getResources().getColor(R.color.black));
-                SearchCategoriesFrag fragment = new SearchCategoriesFrag();
-                SearchCategoriesFrag.delegate=(SwitchFragmentInterface) BasicSearchFrag.this;
-                android.support.v4.app.FragmentManager fragmentManager = getChildFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame, fragment);
-                fragmentTransaction.commit();
-            }
-        });
+        btnCategories.setOnClickListener(new HandleCategoriesAction());
 
-        btnSubCategories.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnCategories.setTextColor(getActivity().getResources().getColor(R.color.black));
-                btnSubCategories.setTextColor(getActivity().getResources().getColor(R.color.dot_active_screen));
-                SearchSubCategoriesFrag fragment = new SearchSubCategoriesFrag();
-                SearchSubCategoriesFrag.delegate=(SwitchFragmentInterface) BasicSearchFrag.this;
-                android.support.v4.app.FragmentManager fragmentManager = getChildFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame, fragment);
-                fragmentTransaction.commit();
-            }
-        });
+        btnSubCategories.setOnClickListener(new HandleSubCategoriesAction());
 
     }
 
@@ -128,8 +154,8 @@ public class BasicSearchFrag extends Fragment implements SwitchFragmentInterface
 
     }
 
-
-
-
-
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 }

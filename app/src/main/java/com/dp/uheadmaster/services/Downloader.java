@@ -8,11 +8,17 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v4.BuildConfig;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
+
+import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
+import com.dp.uheadmaster.utilities.SharedPrefManager;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -27,9 +33,19 @@ public class Downloader extends IntentService {
           "com.dp.uheadmaster.provider";
     private static int NOTIFY_ID=1337;
     private static int FOREGROUND_ID=1338;
-
+    private String id;
+    private String Auth;
     public Downloader() {
         super("Downloader");
+
+    }
+
+    @Override
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+
+        id=intent.getStringExtra("Id");
+        Auth=intent.getStringExtra("Authorization");
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
@@ -48,6 +64,10 @@ public class Downloader extends IntentService {
 
             URL url=new URL(i.getData().toString());
             HttpURLConnection c=(HttpURLConnection)url.openConnection();
+            c.setRequestProperty("Key", ConfigurationFile.ConnectionUrls.HEAD_KEY);
+            c.setRequestProperty("Id", id);
+            c.setRequestProperty("Authorization", Auth);
+
             FileOutputStream fos=new FileOutputStream(output.getPath());
             BufferedOutputStream out=new BufferedOutputStream(fos);
 
@@ -86,10 +106,10 @@ public class Downloader extends IntentService {
                 .setWhen(System.currentTimeMillis());
 
         if (e == null) {
-            b.setContentTitle("Download Complete")
-                    .setContentText("Fun")
+            b.setContentTitle(getString(R.string.download_complete))
+                    .setContentText(getString(R.string.click_open))
                     .setSmallIcon(android.R.drawable.stat_sys_download_done)
-                    .setTicker("Download Complete");
+                    .setTicker(getString(R.string.download_complete));
 
             Intent outbound=new Intent(Intent.ACTION_VIEW);
             Uri outputUri=
@@ -120,10 +140,10 @@ public class Downloader extends IntentService {
         NotificationCompat.Builder b=new NotificationCompat.Builder(this);
 
         b.setOngoing(true)
-                .setContentTitle("Downloading..")
+                .setContentTitle(getString(R.string.downloading))
                 .setContentText(filename)
                 .setSmallIcon(android.R.drawable.stat_sys_download)
-                .setTicker("Downloading..");
+                .setTicker(getString(R.string.downloading));
 
         return(b.build());
     }

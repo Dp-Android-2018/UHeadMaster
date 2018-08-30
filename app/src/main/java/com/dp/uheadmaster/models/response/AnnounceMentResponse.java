@@ -19,6 +19,13 @@ public class AnnounceMentResponse {
     @SerializedName("announcements")
     private Announcement announcements;
 
+    @SerializedName("message")
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
     public int getStatus() {
         return status;
     }

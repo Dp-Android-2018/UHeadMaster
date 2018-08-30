@@ -2,7 +2,10 @@
 <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dialog_bg">
+    android:background="@drawable/dialog_bg"
+    android:layout_marginStart="@dimen/dp10w"
+    android:layout_marginEnd="@dimen/dp10w"
+    android:id="@+id/content">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,7 +14,7 @@
         android:layout_marginEnd="@dimen/dp10w"
         android:textColor="@color/dark_gray_color"
         android:layout_marginTop="40dp"
-        android:text="@string/you_have_to_delete_the_course_in_your_account_first"
+        android:text="@string/are_you_sure_you_want_to_delete_your_account"
         android:textStyle="bold"
         android:textSize="@dimen/sp14"/>
 
@@ -23,13 +26,14 @@
         android:weightSum="2"
         android:orientation="horizontal"
         android:layout_marginTop="40dp"
-        android:layout_below="@+id/tv_message_title">
+        android:layout_below="@+id/tv_message_title"
+        android:background="@android:color/transparent">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/btn_ask_offer"
+            android:id="@+id/btn_cancel"
             android:text="@string/cancel"
             android:textSize="@dimen/sp14"
             android:textAllCaps="false"
@@ -40,8 +44,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/btn_save"
-            android:text="@string/delete_course"
+            android:id="@+id/btn_delete_course"
+            android:text="@string/delete"
             android:textSize="@dimen/sp14"
             android:textColor="@color/white"
             android:textAllCaps="false"

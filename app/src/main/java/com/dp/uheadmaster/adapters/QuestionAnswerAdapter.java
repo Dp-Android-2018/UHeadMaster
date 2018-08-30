@@ -11,7 +11,9 @@ import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.activites.ResponsesAct;
 import com.dp.uheadmaster.holders.CartHolder;
 import com.dp.uheadmaster.holders.QuestionAnswerHolder;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.Question;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class QuestionAnswerAdapter extends RecyclerView.Adapter<QuestionAnswerHo
     private Context context;
     private ArrayList<Question>questions;
     private int courseId;
+    private FontChangeCrawler fontChanger;
     public QuestionAnswerAdapter(Context context, ArrayList<Question>questions,int courseId) {
         this.context=context;
         this.questions=questions;
@@ -33,7 +36,17 @@ public class QuestionAnswerAdapter extends RecyclerView.Adapter<QuestionAnswerHo
     @Override
     public QuestionAnswerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.question_answer_item_layout,parent,false);
-        return new QuestionAnswerHolder(v,context);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
+        return new QuestionAnswerHolder(v,context,1);
     }
 
     @Override
@@ -51,7 +64,8 @@ public class QuestionAnswerAdapter extends RecyclerView.Adapter<QuestionAnswerHo
             holder.getTvAnswersNum().setText(questions.get(position).getAnswersCount()+" " +context.getString(R.string.response));
             if (questions.get(position).getUser().getImageLink() != null && !questions.get(position).getUser().getImageLink().equals(""))
                 Picasso.with(context).load(questions.get(position).getUser().getImageLink()).into(holder.getIvQusetionerImage());
-
+            else
+                holder.getIvQusetionerImage().setImageResource(R.drawable.ic_logo);
             holder.getTvAnswersNum().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

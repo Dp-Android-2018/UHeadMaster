@@ -2,24 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingEnd="@dimen/dp10w">
 
     <LinearLayout
         android:id="@+id/item"
-        android:layout_width="@dimen/dp120w"
+        android:layout_width="@dimen/dp124w"
         android:layout_height="wrap_content"
         android:background="@color/cource_item_bg"
         android:orientation="vertical">
 
-        <ImageView
+
+        <com.elyeproj.loaderviewlibrary.LoaderImageView
             android:id="@+id/img_course_logo"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/dp124h"
             android:layout_height="@dimen/dp70h"
             android:background="@color/colorAccent"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_cource_icon" />
+            android:scaleType="fitXY"
+            app:height_weight="0.8"
+            app:width_weight="0.4"
+            app:corners="16"
+            android:transitionName="selectedImage"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,27 +33,33 @@
             android:orientation="vertical">
 
 
-            <TextView
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
                 android:id="@+id/tv_course_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:lines="2"
-                android:text="The Web Development BootCamp"
+                android:text=""
                 android:textColor="@color/course_constructor_name"
                 android:textSize="@dimen/sp9"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:height_weight="0.8"
+                app:width_weight="0.9"
+                app:corners="8"/>
 
-            <TextView
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
                 android:id="@+id/tv_instructor_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5w"
                 android:gravity="start"
                 android:lines="1"
-                android:text="Ahmed Akl"
+                android:text=""
                 android:textColor="@color/course_constructor_name"
-                android:textSize="@dimen/sp10" />
+                android:textSize="@dimen/sp10"
+                app:height_weight="0.8"
+                app:width_weight="0.9"
+                app:corners="8"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -68,15 +79,18 @@
                     android:scaleY="0.5"
                     android:stepSize=".5" />
 
-                <TextView
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:id="@+id/tv_course_views"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:lines="1"
-                    android:text="(123456)"
+                    android:text=""
                     android:textColor="@color/cource_old_price"
-                    android:textSize="@dimen/sp9" />
+                    android:textSize="@dimen/sp9"
+                    app:height_weight="0.8"
+                    app:width_weight="0.9"
+                    app:corners="8"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -85,18 +99,21 @@
                 android:layout_marginTop="@dimen/dp5w"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:id="@+id/tv_course_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:lines="1"
-                    android:text="10$"
+                    android:text=""
                     android:textColor="@color/home_main_section"
                     android:textSize="@dimen/sp11"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:height_weight="0.8"
+                    app:width_weight="0.9"
+                    app:corners="8"/>
 
-                <TextView
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:id="@+id/tv_course_old_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,9 +121,12 @@
                     android:background="@drawable/line_on_textview"
                     android:gravity="start"
                     android:lines="1"
-                    android:text="100$"
+                    android:text=""
                     android:textColor="@color/cource_old_price"
-                    android:textSize="@dimen/sp10" />
+                    android:textSize="@dimen/sp10"
+                    app:height_weight="0.8"
+                    app:width_weight="0.9"
+                    app:corners="8"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

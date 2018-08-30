@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,12 +11,24 @@
        >
     </RelativeLayout>
 
-    <ProgressBar
+    <!--<ProgressBar
         android:id="@+id/progressBar1"
         android:layout_width="@dimen/dp50w"
         android:layout_height="@dimen/dp50w"
          android:layout_gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:indeterminateDrawable="@drawable/loader_1" />
+        android:indeterminateDrawable="@drawable/loader_1" />-->
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="ULoading.json"
+        app:lottie_loop="true"
+        android:layout_centerInParent="true"
+        android:scaleX="0.15"
+        android:scaleY="0.15"
+        />
 </RelativeLayout>

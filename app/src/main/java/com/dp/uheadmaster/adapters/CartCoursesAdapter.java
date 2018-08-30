@@ -3,6 +3,8 @@ package com.dp.uheadmaster.adapters;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +13,15 @@ import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.activites.CourseDetailAct;
+import com.dp.uheadmaster.dialogs.DeleteCartCourseDialog;
+import com.dp.uheadmaster.dialogs.DeleteCourseDialog;
 import com.dp.uheadmaster.fragments.CartFrag;
 import com.dp.uheadmaster.fragments.WishListFrag;
 import com.dp.uheadmaster.holders.CartHolder;
 import com.dp.uheadmaster.interfaces.RefershWishList;
 import com.dp.uheadmaster.models.CourseModel;
 import com.dp.uheadmaster.models.CourseIDRequest;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.response.DefaultResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.dp.uheadmaster.utilities.NetWorkConnection;
@@ -41,7 +46,7 @@ public class CartCoursesAdapter extends RecyclerView.Adapter<CartHolder> {
     private List<CourseModel> cartCoursesList;
     private ProgressDialog progressDialog;
     private SharedPrefManager sharedPrefManager;
-
+    private FontChangeCrawler fontChanger;
     public CartCoursesAdapter(Context context, List<CourseModel> cartCoursesList) {
         this.context = context;
         sharedPrefManager = new SharedPrefManager(context);
@@ -52,6 +57,16 @@ public class CartCoursesAdapter extends RecyclerView.Adapter<CartHolder> {
     @Override
     public CartHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
         return new CartHolder(v,context);
     }
 
@@ -76,7 +91,12 @@ public class CartCoursesAdapter extends RecyclerView.Adapter<CartHolder> {
             @Override
             public void onClick(View v) {
                 //remove course from list and server
-                removefromCart(courseModel.getId());
+                //DeleteCourseDialog deleteCourseDialog=new DeleteCourseDialog(context,2);
+              //  deleteCourseDialog.show();
+                DeleteCartCourseDialog deleteCartCourseDialog=new DeleteCartCourseDialog(context,courseModel.getId(),0);
+                deleteCartCourseDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                deleteCartCourseDialog.show();
+                //removefromCart(courseModel.getId());
             }
         });
     }
@@ -87,63 +107,7 @@ public class CartCoursesAdapter extends RecyclerView.Adapter<CartHolder> {
         return cartCoursesList.size();
     }
 
-    private void removefromCart(final int courseID) {
-        if (NetWorkConnection.isConnectingToInternet(context)) {
 
-            progressDialog = ConfigurationFile.showDialog((Activity) context);
-            final EndPointInterfaces apiService =
-                    ApiClient.getClient().create(EndPointInterfaces.class);
-            CourseIDRequest request = new CourseIDRequest(courseID);
-            Call<DefaultResponse> call = apiService.addOrRemoveFromCartList(ConfigurationFile.ConnectionUrls.HEAD_KEY, ConfigurationFile.GlobalVariables.APP_LANGAUGE, sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_TOKEN), sharedPrefManager.getIntegerFromSharedPrederances(ConfigurationFile.ShardPref.USER_ID), request);
-            call.enqueue(new Callback<DefaultResponse>() {
-                @Override
-                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                    ConfigurationFile.hideDialog(progressDialog);
-                    try {
-                        if (response.body().getStatus() == 200) {
-                            // use response data and do some fancy stuff :)
-
-                            removeFromList(courseID);
-                            Toasty.success(context, response.body().getMessage(), Toast.LENGTH_LONG, true).show();
-
-
-                        } else {
-                            // parse the response body …
-                            System.out.println("cart adapter      /error Code message :" + response.body().getMessage());
-                            Toasty.error(context, response.body().getMessage(), Toast.LENGTH_LONG, true).show();
-
-
-                        }
-                    } catch (NullPointerException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                    ConfigurationFile.hideDialog(progressDialog);
-
-                    Toasty.error(context, t.getMessage(), Toast.LENGTH_LONG, true).show();
-                    System.out.println("cart adapter / Fialer :" + t.getMessage());
-                }
-            });
-
-        } else {
-            ConfigurationFile.hideDialog(progressDialog);
-        }
-    }
-
-    private void removeFromList(int courseID) {
-        for (int i = 0; i < cartCoursesList.size(); i++) {
-
-            if (courseID == cartCoursesList.get(i).getId()) {
-                cartCoursesList.remove(i);
-                calculateTotalPrice();
-                notifyDataSetChanged();
-                return;
-            }
-        }
-    }
 
     private void calculateTotalPrice() {
         double totalPrice = 0.0;

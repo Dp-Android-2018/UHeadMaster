@@ -19,6 +19,7 @@ import com.dp.uheadmaster.customFont.ApplyCustomFont;
 import com.dp.uheadmaster.fragments.BasicSearchFrag;
 import com.dp.uheadmaster.fragments.CategoriesFrag;
 import com.dp.uheadmaster.models.CategoryModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +36,7 @@ public class CategoriesAdapter extends BaseAdapter {
     private List<CategoryModel> categoriesArray;
     private Context context;
     private boolean mainCategory;
+    private FontChangeCrawler fontChanger;
 
     public CategoriesAdapter(Context context, List<CategoryModel> categoriesArray, boolean mainCategory) {
         this.context = context;
@@ -71,6 +73,17 @@ public class CategoriesAdapter extends BaseAdapter {
 
         // get layout from mobile.xml
         gridView = inflater.inflate(R.layout.item_category, null);
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)gridView);
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)gridView);
+        }
         ImageView imgCategory = (ImageView) gridView.findViewById(R.id.img_category_icon);
         RelativeLayout item = (RelativeLayout) gridView.findViewById(R.id.item_category);
         TextView tvCategoryTitle = (TextView) gridView.findViewById(R.id.tv_category_title);

@@ -18,5 +18,26 @@
         android:paddingTop="@dimen/dp12h"
         android:verticalSpacing="@dimen/dp15h"
         tools:listitem="@layout/item_course"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+       />
+
+   <!-- <TextView
+        android:id="@+id/empty_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_courses"
+        android:gravity="center"
+        android:visibility="gone"/>-->
+
+    <ImageView
+        android:id="@+id/iv_courses_empty"
+        android:layout_width="@dimen/dp125w"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:contentDescription="@string/empty_view"
+        android:src="@drawable/ic_courses_empty"
+
+        android:visibility="gone"/>
+
 </LinearLayout>

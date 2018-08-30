@@ -1,7 +1,9 @@
 package com.dp.uheadmaster.activites;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
@@ -19,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.models.FontChangeCrawler;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
 
 public class MoodAct extends AppCompatActivity {
 
@@ -27,7 +31,9 @@ public class MoodAct extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnBrowse, btnSignIn;
+    private Button btnBrowse, btnSignIn,btnSignuP;
+    private FontChangeCrawler fontChanger;
+    private BroadcastReceiver receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +41,18 @@ public class MoodAct extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
+
+
         setContentView(R.layout.activity_mood);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) ) {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+        }
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
        overridePendingTransition(R.anim.left_in, R.anim.left_out);   // open with animation
 
@@ -58,9 +75,15 @@ public class MoodAct extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnBrowse = (Button) findViewById(R.id.btn_browse_courses);
+     //   btnBrowse = (Button) findViewById(R.id.btn_sign_up);
         btnSignIn = (Button) findViewById(R.id.btn_mood_signIn);
-
+        btnSignuP= (Button) findViewById(R.id.btn_sign_up);
+        btnSignuP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                register();
+            }
+        });
         // layouts of all welcome sliders
         // add few more layouts if you want
         layouts = new int[]{
@@ -78,6 +101,10 @@ public class MoodAct extends AppCompatActivity {
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
     }
+    public void register(){
+        Intent i=new Intent(this,SignUpAct.class);
+        startActivity(i);
+    }
 
     private void addBottomDots(int currentPage) {
         dots = new TextView[layouts.length];
@@ -94,8 +121,14 @@ public class MoodAct extends AppCompatActivity {
             dotsLayout.addView(dots[i]);
         }
 
-        if (dots.length > 0)
-            dots[currentPage].setTextColor(colorsActive[currentPage]);
+
+        if(ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals("en")) {
+            if (dots.length > 0)
+                dots[currentPage].setTextColor(colorsActive[currentPage]);
+        }else {
+            if (dots.length > 0)
+                dots[(dots.length-currentPage)-1].setTextColor(colorsActive[(dots.length-currentPage)-1]);
+        }
     }
 
     private int getItem(int i) {

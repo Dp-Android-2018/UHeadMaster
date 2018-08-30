@@ -13,9 +13,26 @@ public class CourseContentModel {
     @SerializedName("status")
     private int status;
 
+
+    @SerializedName("last-watched")
+    private String lastWatched;
+
+    @SerializedName("added_review")
+    private boolean addedReview;
+
     @SerializedName("sections")
     private ArrayList<Section>sections;
 
+    @SerializedName("message")
+    private String message ;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getLastWatched() {
+        return lastWatched;
+    }
 
     public int getStatus() {
         return status;
@@ -23,5 +40,9 @@ public class CourseContentModel {
 
     public ArrayList<Section> getSections() {
         return sections;
+    }
+
+    public boolean isAddedReview() {
+        return addedReview;
     }
 }

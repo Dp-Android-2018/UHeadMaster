@@ -190,6 +190,7 @@ public class CourseModel {
     }
 
     public String getImagePath() {
+
         return imagePath;
     }
 
@@ -232,4 +233,6 @@ public class CourseModel {
     public String getLangauge() {
         return langauge;
     }
+
+
 }

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content">
+
+    <include android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/create_announcement"
+        android:layout_marginStart="@dimen/dp5w"
+        android:layout_marginEnd="@dimen/dp5w"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp18"
+        android:layout_marginTop="@dimen/dp5h"
+        android:id="@+id/act_title"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_announcement_tile"
+        android:text="@string/title"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp10h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp16"/>
+
+    <EditText
+        android:id="@+id/et_anouncement_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:background="@drawable/rounded_edit_text_border_layout"
+        android:gravity="center|start"
+        android:hint="@string/title"
+        android:padding="@dimen/dp5h"
+        android:textColorHint="@color/colorAccent"
+        android:textStyle="bold" />
+
+
+
+
+
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_announcement_content_txt"
+        android:text="@string/content"
+        android:textColor="@color/rating_color"
+        android:layout_marginTop="@dimen/dp25h"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp14"/>
+
+    <EditText
+        android:id="@+id/et_announcement_data"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp90h"
+        android:background="@drawable/rounded_edit_text_border_layout"
+        android:gravity="top"
+        android:hint="@string/your_answer"
+        android:padding="@dimen/dp5h"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:textColorHint="@color/cource_item_bg"
+        android:layout_marginTop="@dimen/dp5h"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_end_date_text"
+            android:text="@string/end_date"
+            android:textColor="@color/review_text"
+            android:layout_marginStart="@dimen/dp10h"
+            android:layout_marginEnd="@dimen/dp10h"
+            android:layout_marginTop="@dimen/dp10h"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp16"
+            android:textDirection="locale"/>
+
+
+        <Button
+            android:layout_width="@dimen/dp120w"
+            android:layout_height="@dimen/dp40h"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/btn_end_date"
+            android:background="@drawable/btn_corner_border"
+            android:layout_marginTop="@dimen/dp10h"
+            android:text="yyyy -dd - mm"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+    <Button
+        android:layout_width="@dimen/dp150w"
+        android:layout_height="@dimen/dp40h"
+        android:id="@+id/btn_publish"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/btn_corner_border"
+        android:layout_marginTop="@dimen/dp15h"
+        android:text="@string/create"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAllCaps="false"/>
+
+</LinearLayout>

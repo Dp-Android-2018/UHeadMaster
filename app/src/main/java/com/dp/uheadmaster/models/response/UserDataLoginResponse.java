@@ -17,6 +17,9 @@ public class UserDataLoginResponse {
     @SerializedName("id")
     private int id;
 
+    @SerializedName("confirmed")
+    private int confirmed;
+
     @SerializedName("name")
     private String name;
 
@@ -41,6 +44,13 @@ public class UserDataLoginResponse {
 
     @SerializedName("about")
     private String about;
+
+    @SerializedName("in_newsletter")
+    private String isSubScribed;
+
+    public String getIsSubScribed() {
+        return isSubScribed;
+    }
 
     public String getCountryKey() {
         return countryKey;
@@ -84,5 +94,9 @@ public class UserDataLoginResponse {
 
     public String getType() {
         return type;
+    }
+
+    public int getConfirmed() {
+        return confirmed;
     }
 }

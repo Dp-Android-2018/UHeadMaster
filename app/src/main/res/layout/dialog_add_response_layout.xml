@@ -3,7 +3,8 @@
     android:layout_width="@dimen/dp280w"
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/content">
    <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

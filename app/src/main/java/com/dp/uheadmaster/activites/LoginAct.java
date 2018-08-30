@@ -4,16 +4,20 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.request.LoginRequest;
 import com.dp.uheadmaster.models.request.UserDataSocialMediaLogin;
 import com.dp.uheadmaster.models.response.LoginResponse;
@@ -38,6 +42,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.FirebaseApp;
+import com.google.gson.Gson;
 import com.linkedin.platform.APIHelper;
 import com.linkedin.platform.LISessionManager;
 import com.linkedin.platform.errors.LIApiError;
@@ -61,7 +66,7 @@ import org.json.JSONObject;
 import java.sql.SQLOutput;
 import java.util.Arrays;
 
-import es.dmoral.toasty.Toasty;
+
 import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,21 +88,38 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
     private String deviceToken = null;
     private TwitterSession session;
     private String userName;
+    private FontChangeCrawler fontChanger;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(SignUpAct.TWITTER_KEY, SignUpAct.TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+        Fabric.with(getApplicationContext(), new Twitter(authConfig));
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_login);
+
+        /////////////////////////////////////////////////////////////////////////////////
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)findViewById(android.R.id.content));
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)findViewById(android.R.id.content));
+        }
+        /////////////////////////////////////////////////////////////////////////////////
         ////Getting Device Token/////////////////////////////////////////////////////////
         final MyFirebaseInstanceIdService mfs = new MyFirebaseInstanceIdService();
-        FirebaseApp.initializeApp(this);
+        FirebaseApp.initializeApp(getApplicationContext());
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
+
 
 
                 mfs.onTokenRefresh();
@@ -124,7 +146,7 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
                 .requestEmail()
                 .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
@@ -135,14 +157,15 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginAct.this, SignUpAct.class));
-                finish();
+                finishAffinity();
+                startActivity(new Intent(getApplicationContext(), SignUpAct.class));
+
             }
         });
         tvForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginAct.this, ForgetPasswordAct.class));
+                startActivity(new Intent(getApplicationContext(), ForgetPasswordAct.class));
             }
         });
 
@@ -195,11 +218,11 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
                     @Override
                     public void success(Result<String> result) {
                         System.out.println("Twitter Data Email:" + result.data);
-                        if (NetWorkConnection.isConnectingToInternet(LoginAct.this)) {
+                        if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
                             progressDialog = ConfigurationFile.showDialog(LoginAct.this);
                             twitterMediaLogin(String.valueOf(session.getUserId()), result.data,userName, deviceToken);
                         } else {
-                            Toast.makeText(LoginAct.this, R.string.internet_message, Toast.LENGTH_LONG).show();
+                            Snackbar.make(linearLayout, R.string.internet_message, Snackbar.LENGTH_LONG).show();
                         }
                     }
 
@@ -223,7 +246,7 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
                             public void success(Result<User> userResult) {
 
                                 User user = userResult.data;
-                                Toast.makeText(getApplicationContext()," "+user.profileImageUrl,Toast.LENGTH_LONG).show();
+                                Snackbar.make(linearLayout," "+user.profileImageUrl,Snackbar.LENGTH_LONG).show();
 
                             }
 
@@ -281,11 +304,11 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
                                     System.out.println("Facebook Data birthday:" + birthday);
                                     System.out.println("Facebook Data id:" + id);
 
-                                    if (NetWorkConnection.isConnectingToInternet(LoginAct.this)) {
+                                    if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
                                         progressDialog = ConfigurationFile.showDialog(LoginAct.this);
                                         facebookMediaLogin(id, email,name, deviceToken);
                                     } else {
-                                        Toast.makeText(LoginAct.this, R.string.internet_message, Toast.LENGTH_LONG).show();
+                                        Snackbar.make(linearLayout, R.string.internet_message, Snackbar.LENGTH_LONG).show();
                                     }
 
 
@@ -321,9 +344,9 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
     }
 
     public void login() {
-        if (NetWorkConnection.isConnectingToInternet(LoginAct.this)) {
+        if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
             progressDialog = ConfigurationFile.showDialog(LoginAct.this);
-
+            System.out.println("Device Token :"+deviceToken);
             LoginRequest loginRequest = new LoginRequest(email, password,deviceToken);
             final EndPointInterfaces apiService =
                     ApiClient.getClient().create(EndPointInterfaces.class);
@@ -335,19 +358,23 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
 
                     try {
 
-
-                    if (response.body().getStatus() == 200) {
-                        // use response data and do some fancy stuff :)
-                        Toasty.success(LoginAct.this, "Done!", Toast.LENGTH_LONG, true).show();
                         LoginResponse userResponse = response.body();
+
+                        System.out.println("Login Response Now :"+userResponse.getStatus());
+                    if (userResponse.getStatus() == 200) {
+                        // use response data and do some fancy stuff :)
+                      //  Snackbar.success(LoginAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
+
                         System.out.println("Response : " + userResponse.getEmail());
-                        ConfigurationFile.saveUserData(LoginAct.this, userResponse.getName(), userResponse.getEmail(), userResponse.getToken(), userResponse.getMobile(), userResponse.getType(), userResponse.getId(),userResponse.getImage(),userResponse.getCountryKey(),userResponse.getAbout());
-                        startActivity(new Intent(LoginAct.this , MainAct.class));
+                     //   Snackbar.make(LoginAct.this, "Check Login :"+userResponse.getIsSubScribed(), Snackbar.LENGTH_LONG).show();
+                        ConfigurationFile.saveUserData(getApplicationContext(), userResponse.getName(), userResponse.getEmail(), userResponse.getToken(), userResponse.getMobile(), userResponse.getType(), userResponse.getId(),userResponse.getImage(),userResponse.getCountryKey(),userResponse.getAbout(),userResponse.getIsSubScribed(),userResponse.getConfirmed());
+                        startActivity(new Intent(getApplicationContext() , MainAct.class));
                         finish();
+                    //    Snackbar.make(LoginAct.this, "", Toast.LENGTH_SHORT).show();
                     } else {
                         // parse the response body …
                         System.out.println("error Code message :" + response.body().getMessage());
-                        Toasty.error(LoginAct.this, response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                        Snackbar.make(linearLayout, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
                     }
 
                     }catch (NullPointerException ex){
@@ -361,7 +388,7 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(LoginAct.this, t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(linearLayout, t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println(" Fialer :" + t.getMessage());
                 }
             });
@@ -380,16 +407,16 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
 
                 } else {
                     edPassword.setError(getString(R.string.password_required));
-                    Toasty.error(LoginAct.this, getString(R.string.password_required), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(linearLayout, getString(R.string.password_required), Snackbar.LENGTH_LONG).show();
                 }
             } else {
                 edEmail.setError(getString(R.string.email_format));
-                Toasty.error(LoginAct.this, getString(R.string.email_format), Toast.LENGTH_LONG, true).show();
+                Snackbar.make(linearLayout, getString(R.string.email_format), Snackbar.LENGTH_LONG).show();
 
             }
         } else {
             edEmail.setError(getString(R.string.email_required));
-            Toasty.error(LoginAct.this, getString(R.string.email_required), Toast.LENGTH_LONG, true).show();
+            Snackbar.make(linearLayout, getString(R.string.email_required), Snackbar.LENGTH_LONG).show();
         }
 
         return false;
@@ -400,6 +427,7 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
     }
 
     private void initView() {
+        linearLayout=(LinearLayout)findViewById(R.id.content);
         edEmail = (EditText) findViewById(R.id.ed_sign_in_email);
         edPassword = (EditText) findViewById(R.id.ed_sign_in_password);
         btnSignin = (Button) findViewById(R.id.btn_sign_in);
@@ -493,11 +521,11 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
             System.out.println("Google Data Id:" + acct.getId());
             System.out.println("Google Data Email:" + acct.getEmail());
             System.out.println("Google Data Photo:" + acct.getPhotoUrl());
-            if (NetWorkConnection.isConnectingToInternet(LoginAct.this)) {
+            if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
                 progressDialog = ConfigurationFile.showDialog(LoginAct.this);
                 googleMediaLogin(acct.getId(), acct.getEmail(),acct.getDisplayName(), deviceToken);
             } else {
-                Toast.makeText(LoginAct.this, R.string.internet_message, Toast.LENGTH_LONG).show();
+                Snackbar.make(linearLayout, R.string.internet_message, Snackbar.LENGTH_LONG).show();
             }
 
 
@@ -511,7 +539,7 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
         String url = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,public-profile-url,picture-url,email-address,picture-urls::(original))";
 
         APIHelper apiHelper = APIHelper.getInstance(getApplicationContext());
-        apiHelper.getRequest(this, url, new ApiListener() {
+        apiHelper.getRequest(getApplicationContext(), url, new ApiListener() {
             @Override
             public void onApiSuccess(ApiResponse apiResponse) {
                 JSONObject jsonObject = apiResponse.getResponseDataAsJson();
@@ -528,11 +556,11 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
                     System.out.println("Linked In lname:" + lname);
                     System.out.println("Linked In pictureUrl:" + pictureUrl);
                     System.out.println("Linked In Email:" + emailAddress);
-                    if (NetWorkConnection.isConnectingToInternet(LoginAct.this)) {
+                    if (NetWorkConnection.isConnectingToInternet(getApplicationContext(),linearLayout)) {
                         progressDialog = ConfigurationFile.showDialog(LoginAct.this);
                         linkedinMediaLogin(id, emailAddress, fname + " " + lname, deviceToken);
                     } else {
-                        Toast.makeText(LoginAct.this, R.string.internet_message, Toast.LENGTH_LONG).show();
+                        Snackbar.make(linearLayout, R.string.internet_message, Snackbar.LENGTH_LONG).show();
                     }
 
                 } catch (JSONException e) {
@@ -562,23 +590,23 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
             public void onResponse(Call<UserDataLoginResponse> call, Response<UserDataLoginResponse> response) {
 
                 UserDataLoginResponse user = response.body();
-                // Toast.makeText(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
+                // Snackbar.make(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
                 try {
 
 
                 if(user.getStatus()==200) {
-                    Toasty.success(LoginAct.this, "Done!", Toast.LENGTH_LONG, true).show();
+                   // Snackbar.success(LoginAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
                     System.out.println("User Response token:" + user.getToken());
                     System.out.println("User Response name:" + user.getName());
                     System.out.println("User Response email:" + user.getEmail());
                     System.out.println("User Response type:" + user.getType());
-                    ConfigurationFile.saveUserData(LoginAct.this, user.getName(), user.getEmail(), user.getToken(),user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout());
-                    startActivity(new Intent(LoginAct.this, MainAct.class));
+                    ConfigurationFile.saveUserData(getApplicationContext(), user.getName(), user.getEmail(), user.getToken(),user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout(),user.getIsSubScribed(),user.getConfirmed());
+                    startActivity(new Intent(getApplicationContext(), MainAct.class));
                     finish();
                 }else {
-                    Toasty.error(LoginAct.this,user.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(linearLayout,user.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
-                //  Toast.makeText(SignUpAct.this, "Success", Toast.LENGTH_LONG).show();
+                //  Snackbar.make(SignUpAct.this, "Success", Snackbar.LENGTH_LONG).show();
 
 
                 ConfigurationFile.hideDialog(progressDialog);
@@ -614,23 +642,23 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
             public void onResponse(Call<UserDataLoginResponse> call, Response<UserDataLoginResponse> response) {
 
                 UserDataLoginResponse user = response.body();
-                // Toast.makeText(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
+                // Snackbar.make(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
                 try {
 
 
                     if (user.getStatus() == 200) {
-                        Toasty.success(LoginAct.this, "Done!", Toast.LENGTH_LONG, true).show();
+                       // Snackbar.success(LoginAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
                         System.out.println("User Response token:" + user.getToken());
                         System.out.println("User Response name:" + user.getName());
                         System.out.println("User Response email:" + user.getEmail());
                         System.out.println("User Response type:" + user.getType());
-                        ConfigurationFile.saveUserData(LoginAct.this, user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(), user.getId(),user.getImage(),user.getCountryKey(),user.getAbout());
-                        startActivity(new Intent(LoginAct.this, MainAct.class));
+                        ConfigurationFile.saveUserData(getApplicationContext(), user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(), user.getId(),user.getImage(),user.getCountryKey(),user.getAbout(),user.getIsSubScribed(),user.getConfirmed());
+                        startActivity(new Intent(getApplicationContext(), MainAct.class));
                         finish();
                     } else {
-                        Toasty.error(LoginAct.this, user.getMessage(), Toast.LENGTH_LONG, true).show();
+                        Snackbar.make(linearLayout, user.getMessage(), Snackbar.LENGTH_LONG).show();
                     }
-                    //  Toast.makeText(SignUpAct.this, "Success", Toast.LENGTH_LONG).show();
+                    //  Snackbar.make(SignUpAct.this, "Success", Snackbar.LENGTH_LONG).show();
 
 
                     ConfigurationFile.hideDialog(progressDialog);
@@ -664,23 +692,23 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
             public void onResponse(Call<UserDataLoginResponse> call, Response<UserDataLoginResponse> response) {
 
                 UserDataLoginResponse user = response.body();
-                // Toast.makeText(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
+                // Snackbar.make(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
                 try {
 
 
                 if(user.getStatus()==200) {
-                    Toasty.success(LoginAct.this, "Done!", Toast.LENGTH_LONG, true).show();
+                //    Snackbar.success(LoginAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
                     System.out.println("User Response token:" + user.getToken());
                     System.out.println("User Response name:" + user.getName());
                     System.out.println("User Response email:" + user.getEmail());
                     System.out.println("User Response type:" + user.getType());
-                    ConfigurationFile.saveUserData(LoginAct.this, user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout());
-                    startActivity(new Intent(LoginAct.this, MainAct.class));
+                    ConfigurationFile.saveUserData(getApplicationContext(), user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout(),user.getIsSubScribed(),user.getConfirmed());
+                    startActivity(new Intent(getApplicationContext(), MainAct.class));
                     finish();
                 }else {
-                    Toasty.error(LoginAct.this,user.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(linearLayout,user.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
-                //  Toast.makeText(SignUpAct.this, "Success", Toast.LENGTH_LONG).show();
+                //  Snackbar.make(SignUpAct.this, "Success", Snackbar.LENGTH_LONG).show();
 
 
                 ConfigurationFile.hideDialog(progressDialog);
@@ -716,24 +744,26 @@ public class LoginAct extends AppCompatActivity implements GoogleApiClient.OnCon
             public void onResponse(Call<UserDataLoginResponse> call, Response<UserDataLoginResponse> response) {
 
                 UserDataLoginResponse user = response.body();
-                // Toast.makeText(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
+                // Snackbar.make(SignUpAct.this, ""+user.getStatus(), Toast.LENGTH_SHORT).show();
                 try {
 
 
                 if(user.getStatus()==200) {
-                    Toasty.success(LoginAct.this, "Done!", Toast.LENGTH_LONG, true).show();
+                  //  Snackbar.success(LoginAct.this, "Done!", Snackbar.LENGTH_LONG, true).show();
                     System.out.println("User Response token:" + user.getToken());
                     System.out.println("User Response name:" + user.getName());
                     System.out.println("User Response email:" + user.getEmail());
                     System.out.println("User Response type:" + user.getType());
-                    ConfigurationFile.saveUserData(LoginAct.this, user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout());
-                    startActivity(new Intent(LoginAct.this, MainAct.class));
+                    ConfigurationFile.saveUserData(getApplicationContext(), user.getName(), user.getEmail(), user.getToken(), user.getMobile(), user.getType(),user.getId(),user.getImage(),user.getCountryKey(),user.getAbout(),user.getIsSubScribed(),user.getConfirmed());
+                    startActivity(new Intent(getApplicationContext(), MainAct.class));
                     finish();
                 }else {
-                    Toasty.error(LoginAct.this,user.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(linearLayout,user.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
-                //  Toast.makeText(SignUpAct.this, "Success", Toast.LENGTH_LONG).show();
+                //  Snackbar.make(SignUpAct.this, "Success", Snackbar.LENGTH_LONG).show();
 
+
+                    
 
                 ConfigurationFile.hideDialog(progressDialog);
                 }catch (NullPointerException ex){

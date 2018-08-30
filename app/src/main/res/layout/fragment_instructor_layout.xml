@@ -18,8 +18,8 @@
 
             <com.dp.uheadmaster.models.RoundRectCornerImageView
                 android:id="@+id/iv_instructor_image"
-                android:layout_width="@dimen/dp90h"
-                android:layout_height="@dimen/dp90w"
+                android:layout_width="@dimen/dp70w"
+                android:layout_height="@dimen/dp70h"
                 android:layout_marginStart="@dimen/dp15w"
                 android:layout_marginEnd="@dimen/dp4h"
                 android:src="@drawable/ic_logo"
@@ -30,23 +30,23 @@
                 android:layout_centerVertical="true"
                 android:orientation="vertical"
                 android:layout_toEndOf="@+id/iv_instructor_image">
-            <TextView
-                android:id="@+id/tv_instructor_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/sp16"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:text="Instructor Name" />
-            <TextView
-                android:id="@+id/tv_instructor_specialization"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/sp16"
-                android:textColor="@color/dark_blue_color"
-                android:text="Job Title"
-                android:layout_marginTop="@dimen/dp5h"
-               />
+                <TextView
+                    android:id="@+id/tv_instructor_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp13"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="Instructor Name" />
+                <TextView
+                    android:id="@+id/tv_instructor_specialization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp12"
+                    android:textColor="@color/dark_blue_color"
+                    android:text="Job Title"
+                    android:layout_marginTop="@dimen/dp5h"
+                    />
             </LinearLayout>
         </RelativeLayout>
         <TextView
@@ -60,7 +60,6 @@
             android:textSize="@dimen/sp12"
             android:inputType="textMultiLine"
             android:layout_marginBottom="@dimen/dp10h"
-            android:text=""
             />
     </LinearLayout>
 

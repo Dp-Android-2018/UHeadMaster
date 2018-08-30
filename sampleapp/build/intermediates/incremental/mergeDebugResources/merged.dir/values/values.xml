@@ -175,10 +175,10 @@
     <string name="myProfile">View My Profile</string>
     <string name="title_activity_api">apiActivity</string>
     <string name="title_activity_deeplink">DeeplinkActivity</string>
-    <string name="update_linkedin_app_cancel">Cancel</string>
-    <string name="update_linkedin_app_download">Download</string>
-    <string name="update_linkedin_app_message">To connect with LinkedIn you need to update LinkedIn app. Would you like to do it?</string>
-    <string name="update_linkedin_app_title">Update LinkedIn app</string>
+    <string name="update_linkedin_app_cancel" translatable="false">Cancel</string>
+    <string name="update_linkedin_app_download" translatable="false">Download</string>
+    <string name="update_linkedin_app_message" translatable="false">To connect with LinkedIn you need to update LinkedIn app. Would you like to do it?</string>
+    <string name="update_linkedin_app_title" translatable="false">Update LinkedIn app</string>
     <string name="validEiProfile">View Profile using valid EI ID</string>
     <string name="validProdProfile">View Profile using valid PROD ID</string>
     <style name="TextAppearance.AppCompat.Base.CompactMenu.Dialog" parent="android:TextAppearance.Medium">

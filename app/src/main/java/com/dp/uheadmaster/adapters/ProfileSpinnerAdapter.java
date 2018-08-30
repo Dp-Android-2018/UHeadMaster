@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.models.FontChangeCrawler;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 public class ProfileSpinnerAdapter extends BaseAdapter {
    private Context context;
     private ArrayList<String>data;
+    private FontChangeCrawler fontChanger;
     public ProfileSpinnerAdapter(Context context, ArrayList<String>data) {
         this.context=context;
         this.data=data;
@@ -47,6 +50,16 @@ public class ProfileSpinnerAdapter extends BaseAdapter {
 
         // get layout from mobile.xml
         v = inflater.inflate(R.layout.custom_spinner_layout, null);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
         TextView txt=(TextView)v.findViewById(R.id.tv_page_title);
         txt.setText(data.get(position));
 

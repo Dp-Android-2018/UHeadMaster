@@ -6,7 +6,8 @@ import com.google.gson.annotations.SerializedName;
  * Created by Ahmed on 8/23/2017.
  */
 
-public class CategoryModel {
+public class
+CategoryModel {
     /*"status": 200,
 "categories": [
   {

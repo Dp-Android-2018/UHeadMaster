@@ -17,18 +17,20 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:verticalSpacing="@dimen/dp5h"
-      >
+     >
 
     </GridView>
 
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/iv_search_empty"
+        android:layout_width="@dimen/dp125w"
         android:layout_height="match_parent"
-        android:text="@string/no_result_for_this_search"
-        android:textSize="@dimen/sp14"
-        android:layout_gravity="center"
         android:gravity="center"
-        android:textStyle="bold"
-        android:visibility="gone"/>
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:contentDescription="@string/empty_view"
+        android:src="@drawable/ic_search_empty"
+        android:visibility="gone"
+
+        />
 </LinearLayout>

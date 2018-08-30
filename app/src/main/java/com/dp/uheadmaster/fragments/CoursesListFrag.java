@@ -1,21 +1,27 @@
 package com.dp.uheadmaster.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.adapters.CoursesListAdapter;
 import com.dp.uheadmaster.models.CourseModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.response.CourseListResponse;
 import com.dp.uheadmaster.models.response.CourseResponse;
+import com.dp.uheadmaster.models.response.DefaultResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.dp.uheadmaster.utilities.NetWorkConnection;
 import com.dp.uheadmaster.utilities.SharedPrefManager;
@@ -25,7 +31,7 @@ import com.dp.uheadmaster.webService.EndPointInterfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,15 +51,33 @@ public class CoursesListFrag extends Fragment {
     private int subCategoryID = -1;
     private int reqestType = -1;
     int myLastVisiblePos;// global variable of activity
-    private String next_page;
+    private String next_page="";
     private int pageId = 0;
     private boolean isLoading;
     private static int position=0;
+    private ImageView ivEmptyView;
+    private FontChangeCrawler fontChanger;
+    private Activity mActivity;
+    View v;
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
 
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.frag_course_list_layout,container,false);
+         v=inflater.inflate(R.layout.frag_course_list_layout,container,false);
 
         if(getArguments()!=null) {
             subCategoryID = getArguments().getInt("sub_category_id");
@@ -68,7 +92,9 @@ public class CoursesListFrag extends Fragment {
     }
     public void initializeUi(View v){
         sharedPrefManager = new SharedPrefManager(getActivity());
+
         gvCoursesList = (GridView) v.findViewById(R.id.gridview_courses_list);
+        ivEmptyView=(ImageView)v.findViewById(R.id.iv_courses_empty) ;
        myLastVisiblePos = gvCoursesList.getFirstVisiblePosition();
         gvCoursesList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -81,7 +107,7 @@ public class CoursesListFrag extends Fragment {
                 int currentFirstVisPos = view.getFirstVisiblePosition();
                 if(currentFirstVisPos > myLastVisiblePos  ) {
                     if(firstVisibleItem + visibleItemCount >= totalItemCount-1) {
-                        if (!isLoading && next_page != null) {
+                        if (!isLoading && !next_page.equals("")) {
                             isLoading = true;
                             if (reqestType != -1) {
                                 position=totalItemCount;
@@ -105,7 +131,7 @@ public class CoursesListFrag extends Fragment {
         super.onStart();
         CoursesList = new ArrayList<>();
         myLastVisiblePos=0;
-        next_page=null;
+        next_page="";
         pageId = 0;
         position=0;
         isLoading=false;
@@ -135,7 +161,7 @@ public class CoursesListFrag extends Fragment {
     }
 
     public void getFreeCourses() {
-        if (NetWorkConnection.isConnectingToInternet(getActivity())) {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext(),mActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog( getActivity());
 
             final EndPointInterfaces apiService =
@@ -154,30 +180,38 @@ public class CoursesListFrag extends Fragment {
                         if (response.body().getStatus() == 200) {
                             // use response data and do some fancy stuff :)
                             CourseResponse CourseResponse = response.body();
-                            // Toasty.success(getContext(), "Done! cat.Num = " + CourseResponse.getCoursesList().size(), Toast.LENGTH_LONG, true).show();
+                            // Snackbar.success(getContext(), "Done! cat.Num = " + CourseResponse.getCoursesList().size(), Toast.LENGTH_LONG, true).show();
                             for (int i=0;i<CourseResponse.getCoursesList().size();i++)
                                   CoursesList.add(CourseResponse.getCoursesList().get(i));
+
+                            if(CoursesList.size()==0){
+                                gvCoursesList.setVisibility(View.GONE);
+                                ivEmptyView.setVisibility(View.VISIBLE);
+                            }else {
+                                gvCoursesList.setVisibility(View.VISIBLE);
+                                ivEmptyView.setVisibility(View.GONE);
+                            }
                             notifyAdapter();
                             gvCoursesList.setSelection(position);
                             isLoading = false;
 
-                            if (CourseResponse.getNextPage() != null) {
+                            if (!CourseResponse.getNextPage().equals("")) {
                                 next_page = CourseResponse.getNextPage();
                                 pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
                             } else {
-                                next_page = null;
+                                next_page = "";
                             }
 
                         } else {
                             // parse the response body …
                             System.out.println("FreeCourses /error Code message :" + response.body().getMessage());
-                            Toasty.error( getActivity(), response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mActivity.findViewById(R.id.content), response.body().getMessage(), Snackbar.LENGTH_LONG).show();
                             getPaidCourses();
                         }
 
 
                     } catch (Exception ex) {
-                        Toasty.error( getActivity(), ex.getMessage(), Toast.LENGTH_LONG, true).show();
+                        Snackbar.make(mActivity.findViewById(R.id.content), ex.getMessage(),Snackbar.LENGTH_LONG).show();
                         getPaidCourses();
                     }
                 }
@@ -186,7 +220,7 @@ public class CoursesListFrag extends Fragment {
                 public void onFailure(Call<CourseResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error( getActivity(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make( mActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println("FreeCourses / Fialer :" + t.getMessage());
                     getPaidCourses();
 
@@ -199,7 +233,7 @@ public class CoursesListFrag extends Fragment {
     }
 
     public void getPaidCourses() {
-        if (NetWorkConnection.isConnectingToInternet(getActivity())) {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext(),mActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog(getActivity());
 
             final EndPointInterfaces apiService =
@@ -220,20 +254,28 @@ public class CoursesListFrag extends Fragment {
                             CourseResponse CourseResponse = response.body();
                             for (int i=0;i<CourseResponse.getCoursesList().size();i++)
                                 CoursesList.add(CourseResponse.getCoursesList().get(i));
+
+                            if(CoursesList.size()==0){
+                                gvCoursesList.setVisibility(View.GONE);
+                                ivEmptyView.setVisibility(View.VISIBLE);
+                            }else {
+                                gvCoursesList.setVisibility(View.VISIBLE);
+                                ivEmptyView.setVisibility(View.GONE);
+                            }
                             notifyAdapter();
                             gvCoursesList.setSelection(position);
                             isLoading = false;
 
-                            if (CourseResponse.getNextPage() != null) {
+                            if (!CourseResponse.getNextPage().equals("")) {
                                 next_page = CourseResponse.getNextPage();
                                 pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
                             } else {
-                                next_page = null;
+                                next_page = "";
                             }
                         } else {
                             // parse the response body …
                             System.out.println("PaidCourses /error Code message :" + response.body().getMessage());
-                            Toasty.error(getActivity(), response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mActivity.findViewById(R.id.content), response.body().getMessage(), Snackbar.LENGTH_LONG).show();
                         }
 
                     } catch (NullPointerException ex) {
@@ -247,7 +289,7 @@ public class CoursesListFrag extends Fragment {
                 public void onFailure(Call<CourseResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(getActivity(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println("PaidCourses / Fialer :" + t.getMessage());
                 }
             });
@@ -257,7 +299,7 @@ public class CoursesListFrag extends Fragment {
         }
     }
     public void getExploreCourses() {
-        if (NetWorkConnection.isConnectingToInternet(getActivity())) {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext(),mActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog(getActivity());
 
             final EndPointInterfaces apiService =
@@ -276,23 +318,31 @@ public class CoursesListFrag extends Fragment {
                         if (response.body().getStatus() == 200) {
                             // use response data and do some fancy stuff :)
                             CourseResponse CourseResponse = response.body();
-                            // Toasty.success(getContext(), "Done! cat.Num = " + CourseResponse.getCoursesList().size(), Toast.LENGTH_LONG, true).show();
+                            // Snackbar.success(getContext(), "Done! cat.Num = " + CourseResponse.getCoursesList().size(), Toast.LENGTH_LONG, true).show();
                             for (int i=0;i<CourseResponse.getCoursesList().size();i++)
                                 CoursesList.add(CourseResponse.getCoursesList().get(i));
+
+                            if(CoursesList.size()==0){
+                                gvCoursesList.setVisibility(View.GONE);
+                                ivEmptyView.setVisibility(View.VISIBLE);
+                            }else {
+                                gvCoursesList.setVisibility(View.VISIBLE);
+                                ivEmptyView.setVisibility(View.GONE);
+                            }
                             notifyAdapter();
                             gvCoursesList.setSelection(position);
                             isLoading = false;
 
-                            if (CourseResponse.getNextPage() != null) {
+                            if (!CourseResponse.getNextPage().equals("")) {
                                 next_page = CourseResponse.getNextPage();
                                 pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
                             } else {
-                                next_page = null;
+                                next_page = "";
                             }
                         } else {
                             // parse the response body …
                             System.out.println("ExploreCourses /error Code message :" + response.body().getMessage());
-                            Toasty.error(getActivity(), response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mActivity.findViewById(R.id.content), response.body().getMessage(),Snackbar.LENGTH_LONG).show();
                         }
 
                     } catch (NullPointerException ex) {
@@ -306,7 +356,7 @@ public class CoursesListFrag extends Fragment {
                 public void onFailure(Call<CourseResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(getActivity(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println("Explore Courses / Fialer :" + t.getMessage());
                 }
             });
@@ -317,7 +367,7 @@ public class CoursesListFrag extends Fragment {
     }
 
     public void getBestSellerCourses() {
-        if (NetWorkConnection.isConnectingToInternet(getActivity())) {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext(),mActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog(getActivity());
 
             final EndPointInterfaces apiService =
@@ -330,45 +380,57 @@ public class CoursesListFrag extends Fragment {
                 public void onResponse(Call<CourseResponse> call, Response<CourseResponse> response) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    try {
+
+                        CourseResponse CourseResponse =  response.body();
+                        try {
 
 
-                        if (response.body().getStatus() == 200) {
-                            // use response data and do some fancy stuff :)
-                            CourseResponse CourseResponse = response.body();
-                            // Toasty.success(getContext(), "Done! cat.Num = " + CourseResponse.getCoursesList().size(), Toast.LENGTH_LONG, true).show();
-                            for (int i=0;i<CourseResponse.getCoursesList().size();i++)
-                                CoursesList.add(CourseResponse.getCoursesList().get(i));
+                            if (CourseResponse.getStatus() == 200) {
+                                // use response data and do some fancy stuff :)
+                                // CourseResponse CourseResponse = response.body();
+                                // Snackbar.success(getContext(), "Done! cat.Num = " + CourseResponse.getCoursesList().size(), Toast.LENGTH_LONG, true).show();
+                                for (int i = 0; i < CourseResponse.getCoursesList().size(); i++)
+                                    CoursesList.add(CourseResponse.getCoursesList().get(i));
 
-                            notifyAdapter();
-                           gvCoursesList.setSelection(position);
-                            isLoading = false;
 
-                            if (CourseResponse.getNextPage() != null) {
-                                next_page = CourseResponse.getNextPage();
-                                pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
+                                if (CoursesList.size() == 0) {
+                                    gvCoursesList.setVisibility(View.GONE);
+                                    ivEmptyView.setVisibility(View.VISIBLE);
+                                } else {
+                                    gvCoursesList.setVisibility(View.VISIBLE);
+                                    ivEmptyView.setVisibility(View.GONE);
+                                }
+                                notifyAdapter();
+                                gvCoursesList.setSelection(position);
+                                isLoading = false;
+
+                                if (!CourseResponse.getNextPage().equals("")) {
+                                    next_page = CourseResponse.getNextPage();
+                                    pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
+                                } else {
+                                    next_page = "";
+                                }
+
                             } else {
-                                next_page = null;
+                                // parse the response body …
+                                //     System.out.println("ExploreCourses /error Code message :" + response.body().getMessage());
+                                Snackbar.make(mActivity.findViewById(R.id.content), CourseResponse.getMessage(), Snackbar.LENGTH_LONG).show();
                             }
 
-                        } else {
-                            // parse the response body …
-                            System.out.println("ExploreCourses /error Code message :" + response.body().getMessage());
-                            Toasty.error(getActivity(), response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
                         }
 
-                    } catch (NullPointerException ex) {
-                        ex.printStackTrace();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
+
                 }
 
                 @Override
                 public void onFailure(Call<CourseResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(getActivity(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println("Explore Courses / Fialer :" + t.getMessage());
                 }
             });
@@ -379,7 +441,7 @@ public class CoursesListFrag extends Fragment {
     }
 
     private void getSubCategoryCourses() {
-        if (NetWorkConnection.isConnectingToInternet(getActivity())) {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext(),mActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog(getActivity());
             final EndPointInterfaces apiService =
                     ApiClient.getClient().create(EndPointInterfaces.class);
@@ -395,22 +457,29 @@ public class CoursesListFrag extends Fragment {
                             // use response data and do some fancy stuff :)
                             CourseListResponse CourseResponse = response.body();
                             CoursesList = CourseResponse.getCoursesList();
+                            if(CoursesList.size()==0){
+                                gvCoursesList.setVisibility(View.GONE);
+                                ivEmptyView.setVisibility(View.VISIBLE);
+                            }else {
+                                gvCoursesList.setVisibility(View.VISIBLE);
+                                ivEmptyView.setVisibility(View.GONE);
+                            }
                             notifyAdapter();
                             gvCoursesList.setSelection(position);
                             isLoading = false;
 
-                            if (CourseResponse.getNextPagePath() != null) {
+                            if (!CourseResponse.getNextPagePath().equals("")) {
                                 next_page = CourseResponse.getNextPagePath();
                                 pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
                             } else {
-                                next_page = null;
+                                next_page = "";
                             }
                            // Toast.makeText(getActivity().getApplicationContext(), "Next:"+next_page, Toast.LENGTH_SHORT).show();
 
                         } else {
                             // parse the response body …
                             System.out.println("Courses by Sub Category /error Code message :" + response.body().getMessage());
-                            Toasty.error(getActivity(), response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mActivity.findViewById(R.id.content), response.body().getMessage(), Snackbar.LENGTH_LONG).show();
                         }
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -423,7 +492,7 @@ public class CoursesListFrag extends Fragment {
                 public void onFailure(Call<CourseListResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(getActivity(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println("Courses by Sub Category / Fialer :" + t.getMessage());
                 }
             });
@@ -434,8 +503,21 @@ public class CoursesListFrag extends Fragment {
     }
 
     private void notifyAdapter() {
-        coursesListAdapter = new CoursesListAdapter(getActivity(), CoursesList);
+        coursesListAdapter = new CoursesListAdapter(getActivity(), CoursesList,mActivity);
         gvCoursesList.setAdapter(coursesListAdapter);
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity=activity;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mActivity=null;
+        gvCoursesList=null;
+
+    }
 }

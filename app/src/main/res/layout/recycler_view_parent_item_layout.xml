@@ -26,6 +26,7 @@
             android:layout_marginStart="@dimen/dp5w"
             android:id="@+id/tv_parent_title"
             android:layout_width="wrap_content"
+            android:maxLines="3"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/iv_parent_image"
             android:textStyle="bold"

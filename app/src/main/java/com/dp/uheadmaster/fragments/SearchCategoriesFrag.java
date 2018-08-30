@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,6 +19,7 @@ import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.adapters.CategorySearchAdapter;
 import com.dp.uheadmaster.interfaces.SwitchFragmentInterface;
 import com.dp.uheadmaster.models.CategoryModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.response.CategoriesResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.dp.uheadmaster.utilities.NetWorkConnection;
@@ -25,10 +27,11 @@ import com.dp.uheadmaster.utilities.SharedPrefManager;
 import com.dp.uheadmaster.webService.ApiClient;
 import com.dp.uheadmaster.webService.EndPointInterfaces;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,13 +52,33 @@ public class SearchCategoriesFrag extends Fragment implements SwitchFragmentInte
     public static SwitchFragmentInterface delegate=null;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
-    private String next_page=null;
+    private String next_page="";
     private int pageId=0;
     private int position=0;
+
+    private FontChangeCrawler fontChanger;
+    View v;
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_category_search_layout,container,false);
+         v=inflater.inflate(R.layout.fragment_category_search_layout,container,false);
         SearchSubCategoriesFrag.search_sub_category_id=0;
         sharedPrefManager=new SharedPrefManager(getActivity().getApplicationContext());
         initializeUi(v);
@@ -91,7 +114,7 @@ public class SearchCategoriesFrag extends Fragment implements SwitchFragmentInte
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
 
-                    if (loading&&next_page!=null)
+                    if (loading&& !next_page.equals(""))
                     {
                         if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                         {
@@ -106,7 +129,7 @@ public class SearchCategoriesFrag extends Fragment implements SwitchFragmentInte
     }
 
     public void getCategories() {
-        if (NetWorkConnection.isConnectingToInternet(getContext())) {
+        if (NetWorkConnection.isConnectingToInternet(mHostActivity.getApplicationContext(),mHostActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog(getActivity());
 
             final EndPointInterfaces apiService =
@@ -118,7 +141,7 @@ public class SearchCategoriesFrag extends Fragment implements SwitchFragmentInte
                 @Override
                 public void onResponse(Call<CategoriesResponse> call, Response<CategoriesResponse> response) {
                     ConfigurationFile.hideDialog(progressDialog);
-                    System.out.println("Category Body : "+response.body().getCategoriesList().size());
+                   // System.out.println("Category Body : "+response.body().getCategoriesList().size());
                     try {
 
                         if (response.body().getStatus() == 200) {
@@ -126,17 +149,17 @@ public class SearchCategoriesFrag extends Fragment implements SwitchFragmentInte
                             CategoriesResponse categoriesResponse = response.body();
 
                             categoriesData = categoriesResponse.getCategoriesList();
-                            //Toasty.success(getContext(), "Done! cat.Num = " + categoriesResponse.getCategoriesList().size(), Toast.LENGTH_LONG, true).show();
+                            //Snackbarsuccess(getContext(), "Done! cat.Num = " + categoriesResponse.getCategoriesList().size(), Toast.LENGTH_LONG, true).show();
                             notifyAdapter();
 
                             recyclerCategories.getLayoutManager().scrollToPosition(position);
                             loading = true;
 
-                            if (categoriesResponse.getNextPage()!= null) {
+                            if (categoriesResponse.getNextPage()!= null  && !categoriesResponse.getNextPage().equals("")) {
                                 next_page = categoriesResponse.getNextPage();
                                 pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
                             } else {
-                                next_page = null;
+                                next_page = "";
 
                             }
 
@@ -144,7 +167,7 @@ public class SearchCategoriesFrag extends Fragment implements SwitchFragmentInte
                         } else {
                             // parse the response body …
                             System.out.println("Category /error Code message :" + response.body().getMessage());
-                            Toasty.error(getContext(), response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mHostActivity.findViewById(R.id.content), response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
 
                         }
@@ -159,7 +182,7 @@ public class SearchCategoriesFrag extends Fragment implements SwitchFragmentInte
                 public void onFailure(Call<CategoriesResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(getContext(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), t.getMessage(), Toast.LENGTH_LONG).show();
                     System.out.println("Category / Fialer :" + t.getMessage());
                 }
             });
@@ -179,6 +202,14 @@ public class SearchCategoriesFrag extends Fragment implements SwitchFragmentInte
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mHostActivity=activity;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHostActivity=null;
+
+
     }
 
     @Override

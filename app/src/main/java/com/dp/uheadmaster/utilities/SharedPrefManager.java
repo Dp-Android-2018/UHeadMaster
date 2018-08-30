@@ -98,4 +98,12 @@ public class SharedPrefManager {
         }
     }
 
+    public void register(SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener){
+        prefs.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
+
+    public void unRegister(SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener){
+        prefs.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
+
 }

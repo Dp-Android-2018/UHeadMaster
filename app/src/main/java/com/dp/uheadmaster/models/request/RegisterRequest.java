@@ -21,10 +21,15 @@ password
     @SerializedName("device_token")
     private String deviceToken;
 
-    public RegisterRequest(String name, String email, String password, String deviceToken) {
+
+    @SerializedName("country_key")
+    private String countryKey;
+
+    public RegisterRequest(String name, String email, String password, String deviceToken,String countryKey) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.deviceToken = deviceToken;
+        this.countryKey=countryKey;
     }
 }

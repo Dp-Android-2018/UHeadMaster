@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/content">
+
+
+
+<include
+    android:id="@+id/toolbar"
+    layout="@layout/toolbar_layout"
+    />
+
+
+
+            <CheckBox
+
+                android:layout_below="@+id/toolbar"
+                android:id="@+id/cb_question_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp10w"
+                android:layout_marginStart="@dimen/dp10w"
+                android:layout_marginTop="@dimen/dp35h"
+                android:buttonTint="@color/colorAccent"
+                android:text="@string/recieve_notification_for_new_questions"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/cb_announcement_notification"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp15h"
+                android:layout_marginEnd="@dimen/dp10w"
+                android:layout_marginStart="@dimen/dp10w"
+                android:layout_marginTop="@dimen/dp15h"
+                android:buttonTint="@color/colorAccent"
+                android:text="@string/recieve_announcement_from_instructors"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold"
+                android:layout_below="@+id/cb_question_notification"/>
+
+
+
+
+
+
+
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+
+        android:layout_centerInParent="true"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp15w"
+        android:layout_marginStart="@dimen/dp15w"
+        android:layout_marginTop="@dimen/dp20h"
+        android:background="@drawable/btn_no_corner_green"
+        android:text="@string/save"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp16"
+        android:textStyle="bold" />
+</RelativeLayout>

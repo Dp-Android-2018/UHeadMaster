@@ -13,9 +13,15 @@ import com.dp.uheadmaster.R;
  */
 
 public class QuestionAnswerHolder extends RecyclerView.ViewHolder {
-    private TextView tvQuestionerName,tvQuestionDate,tvQuestionTitle,tvQuestionContent,tvAnswersNum;
+    private TextView tvQuestionerName,tvQuestionDate,tvQuestionTitle,tvQuestionContent,tvAnswersNum,tvCommentsNum;
+
     private ImageView ivQusetionerImage;
-    public QuestionAnswerHolder(View itemView, Context context) {
+
+    public TextView getTvCommentsNum() {
+        return tvCommentsNum;
+    }
+
+    public QuestionAnswerHolder(View itemView, Context context,int checker) {
         super(itemView);
         tvQuestionerName=(TextView)itemView.findViewById(R.id.tv_student_name);
         tvQuestionDate=(TextView)itemView.findViewById(R.id.tv_question_date);
@@ -23,6 +29,12 @@ public class QuestionAnswerHolder extends RecyclerView.ViewHolder {
         tvQuestionContent=(TextView)itemView.findViewById(R.id.tv_question);
         tvAnswersNum=(TextView)itemView.findViewById(R.id.tv_responses_num);
         ivQusetionerImage=(ImageView)itemView.findViewById(R.id.iv_student_image);
+        tvCommentsNum=(TextView)itemView.findViewById(R.id.tv_comments_num);
+        if(checker==1)
+            tvAnswersNum.setVisibility(View.VISIBLE);
+        else if(checker==2)
+            tvAnswersNum.setVisibility(View.GONE);
+
     }
 
     public TextView getTvQuestionerName() {

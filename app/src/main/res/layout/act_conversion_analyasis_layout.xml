@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content">
+
+    <include android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/convertion_analysis"
+        android:layout_marginStart="@dimen/dp5w"
+        android:layout_marginEnd="@dimen/dp5w"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp18"
+        android:layout_marginTop="@dimen/dp5h"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_announcement_tile"
+        android:text="@string/analysis_of_landing_page_visits"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp30h"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp14"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/dp10w"
+        android:layout_marginStart="@dimen/dp10w"
+        android:layout_marginTop="@dimen/dp40h"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="@dimen/dp80w"
+                android:layout_height="@dimen/dp80h"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp5w"
+                android:layout_marginStart="@dimen/dp5w"
+                android:background="@drawable/rounded_linear_layout_instructor"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp25w"
+                    android:layout_height="@dimen/dp25h"
+                    android:src="@mipmap/students_cap" />
+
+                <TextView
+                    android:id="@+id/tv_revenue_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp5w"
+                    android:layout_marginStart="@dimen/dp5w"
+                    android:layout_marginTop="@dimen/dp5h"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp14"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_total_revenu"
+                android:layout_width="@dimen/dp200w"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp5w"
+                android:layout_marginStart="@dimen/dp5w"
+
+                android:text="@string/number_of_nwely_enrolled_student"
+                android:textColor="@color/rating_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20h">
+
+            <LinearLayout
+                android:layout_width="@dimen/dp80w"
+                android:layout_height="@dimen/dp80h"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp5w"
+                android:layout_marginStart="@dimen/dp5w"
+                android:background="@drawable/rounded_linear_layout_instructor"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp25w"
+                    android:layout_height="@dimen/dp25h"
+                    android:src="@mipmap/students_cap" />
+
+                <TextView
+                    android:id="@+id/tv_active_students"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp5w"
+                    android:layout_marginStart="@dimen/dp5w"
+                    android:layout_marginTop="@dimen/dp5h"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp14"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_active_students_txt"
+                android:layout_width="@dimen/dp190w"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp5w"
+                android:layout_marginStart="@dimen/dp5w"
+                android:lines="2"
+                android:text="@string/num_active_students"
+                android:textColor="@color/rating_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

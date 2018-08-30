@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp50h"
+    android:background="@drawable/layout_quiz_answer_bg"
+    android:gravity="center|start"
+    android:orientation="horizontal"
+    android:id="@+id/layout_answer_item"
+    android:layout_marginBottom="@dimen/dp20h"
+    android:padding="@dimen/dp10w"
+    >
+
+    <ImageView
+        android:layout_width="@dimen/dp15w"
+        android:layout_height="@dimen/dp15h"
+        android:src="@drawable/ic_circle_empty"
+        android:id="@+id/iv_circle"
+        />
+    <TextView
+        android:id="@+id/tv_answer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|start"
+        android:layout_marginStart="@dimen/dp10w"
+        android:text=""
+        android:textSize="@dimen/sp14"
+        android:textColor="@color/qize_answer_color"/>
+</LinearLayout>

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -15,11 +15,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_social_twt" />
+            android:src="@drawable/ic_mood_3" />
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:lines="2"
+            android:layout_marginStart="@dimen/dp10w"
+            android:layout_marginEnd="@dimen/dp10w"
+            android:textStyle="bold"
+            android:text="@string/knowledge_year"
+            android:paddingBottom="@dimen/dp35h"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
 
 
+            />
 
-    </LinearLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

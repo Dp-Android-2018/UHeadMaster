@@ -25,6 +25,10 @@ public class LoginResponse {
     private String token;
     @SerializedName("id")
     private int id;
+
+    @SerializedName("confirmed")
+    private int confirmed;
+
     @SerializedName("name")
     private String name;
     @SerializedName("email")
@@ -47,6 +51,16 @@ public class LoginResponse {
     private String image;
 
 
+    @SerializedName("in_newsletter")
+    private String isSubScribed;
+
+    public int getConfirmed() {
+        return confirmed;
+    }
+
+    public String getIsSubScribed() {
+        return isSubScribed;
+    }
 
     public String getCountryKey() {
         return countryKey;

@@ -5,6 +5,7 @@
     <color name="colorAccent">#00887A</color>
     <color name="signUpText">#f7aa09</color>
     <color name="editTextBG">#6f000000</color>
+    <color name="gray_btn_bg_color">#D0D0D0</color>
     <color name="black">#000000</color>
     <color name="button_mood_gb">#00887a</color>
 <color name="gray">#c7c7c7</color>
@@ -17,7 +18,7 @@
     <color name="dot_inactive_screen">#ccc5c7</color>
     <color name="cource_item_bg">#d5d5d5</color>
     <color name="home_main_section">#00887A</color>
-    <color name="cource_old_price">#515151</color>
+    <color name="cource_old_price">#CC515151</color>
     <color name="course_constructor_name">#003E38</color>
     <color name="category_item_bg">#C8C8C8</color>
     <color name="button_delete_course_color">#037064</color>
@@ -36,11 +37,18 @@
     <color name="transparent">#02897b</color>
     <color name="border_gray_color">#95989A</color>
     <color name="coursesbackground">#d0d0d0</color>
-
+    <color name="secondary_white">#FFFFFF</color>
     <color name="tab_color">#4c4c4c</color>
     <color name="child_active_colr">#00ae9c</color>
+    <color name="rating_color">#628c88</color>
+    <color name="reviewr_name">#4b7b77</color>
+    <color name="review_text">#4b7b77</color>
 
-
+    <color name="qize_answer_color">#024540</color>
+    <color name="quiz_answer_color_error">#fad5ce</color>
+    <color name="quiz_answer_color_correct">#dff0d8</color>
+    <color name="course_name_color">#7d866d</color>
+    <color name="setting_color">#8acbe8</color>
 
 
 

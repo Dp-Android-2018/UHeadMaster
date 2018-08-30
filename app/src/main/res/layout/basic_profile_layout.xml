@@ -5,20 +5,35 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <ImageView
-        android:id="@+id/iv_user_profile"
-        android:layout_width="@dimen/dp100w"
-        android:layout_height="@dimen/dp100h"
-        android:layout_marginStart="@dimen/dp15w"
-        android:layout_marginTop="@dimen/dp10h"
-        android:background="@drawable/rounded_border_image_view" />
 
 
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/iv_user_profile"
+            android:layout_width="@dimen/dp100w"
+            android:layout_height="@dimen/dp100w"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/dp15w"
+            android:layout_marginEnd="@dimen/dp5w"
+            android:layout_marginTop="@dimen/dp10h"
+            android:padding="10dip"
+
+            app:riv_corner_radius="10dip"
+            app:riv_border_width="3dip"
+            app:riv_oval="false"
+            app:riv_border_color="@color/home_main_section"
+            />
     <Button
         android:id="@+id/btn_upload"
         android:layout_width="@dimen/dp100w"
@@ -59,7 +74,8 @@
         android:background="@drawable/profile_edit_text_border"
         android:hint="@string/mobil_number"
         android:padding="@dimen/dp5w"
-        android:textColor="@color/button_mood_gb" />
+        android:textColor="@color/button_mood_gb"
+        android:inputType="number"/>
 
 
     <Spinner
@@ -89,6 +105,7 @@
         android:padding="@dimen/dp5w"
         android:textColor="@color/button_mood_gb" />
     </LinearLayout>
+</ScrollView>
     <Button
         android:id="@+id/btn_save"
         android:layout_width="match_parent"

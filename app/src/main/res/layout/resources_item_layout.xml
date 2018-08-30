@@ -11,7 +11,8 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:text="Section 2 - the  project File"
-        android:textSize="@dimen/sp12"/>
+        android:textSize="@dimen/sp12"
+        android:layout_marginEnd="@dimen/dp15w"/>
 
     <ImageView
         android:id="@+id/iv_download"
@@ -22,7 +23,7 @@
         android:src="@mipmap/downloadbutton"/>
 
     <View
-        android:layout_below="@+id/iv_download"
+        android:layout_below="@+id/tv_resource_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp2h"
         android:layout_marginEnd="@dimen/dp15h"

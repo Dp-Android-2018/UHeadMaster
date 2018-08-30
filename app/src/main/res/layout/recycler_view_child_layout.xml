@@ -32,7 +32,9 @@
             android:layout_toEndOf="@+id/iv_play_lecture"
             android:textColor="@color/tab_color"
             android:layout_gravity="center"
-            android:textSize="@dimen/sp12"/>
+            android:textSize="@dimen/sp12"
+            android:layout_marginEnd="@dimen/dp15w"
+           />
 
         <ImageView
             android:id="@+id/iv_download_lecture"
@@ -54,7 +56,9 @@
             android:text="@string/preview"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
-            android:background="@drawable/transparent_background_colored_border"/>
+            android:background="@drawable/transparent_background_colored_border"
+            android:visibility="gone"
+           />
 
         <TextView
             android:layout_marginStart="@dimen/dp35w"

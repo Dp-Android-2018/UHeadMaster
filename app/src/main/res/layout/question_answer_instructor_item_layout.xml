@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp10w"
+    android:layout_marginEnd="@dimen/dp10w"
+    android:layout_marginTop="@dimen/dp15h">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_student_question"
+        android:text="Content Consumed past 3 Months"
+        android:textColor="@color/rating_color"
+        android:textStyle="bold"
+        android:textDirection="locale"
+        android:textSize="@dimen/sp14"
+        />
+
+    <EditText
+        android:id="@+id/et_instructor_answer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp70h"
+        android:background="@drawable/rounded_edit_text_border_layout"
+        android:gravity="top"
+        android:hint="@string/your_answer"
+        android:padding="@dimen/dp5h"
+        android:textColorHint="@color/cource_item_bg"
+        android:layout_marginTop="@dimen/dp5h"
+        />
+    <Button
+        android:layout_width="@dimen/dp150w"
+        android:layout_height="@dimen/dp40h"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/btn_corner_border"
+        android:layout_marginTop="@dimen/dp10h"
+        android:text="@string/add_answer"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:id="@+id/btn_add_answer"/>
+</LinearLayout>

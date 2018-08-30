@@ -1,402 +1,102 @@
 [
     {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_dark.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_search_dropdown_dark.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_ab_holo.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_tab_indicator_ab_holo.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_item_background_holo_light.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_action_search.png",
-        "source": "D:\\10.2\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_action_search.png"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear_holo_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_left.png",
-        "source": "D:\\DpProjects\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_left.png"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_holo_light.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_ic_clear_holo_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_light.xml",
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_light.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_right_holo_light.xml"
     },
     {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_right.png",
-        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_right.png"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\logo.png",
-        "source": "D:\\24.9\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\logo.png"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_light.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_textfield_searchview_holo_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ghost_person.png",
-        "source": "D:\\10.2\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ghost_person.png"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\linkedin_login.png",
-        "source": "D:\\10.2\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\linkedin_login.png"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_right_holo_light.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_dark.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_launcher.png",
-        "source": "D:\\DpProjects\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_ab_holo.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_tab_indicator_ab_holo.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_launcher.png",
-        "source": "D:\\24.9\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_left.png",
-        "source": "D:\\10.2\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_left.png"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_item_background_holo_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ghost_person.png",
-        "source": "D:\\DpProjects\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ghost_person.png"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_dark.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_textfield_searchview_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\conference.jpg",
-        "source": "D:\\10.2\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\conference.jpg"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_item_background_holo_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\conference.jpg",
-        "source": "D:\\DpProjects\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\conference.jpg"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_holo_light.xml",
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_holo_light.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear_holo_light.xml"
     },
     {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_dark.xml"
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\linkedin_login.png",
+        "source": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\linkedin_login.png"
     },
     {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ghost_person.png",
-        "source": "D:\\24.9\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ghost_person.png"
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\logo.png",
+        "source": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\logo.png"
     },
     {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_light.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_textfield_searchview_right_holo_light.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\conference.jpg",
-        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\conference.jpg"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ghost_person.png",
-        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ghost_person.png"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_light.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_left.png",
-        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_left.png"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_light.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\linkedin_login.png",
-        "source": "D:\\24.9\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\linkedin_login.png"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_light.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_spinner_ab_holo_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\logo.png",
-        "source": "D:\\DpProjects\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\logo.png"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_launcher.png",
-        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_item_background_holo_light.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_light.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_action_search.png",
-        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_action_search.png"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
     {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_right_holo_dark.xml"
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_left.png",
+        "source": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_left.png"
     },
     {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_action_search.png",
-        "source": "D:\\24.9\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_action_search.png"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\logo.png",
-        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\logo.png"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\logo.png",
-        "source": "D:\\10.2\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\logo.png"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_light.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_search_dropdown_light.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_right.png",
-        "source": "D:\\10.2\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_right.png"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear_holo_light.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_light.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_ab_holo.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_tab_indicator_ab_holo.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_left.png",
-        "source": "D:\\24.9\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_left.png"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_right_holo_light.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_dark.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_spinner_ab_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_dark.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_textfield_searchview_right_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_ic_clear.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\linkedin_login.png",
-        "source": "D:\\DpProjects\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\linkedin_login.png"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
-        "source": "C:\\Users\\Ahmed\\.android\\build-cache\\1e79b8633b968a4728ef3e3e1bc10ae8b997796f\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\conference.jpg",
-        "source": "D:\\24.9\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\conference.jpg"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_dark.xml"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_light.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_light.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_ab_holo.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_tab_indicator_ab_holo.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_right_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_light.xml",
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_light.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_light.xml"
     },
     {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear.xml"
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_light.xml"
     },
     {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_right.png",
-        "source": "D:\\24.9\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_right.png"
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\conference.jpg",
+        "source": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\conference.jpg"
     },
     {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_dark.xml",
-        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_right_holo_dark.xml"
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ghost_person.png",
+        "source": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ghost_person.png"
     },
     {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_right.png",
-        "source": "D:\\DpProjects\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_right.png"
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
     },
     {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_action_search.png",
-        "source": "D:\\DpProjects\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_action_search.png"
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_dark.xml"
     },
     {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\linkedin_login.png",
-        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\linkedin_login.png"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_launcher.png",
-        "source": "D:\\10.2\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_dark.xml",
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_search_dropdown_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_search_dropdown_dark.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_action_search.png",
+        "source": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_action_search.png"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_holo_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_ab_holo_dark.xml",
         "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_spinner_ab_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_searchview_right_holo_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_textfield_searchview_right_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_ab_holo.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_tab_indicator_ab_holo.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_launcher.png",
+        "source": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow_right.png",
+        "source": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\src\\main\\res\\drawable\\arrow_right.png"
+    },
+    {
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear.xml",
+        "source": "C:\\Users\\DELL\\.android\\build-cache\\5db485e8e1e6a138da7e865f11c75119ae4872f1\\output\\res\\drawable\\abc_ic_clear.xml"
     }
 ]

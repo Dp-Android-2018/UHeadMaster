@@ -66,11 +66,13 @@
             android:layout_marginStart="@dimen/dp15w"
             android:layout_marginTop="@dimen/dp25h"
             android:text="@string/as_a_instructor"
+            android:id="@+id/tv_instructor"
             android:textColor="@color/dark_gray_color"
             android:textSize="@dimen/sp15"
-            android:textStyle="bold" />\
+            android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/linear_layout_instructor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp15w"

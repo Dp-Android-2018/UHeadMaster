@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/content">
+
+    <include android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/course_info"
+        android:layout_marginStart="@dimen/dp5w"
+        android:layout_marginEnd="@dimen/dp5w"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp18"
+        android:layout_marginTop="@dimen/dp10h"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_course_name"
+        android:text="@string/course_title"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp14"/>
+
+    <EditText
+        android:id="@+id/et_course_prequests"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:background="@drawable/rounded_edit_text_border_layout"
+        android:gravity="start"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:hint="@string/your_answer"
+        android:padding="@dimen/dp5h"
+        android:textColorHint="@color/cource_item_bg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_course_subtitle"
+        android:text="@string/subtitle"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp15h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp14"/>
+
+    <EditText
+        android:id="@+id/et_course_subtile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:background="@drawable/rounded_edit_text_border_layout"
+        android:gravity="start"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:hint="@string/your_answer"
+        android:padding="@dimen/dp5h"
+        android:textColorHint="@color/cource_item_bg" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_course_language"
+        android:text="@string/language"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp15h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp14"/>
+
+    <Spinner
+        android:id="@+id/sp_language"
+        style="@style/spinner_style2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:overlapAnchor="false"
+
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_course_category"
+        android:text="@string/category"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp15h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp14"/>
+
+    <Spinner
+        android:id="@+id/sp_category"
+        style="@style/spinner_style2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:overlapAnchor="false"
+
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_course_sub_category"
+        android:text="@string/sub_category"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp15h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp14"/>
+
+    <Spinner
+        android:id="@+id/sp_sub_category"
+        style="@style/spinner_style2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:overlapAnchor="false"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_instruction_level"
+        android:text="@string/instruction_level"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp15h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp14"/>
+
+    <Spinner
+        android:id="@+id/sp_instruction_level"
+        style="@style/spinner_style2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40h"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:overlapAnchor="false"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_course_summary"
+        android:text="@string/course_summary"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp15h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp14"/>
+
+    <EditText
+        android:id="@+id/et_course_summary"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp60h"
+        android:background="@drawable/rounded_edit_text_border_layout"
+        android:gravity="start"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:hint="@string/your_answer"
+        android:padding="@dimen/dp5h"
+        android:textColorHint="@color/cource_item_bg" />
+
+
+    <Button
+        android:id="@+id/btn_create_course"
+        android:layout_width="@dimen/dp150w"
+        android:layout_height="@dimen/dp40h"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/btn_corner_border"
+        android:layout_marginTop="@dimen/dp15h"
+        android:text="@string/add"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_marginBottom="@dimen/dp10h"/>
+
+</LinearLayout>
+</ScrollView>

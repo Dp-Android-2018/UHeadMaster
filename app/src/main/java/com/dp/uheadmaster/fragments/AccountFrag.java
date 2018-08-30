@@ -1,9 +1,11 @@
 package com.dp.uheadmaster.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.dp.uheadmaster.activites.ChangePasswordAct;
 import com.dp.uheadmaster.activites.CourseDetailAct;
 import com.dp.uheadmaster.interfaces.RefershWishList;
 import com.dp.uheadmaster.models.CourseIDRequest;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.request.UpdateEmailRequest;
 import com.dp.uheadmaster.models.response.DefaultResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
@@ -25,7 +28,7 @@ import com.dp.uheadmaster.utilities.SharedPrefManager;
 import com.dp.uheadmaster.webService.ApiClient;
 import com.dp.uheadmaster.webService.EndPointInterfaces;
 
-import es.dmoral.toasty.Toasty;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,11 +45,28 @@ public class AccountFrag extends Fragment {
     private String oldEMail = "";
     private ProgressDialog progressDialog;
     private SharedPrefManager sharedPrefManager;
+    private FontChangeCrawler fontChanger;
+    private View v;
+    private Activity mHostActivity;
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
 
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_account_layout, container, false);
+       v = inflater.inflate(R.layout.fragment_account_layout, container, false);
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
 
         initializeUi(v);
@@ -71,9 +91,9 @@ public class AccountFrag extends Fragment {
                 String eMail = "";
                 eMail = etEmail.getText().toString();
                 if (eMail .equals(oldEMail)) {
-                    Toasty.warning(getActivity(), getString(R.string.the_old_email), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), getString(R.string.the_old_email), Snackbar.LENGTH_LONG).show();
                 } else if (eMail.equals("")) {
-                    Toasty.warning(getActivity(), getString(R.string.email_null), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), getString(R.string.email_null), Snackbar.LENGTH_LONG).show();
                 } else {
                     updateEmail(eMail);
                 }
@@ -82,7 +102,7 @@ public class AccountFrag extends Fragment {
     }
 
     private void updateEmail(String eMail) {
-        if (NetWorkConnection.isConnectingToInternet(getActivity())) {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext(),mHostActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog(getActivity());
 
             final EndPointInterfaces apiService =
@@ -95,7 +115,7 @@ public class AccountFrag extends Fragment {
                     ConfigurationFile.hideDialog(progressDialog);
                     try {
 
-                        Toasty.success(getActivity(), response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                        Snackbar.make(mHostActivity.findViewById(R.id.content), response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -106,7 +126,7 @@ public class AccountFrag extends Fragment {
                 public void onFailure(Call<DefaultResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(getActivity(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println("updateEmail / Fialer :" + t.getMessage());
                 }
             });
@@ -133,5 +153,17 @@ public class AccountFrag extends Fragment {
             etEmail.setText(sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_EMAIL));
             oldEMail = sharedPrefManager.getStringFromSharedPrederances(ConfigurationFile.ShardPref.USER_EMAIL);
         }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mHostActivity=activity;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHostActivity=null;
     }
 }

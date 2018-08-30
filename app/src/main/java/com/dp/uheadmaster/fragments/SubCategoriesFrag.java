@@ -1,20 +1,25 @@
 package com.dp.uheadmaster.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.activites.SubCategoriesAct;
 import com.dp.uheadmaster.adapters.CategoriesAdapter;
 import com.dp.uheadmaster.models.CategoryModel;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.request.SubCategoryRequest;
 import com.dp.uheadmaster.models.response.CategoriesResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
@@ -26,7 +31,6 @@ import com.dp.uheadmaster.webService.EndPointInterfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,10 +53,36 @@ public class SubCategoriesFrag extends Fragment {
     private int pageId = 0;
     private boolean isLoading;
     private  int position=0;
+    private FontChangeCrawler fontChanger;
+    private ImageView mIvEmptyView;
+    View v;
+    private Activity mActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity=activity;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View v=inflater.inflate(R.layout.frag_sub_categories_layout,container,false);
+        v=inflater.inflate(R.layout.frag_sub_categories_layout,container,false);
         sharedPrefManager = new SharedPrefManager(getActivity());
         if(getArguments()!=null) {
             categoryTitle = getArguments().getString("category_title");
@@ -68,6 +98,7 @@ public class SubCategoriesFrag extends Fragment {
     public void initializeUi(View v){
 
         gVCategories = (GridView) v.findViewById(R.id.gridview_categories);
+        mIvEmptyView=(ImageView) v.findViewById(R.id.iv_category_empty);
         myLastVisiblePos = gVCategories.getFirstVisiblePosition();
         gVCategories.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -100,14 +131,14 @@ public class SubCategoriesFrag extends Fragment {
         if (categoryID != -1) {
             getSubCategories();
         } else {
-            Toasty.error(getActivity(), getString(R.string.no_category_has_id), Toast.LENGTH_LONG, true).show();
+            Snackbar.make(mActivity.findViewById(R.id.content), getString(R.string.no_category_has_id), Snackbar.LENGTH_LONG).show();
 
         }
     }
 
 
     public void getSubCategories() {
-        if (NetWorkConnection.isConnectingToInternet(getActivity())) {
+        if (NetWorkConnection.isConnectingToInternet(getActivity().getApplicationContext(),mActivity.findViewById(R.id.content))) {
 
             progressDialog = ConfigurationFile.showDialog(getActivity());
             SubCategoryRequest subCategoryRequest = new SubCategoryRequest(categoryID);
@@ -124,13 +155,20 @@ public class SubCategoriesFrag extends Fragment {
                         if (response.body().getStatus() == 200) {
                             // use response data and do some fancy stuff :)
                             CategoriesResponse categoriesResponse = response.body();
-                            // Toasty.success(getContext(), "Done! cat.Num = " + categoriesResponse.getCategoriesList().size(), Toast.LENGTH_LONG, true).show();
+                            // Snackbar.success(getContext(), "Done! cat.Num = " + categoriesResponse.getCategoriesList().size(), Toast.LENGTH_LONG, true).show();
                             categoriesArray = categoriesResponse.getCategoriesList();
+                            if(categoriesArray.size()==0){
+                                gVCategories.setVisibility(View.GONE);
+                                mIvEmptyView.setVisibility(View.VISIBLE);
+                            }else {
+                                gVCategories.setVisibility(View.VISIBLE);
+                                mIvEmptyView.setVisibility(View.GONE);
+                            }
                             notifyAdapter();
                             gVCategories.setSelection(position);
                             isLoading = false;
 
-                            if (categoriesResponse.getNextPage() != null) {
+                            if (categoriesResponse.getNextPage() != null && !categoriesResponse.getNextPage().equals("")) {
                                 next_page = categoriesResponse.getNextPage();
                                 pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
                             } else {
@@ -140,7 +178,7 @@ public class SubCategoriesFrag extends Fragment {
                         } else {
                             // parse the response body …
                             System.out.println("Sub Category /error Code message :" + response.body().getMessage());
-                            Toasty.error(getActivity(), response.body().getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mActivity.findViewById(R.id.content), response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
 
                         }
@@ -155,7 +193,7 @@ public class SubCategoriesFrag extends Fragment {
                 public void onFailure(Call<CategoriesResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(getActivity(), t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println("Sub Category / Fialer :" + t.getMessage());
                 }
             });

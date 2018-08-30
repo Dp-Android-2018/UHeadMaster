@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.adapters.ViewReviewAdapter;
 import com.dp.uheadmaster.customFont.ApplyCustomFont;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.ReviewModel;
 import com.dp.uheadmaster.models.response.CourseReviewChartResponse;
 import com.dp.uheadmaster.models.response.GetAllReviews;
@@ -43,7 +45,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import es.dmoral.toasty.Toasty;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,7 +66,7 @@ public class CourseViewReviewFragment extends Fragment {
     private TextView tvReview;
     private Context mcontext;
     private Activity mHostActivity;
-    private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog,progressDialog2;
     private SharedPrefManager sharedPrefManager;
     private ArrayList<ReviewModel> reviews;
     private ArrayList<BarEntry> valueSet1 = new ArrayList<>();
@@ -72,14 +74,32 @@ public class CourseViewReviewFragment extends Fragment {
     public View v;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
-    private String next_page=null;
+    private String next_page="";
     private int pageId=0;
+    private TextView mTvEmptyView;
     @SuppressLint("ValidFragment")
     public CourseViewReviewFragment(int courseID) {
         this.courseID = courseID;
         System.out.println("CourseViewReviewFragment / courseID : " + courseID);
     }
 
+    private FontChangeCrawler fontChanger;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
 
@@ -88,6 +108,7 @@ public class CourseViewReviewFragment extends Fragment {
         initializeUi(v);
         if (courseID != 0 && courseID != -1) {
             getReviews(courseID);
+            System.out.println("Initialization :"+courseID);
 
         }
 
@@ -97,7 +118,7 @@ public class CourseViewReviewFragment extends Fragment {
     public void initializeUi(View v) {
 
         sharedPrefManager = new SharedPrefManager(mcontext);
-
+        mTvEmptyView=(TextView) v.findViewById(R.id.tv_empty_view);
         tvReview = (TextView) v.findViewById(R.id.tv_review_text);
         if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN)) {
             // tvRateValue.setTypeface(ApplyCustomFont.getInstance(getActivity().getApplicationContext()).chooseFont("en_font1"));
@@ -132,7 +153,7 @@ public class CourseViewReviewFragment extends Fragment {
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
 
-                    if (loading&&next_page!=null)
+                    if (loading&&!next_page.equals(""))
                     {
                         if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                         {
@@ -147,7 +168,8 @@ public class CourseViewReviewFragment extends Fragment {
     }
 
     public void getReviews(int courseId) {
-        if (NetWorkConnection.isConnectingToInternet(mcontext)) {
+
+        if (NetWorkConnection.isConnectingToInternet(mcontext,mHostActivity.findViewById(R.id.content))) {
             progressDialog = ConfigurationFile.showDialog(mHostActivity);
 
 
@@ -163,23 +185,33 @@ public class CourseViewReviewFragment extends Fragment {
 
                     GetAllReviews getAllReviews = response.body();
                     try {
-                        //Toasty.error(getActivity().getApplicationContext(),"Success :"+response.body().getStatus(), Toast.LENGTH_LONG, true).show();
+                        //Snackbar.error(getActivity().getApplicationContext(),"Success :"+response.body().getStatus(), Toast.LENGTH_LONG, true).show();
                         System.out.println("Response Reviews:" + new Gson().toJson(response));
 
                         if (getAllReviews.getStatusCode() == 200) {
                             reviews = new ArrayList<>();
                             for (int i = 0; i < getAllReviews.getRates().size(); i++) {
-                                //   Toasty.success(mcontext,"Title Data:"+reviews.size(),Toast.LENGTH_LONG).show();
+                                //   Snackbar.success(mcontext,"Title Data:"+reviews.size(),Toast.LENGTH_LONG).show();
                                 reviews.add(getAllReviews.getRates().get(i));
+                                System.out.println("Review Status :"+getAllReviews.getRates().get(i));
                             }
+
+                            if(reviews.size()==0){
+                                recyclerReviews.setVisibility(View.GONE);
+                                mTvEmptyView.setVisibility(View.VISIBLE);
+                            }else {
+                                recyclerReviews.setVisibility(View.VISIBLE);
+                                mTvEmptyView.setVisibility(View.GONE);
+                            }
+
                             notifyAdapter();
                             loading = true;
 
-                            if (getAllReviews.getNextPageUrl()!= null) {
+                            if (!getAllReviews.getNextPageUrl().equals("")) {
                                 next_page = getAllReviews.getNextPageUrl();
                                 pageId = Integer.parseInt(next_page.substring(next_page.length() - 1));
                             } else {
-                                next_page = null;
+                                next_page = "";
 
                             }
 
@@ -199,18 +231,18 @@ public class CourseViewReviewFragment extends Fragment {
                 public void onFailure(Call<GetAllReviews> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
                     getChartData(courseID);
-                    Toasty.error(mcontext, t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
             });
 
         } else {
-            Toasty.warning(mcontext, getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
+            Snackbar.make(mHostActivity.findViewById(R.id.content), getString(R.string.check_internet_connection), Snackbar.LENGTH_LONG).show();
         }
     }
 
     public void getChartData(int courseId) {
-        if (NetWorkConnection.isConnectingToInternet(mcontext)) {
-            final ProgressDialog progressDialog = ConfigurationFile.showDialog(mHostActivity);
+        if (NetWorkConnection.isConnectingToInternet(mcontext,mHostActivity.findViewById(R.id.content))) {
+          //  progressDialog2 = ConfigurationFile.showDialog(mHostActivity);
 
 
             final EndPointInterfaces apiService =
@@ -220,11 +252,11 @@ public class CourseViewReviewFragment extends Fragment {
             call.enqueue(new Callback<CourseReviewChartResponse>() {
                 @Override
                 public void onResponse(Call<CourseReviewChartResponse> call, Response<CourseReviewChartResponse> response) {
-                    ConfigurationFile.hideDialog(progressDialog);
+            //        ConfigurationFile.hideDialog(progressDialog2);
 
                     CourseReviewChartResponse getChartObj = response.body();
                     try {
-                        //Toasty.error(getActivity().getApplicationContext(),"Success :"+response.body().getStatus(), Toast.LENGTH_LONG, true).show();
+                        //Snackbar.error(getActivity().getApplicationContext(),"Success :"+response.body().getStatus(), Toast.LENGTH_LONG, true).show();
                         System.out.println("Response Reviews:" + new Gson().toJson(response));
 
                         if (getChartObj.getStatus() == 200) {
@@ -241,14 +273,14 @@ public class CourseViewReviewFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<CourseReviewChartResponse> call, Throwable t) {
-                    ConfigurationFile.hideDialog(progressDialog);
+               //     ConfigurationFile.hideDialog(progressDialog2);
 
-                    Toasty.error(mcontext, t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mHostActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
             });
 
         } else {
-            Toasty.warning(mcontext, getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
+            Snackbar.make(mHostActivity.findViewById(R.id.content), getString(R.string.check_internet_connection), Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -286,24 +318,26 @@ public class CourseViewReviewFragment extends Fragment {
             left.setDrawLabels(false);
 
             // custom X-axis labels
-            String[] values = new String[]{" ", " ", " ", ""};
+            String[] values = new String[]{" ", "content rate", " provider rate", "instructor rate"};
             XAxis xAxis = chart.getXAxis();
             xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
+            xAxis.setDrawAxisLine(true);
+            xAxis.setDrawGridLines(false);
+            xAxis.setGranularity(1f);
 
             YAxis yl = chart.getAxisLeft();
             yl.setDrawAxisLine(true);
             yl.setDrawGridLines(true);
             yl.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-            yl.setAxisMaximum(5000);
+            yl.setAxisMaximum(5);
 //        yl.setInverted(true);
 
             YAxis yr = chart.getAxisRight();
             yr.setDrawAxisLine(true);
             yr.setDrawGridLines(false);
             yr.setAxisMinimum(0f);
-            yr.setAxisMaximum(5000);// this replaces setStartAtZero(true)
+            yr.setAxisMaximum(5);// this replaces setStartAtZero(true)
 
 //        yr.setInverted(true);
             //chart.getXAxis().setEnabled(false);
@@ -330,7 +364,7 @@ public class CourseViewReviewFragment extends Fragment {
     }
 
     private void notifyAdapter() {
-        // Toasty.success(mcontext,"size Data ZZZZZ:"+reviews.size(),Toast.LENGTH_LONG).show();
+        // Snackbar.success(mcontext,"size Data ZZZZZ:"+reviews.size(),Toast.LENGTH_LONG).show();
         viewReviewAdapter = new ViewReviewAdapter(mcontext, reviews);
         recyclerReviews.setAdapter(viewReviewAdapter);
 

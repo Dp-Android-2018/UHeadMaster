@@ -32,7 +32,7 @@ public class Question implements Serializable{
     private String updatedAt;
 
     @SerializedName("answer_id")
-    private int answerId;
+    private String answerId;
 
     @SerializedName("title")
     private String title;
@@ -67,7 +67,7 @@ public class Question implements Serializable{
         return updatedAt;
     }
 
-    public int getAnswerId() {
+    public String getAnswerId() {
         return answerId;
     }
 

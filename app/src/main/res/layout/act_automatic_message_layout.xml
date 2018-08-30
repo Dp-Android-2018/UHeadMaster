@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content">
+
+
+    <include android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/automatic_messages"
+        android:layout_marginStart="@dimen/dp5w"
+        android:layout_marginEnd="@dimen/dp5w"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp18"
+        android:layout_marginTop="@dimen/dp5h"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_announcement_tile"
+        android:text="@string/welcome_message"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp15h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp16"/>
+
+    <EditText
+        android:id="@+id/et_instructor_answer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp100h"
+        android:background="@drawable/rounded_edit_text_border_layout"
+        android:gravity="start"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:hint="@string/message"
+        android:padding="@dimen/dp5h"
+        android:textColorHint="@color/cource_item_bg" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_congratulations_message"
+        android:text="@string/congrate_message"
+        android:textColor="@color/review_text"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp20h"
+        android:textStyle="bold"
+
+        android:textSize="@dimen/sp16"/>
+
+    <EditText
+        android:id="@+id/et_congratulations_message"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp100h"
+        android:background="@drawable/rounded_edit_text_border_layout"
+        android:gravity="start"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/dp10h"
+        android:layout_marginEnd="@dimen/dp10h"
+        android:layout_marginTop="@dimen/dp5h"
+        android:hint="@string/message"
+        android:padding="@dimen/dp5h"
+        android:textColorHint="@color/cource_item_bg" />
+
+    <Button
+        android:id="@+id/btn_automatic_save"
+        android:layout_width="@dimen/dp150w"
+        android:layout_height="@dimen/dp40h"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/btn_corner_border"
+        android:layout_marginTop="@dimen/dp15h"
+        android:text="@string/save"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAllCaps="false"/>
+</LinearLayout>

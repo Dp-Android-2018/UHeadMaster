@@ -46,13 +46,32 @@ public class CourseDetailsModel {
     private String rate;
     @SerializedName("in_wishlist")
     private int isWishCourse;
-    @SerializedName("in_cartlist")
+    @SerializedName("in_cart")
     private int isInCart;
     @SerializedName("lang")
     private String langauge;
-
+    @SerializedName("enrolled")
+    private boolean enrolled;
     @SerializedName("instructor_id")
     private int instructor_id;
+
+
+    @SerializedName("welcome_message")
+    private String welcomeMessage;
+    @SerializedName("congrats_message")
+    private String congratsMessage;
+
+    public String getWelcomeMessage() {
+        return welcomeMessage;
+    }
+
+    public String getCongratsMessage() {
+        return congratsMessage;
+    }
+
+    public boolean isEnrolled() {
+        return enrolled;
+    }
 
     public int getInstructor_id() {
         return instructor_id;

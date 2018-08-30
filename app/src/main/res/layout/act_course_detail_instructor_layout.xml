@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cource_item_bg"
+
+    android:id="@+id/content">
+<include
+    android:id="@+id/toolbar"
+    layout="@layout/toolbar_layout"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp120h">
+
+        <ImageView
+            android:id="@+id/iv_course"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp140h"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_logo" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cource_old_price">
+
+            <TextView
+                android:id="@+id/tv_course_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp15w"
+                android:layout_marginStart="@dimen/dp15w"
+                android:layout_marginTop="@dimen/dp15h"
+                android:lines="2"
+                android:text="The Web Development BootCamp"
+                android:textColor="@color/white"
+                android:textDirection="locale"
+                android:textSize="@dimen/sp20"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_general_course_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_course_name"
+                android:layout_marginBottom="@dimen/dp5h"
+                android:layout_marginEnd="@dimen/dp15w"
+                android:layout_marginStart="@dimen/dp15w"
+                android:layout_marginTop="@dimen/dp5h"
+                android:orientation="horizontal"
+                android:textDirection="locale"
+                android:weightSum="4">
+
+
+                <TextView
+                    android:id="@+id/tv_students_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_0_students"
+                    android:textColor="@color/dot_active_screen"
+                    android:textSize="@dimen/sp10"
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/rb_rating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:elevation="@dimen/dp4h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    android:background="@drawable/instructor_course_scrim"
+                    android:theme="@style/RatingBar3"
+                   />
+
+                <TextView
+                    android:id="@+id/tv_rate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp10w"
+                    android:layout_weight="1"
+                    android:text="@string/rate"
+                    android:textColor="@color/dot_active_screen"
+                    android:textSize="@dimen/sp10"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_general_course_info"
+                android:layout_marginBottom="@dimen/dp5h"
+                android:layout_marginEnd="@dimen/dp15w"
+                android:layout_marginStart="@dimen/dp15w"
+                android:layout_marginTop="@dimen/dp5h"
+                android:orientation="horizontal"
+                android:textDirection="locale">
+
+                <TextView
+                    android:id="@+id/tv_lecture_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="14 lecture"
+                    android:textColor="@color/dot_active_screen"
+                    android:textSize="@dimen/sp10"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_videos_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="22 Videos"
+                    android:textColor="@color/dot_active_screen"
+                    android:textSize="@dimen/sp10"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Draft"
+                    android:textColor="@color/dot_active_screen"
+                    android:textSize="@dimen/sp10"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="free-public"
+                    android:textColor="@color/dot_active_screen"
+                    android:textSize="@dimen/sp10"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <GridView
+        android:id="@+id/gridview_course_contents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/category_bg"
+        android:paddingBottom="@dimen/dp7h"
+        android:paddingEnd="@dimen/dp7w"
+        android:paddingStart="@dimen/dp7w"
+        android:horizontalSpacing="@dimen/dp10h"
+        android:paddingTop="@dimen/dp12h"
+        android:gravity="center"
+        android:columnWidth="@dimen/dp130w"
+        android:numColumns="1"
+        android:verticalSpacing="@dimen/dp10h"
+        tools:listitem="@layout/instructor_course_grid_item_layout" />
+</LinearLayout>

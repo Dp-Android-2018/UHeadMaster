@@ -3,7 +3,8 @@
      xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:showIn="@layout/activity_mood">
+    tools:showIn="@layout/activity_mood"
+    android:id="@+id/content">
 
 
     <android.support.v4.view.ViewPager
@@ -18,16 +19,17 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white">
         <Button
-            android:id="@+id/btn_browse_courses"
+            android:id="@+id/btn_sign_up"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="@string/browse_courses"
+            android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textColor="@color/signUpText"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
             android:layout_height="match_parent"
-            android:background="@color/button_mood_gb"/>
+            android:background="@color/button_mood_gb"
+           />
         <Button
             android:id="@+id/btn_mood_signIn"
             android:layout_width="0dp"

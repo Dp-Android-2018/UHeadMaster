@@ -1,5 +1,6 @@
 package com.dp.uheadmaster.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,9 @@ import android.widget.Spinner;
 import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.adapters.ProfileSpinnerAdapter;
 import com.dp.uheadmaster.interfaces.CheckOutDialogInterface;
+import com.dp.uheadmaster.interfaces.IvUserProfileChangedListener;
+import com.dp.uheadmaster.models.FontChangeCrawler;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
 
 import java.util.ArrayList;
 
@@ -23,6 +27,25 @@ public class ProfileFrag extends Fragment implements AdapterView.OnItemSelectedL
     private Spinner profileData;
     private ArrayList<String>data;
     private Fragment nextFrag=null;
+    private Activity mActivity;
+    private FontChangeCrawler fontChanger;
+    public IvUserProfileChangedListener listener;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(getActivity().getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup) this.getView());
+        }
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,15 +62,16 @@ public class ProfileFrag extends Fragment implements AdapterView.OnItemSelectedL
         data.add(getString(R.string.account));
         data.add(getString(R.string.privacy));
         data.add(getString(R.string.api_client));
-        data.add(getString(R.string.notification));
-        data.add(getString(R.string.delete_account));
-        data.add(getString(R.string.subscribe));
+     //   data.add(getString(R.string.notification));
+       // data.add(getString(R.string.delete_account));
+   //     data.add(getString(R.string.subscribe));
         data.add(getString(R.string.credit_card));
         profileData.setAdapter(new ProfileSpinnerAdapter(getActivity().getApplicationContext(),data));
         if(nextFrag==null)
         {
 
             BasicProfileFrag basicProfileFrag = new BasicProfileFrag();
+            basicProfileFrag.listener=listener;
             android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame1, basicProfileFrag);
@@ -134,5 +158,11 @@ public class ProfileFrag extends Fragment implements AdapterView.OnItemSelectedL
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity=activity;
     }
 }

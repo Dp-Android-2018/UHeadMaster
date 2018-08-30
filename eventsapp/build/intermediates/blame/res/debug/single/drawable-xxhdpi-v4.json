@@ -1,18 +1,6 @@
 [
     {
-        "merged": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_launcher.png",
-        "source": "D:\\Projects\\DP Data\\UHeadMaster\\Source\\10.1\\UHeadMaster\\linkedin-sdk\\build\\intermediates\\bundles\\default\\res\\drawable-xxhdpi-v4\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\DpProjects\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_launcher.png",
-        "source": "D:\\DpProjects\\UHeadMaster\\linkedin-sdk\\build\\intermediates\\bundles\\default\\res\\drawable-xxhdpi-v4\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\10.2\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_launcher.png",
-        "source": "D:\\10.2\\UHeadMaster\\linkedin-sdk\\build\\intermediates\\bundles\\default\\res\\drawable-xxhdpi-v4\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\24.9\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_launcher.png",
-        "source": "D:\\24.9\\UHeadMaster\\linkedin-sdk\\build\\intermediates\\bundles\\default\\res\\drawable-xxhdpi-v4\\ic_launcher.png"
+        "merged": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\eventsapp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_launcher.png",
+        "source": "D:\\DpProjects\\uHTRAIN\\UHeadMaster\\linkedin-sdk\\build\\intermediates\\bundles\\default\\res\\drawable-xxhdpi-v4\\ic_launcher.png"
     }
 ]

@@ -19,7 +19,7 @@
 
             <com.github.mikephil.charting.charts.HorizontalBarChart
                 android:id="@+id/chart"
-                android:layout_width="@dimen/dp150w"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/dp100h"
                 android:layout_marginEnd="@dimen/dp2w"
                 android:layout_marginStart="@dimen/dp15w"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp15w"
             android:layout_marginTop="@dimen/dp10h"
-            android:text="Review"
+            android:text="@string/review"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -58,7 +58,16 @@
             android:layout_marginTop="@dimen/dp15w"
             android:background="@color/white"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:listitem="@layout/review_item_layout" />
+            tools:listitem="@layout/review_item_layout"
+           />
+
+        <TextView
+            android:id="@+id/tv_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/there_is_no_reviews_yet"
+            android:gravity="center"
+            android:visibility="gone"/>
 
 
     </LinearLayout>

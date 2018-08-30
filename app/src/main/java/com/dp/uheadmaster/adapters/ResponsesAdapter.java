@@ -10,7 +10,9 @@ import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.holders.AnnouncementsHolders;
 import com.dp.uheadmaster.holders.QuestionAnswerHolder;
 import com.dp.uheadmaster.models.Answer;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.Question;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class ResponsesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private Context context;
     private ArrayList<Answer>answers;
     private Question question;
+    private FontChangeCrawler fontChanger;
     public ResponsesAdapter(Context context, Question question, ArrayList<Answer>answers) {
         this.context=context;
         this.answers=answers;
@@ -37,13 +40,25 @@ public class ResponsesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         {
             case 1:
                     view= LayoutInflater.from(parent.getContext()).inflate(R.layout.question_answer_item_layout,parent,false);
-                    holder=new QuestionAnswerHolder(view,context);
+                    holder=new QuestionAnswerHolder(view,context,2);
                 break;
             case 2:
                 view= LayoutInflater.from(parent.getContext()).inflate(R.layout.announcment_item_layout,parent,false);
-                holder=new AnnouncementsHolders(view,context);
+                holder=new AnnouncementsHolders(view,context,2);
                 break;
             default:
+        }
+
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)view);
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)view);
         }
         return holder;
     }
@@ -66,6 +81,7 @@ public class ResponsesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     questionAnswerHolder.getTvQuestionContent().setText(question.getContent());
                     if (question.getUser().getImageLink() != null && !question.getUser().getImageLink().equals(""))
                         Picasso.with(context).load(question.getUser().getImageLink()).into(questionAnswerHolder.getIvQusetionerImage());
+
                 }  catch (NullPointerException ex){
                     ex.printStackTrace();
                 }catch (Exception ex){
@@ -77,6 +93,7 @@ public class ResponsesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 try {
 
                     AnnouncementsHolders announcementsHolders=(AnnouncementsHolders)holder;
+                    announcementsHolders.getTvNumOfComments().setVisibility(View.GONE);
                     announcementsHolders.getTvStudentName().setText(answers.get(position-1).getUser().getName());
                     announcementsHolders.getTvAnswerDate().setText(answers.get(position-1).getCreatedAt());
                     announcementsHolders.getTvAnswer().setText(answers.get(position-1).getContent());
@@ -85,9 +102,12 @@ public class ResponsesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }else{
                         announcementsHolders.getIvStudentImage().setImageResource(R.drawable.ic_logo);
                     }
+
                 }  catch (NullPointerException ex){
+                    System.out.println("Catch Message :"+ex.getMessage());
                     ex.printStackTrace();
                 }catch (Exception ex){
+                    System.out.println("Catch2 Message :"+ex.getMessage());
                     ex.printStackTrace();
                 }
                 break;

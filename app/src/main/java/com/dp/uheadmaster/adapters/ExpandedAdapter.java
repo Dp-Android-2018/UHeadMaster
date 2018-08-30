@@ -11,8 +11,10 @@ import com.dp.uheadmaster.R;
 import com.dp.uheadmaster.holders.TitleChildViewHolder;
 import com.dp.uheadmaster.holders.TitleParentViewHolder;
 import com.dp.uheadmaster.interfaces.VideoLinksInterface;
+import com.dp.uheadmaster.models.FontChangeCrawler;
 import com.dp.uheadmaster.models.TitleChild;
 import com.dp.uheadmaster.models.TitleParent;
+import com.dp.uheadmaster.utilities.ConfigurationFile;
 
 import java.util.List;
 
@@ -26,17 +28,30 @@ public class ExpandedAdapter extends ExpandableRecyclerAdapter<TitleParent,Title
     private LayoutInflater inflater;
     private VideoLinksInterface videoLinksInterface;
     private Context context;
-    public ExpandedAdapter(Context context, @NonNull List<TitleParent> parentList,VideoLinksInterface videoLinksInterface) {
+    private FontChangeCrawler fontChanger;
+    private String lastWatched;
+    public ExpandedAdapter(Context context, @NonNull List<TitleParent> parentList,VideoLinksInterface videoLinksInterface,String lastWatched) {
         super(parentList);
         this.context=context;
         inflater=LayoutInflater.from(context);
         this.videoLinksInterface=videoLinksInterface;
+        this.lastWatched=lastWatched;
     }
 
     @NonNull
     @Override
     public TitleParentViewHolder onCreateParentViewHolder(@NonNull ViewGroup parentViewGroup, int viewType) {
         View v=inflater.inflate(R.layout.recycler_view_parent_item_layout,parentViewGroup,false);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
         return new TitleParentViewHolder(context,v);
     }
 
@@ -44,7 +59,17 @@ public class ExpandedAdapter extends ExpandableRecyclerAdapter<TitleParent,Title
     @Override
     public TitleChildViewHolder onCreateChildViewHolder(@NonNull ViewGroup childViewGroup, int viewType) {
         View v=inflater.inflate(R.layout.recycler_view_child_layout,childViewGroup,false);
-        return new TitleChildViewHolder(context,v,videoLinksInterface);
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_EN) )
+        {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/Roboto-Bold.ttf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
+
+        if (ConfigurationFile.GlobalVariables.APP_LANGAUGE.equals(ConfigurationFile.GlobalVariables.APP_LANGAUGE_AR) ) {
+            fontChanger = new FontChangeCrawler(context.getAssets(), "font/GE_SS_Two_Medium.otf");
+            fontChanger.replaceFonts((ViewGroup)v);
+        }
+        return new TitleChildViewHolder(context,v,videoLinksInterface,lastWatched);
     }
 
     @Override
@@ -55,7 +80,7 @@ public class ExpandedAdapter extends ExpandableRecyclerAdapter<TitleParent,Title
 
     @Override
     public void onBindChildViewHolder(@NonNull TitleChildViewHolder childViewHolder, int parentPosition, int childPosition, @NonNull TitleChild child) {
-        childViewHolder.bind(child);
+        childViewHolder.bind(child,childPosition);
 
     }
 

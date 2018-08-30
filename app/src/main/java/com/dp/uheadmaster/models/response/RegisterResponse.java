@@ -45,6 +45,13 @@ public class RegisterResponse {
     @SerializedName("about")
     private String about;
 
+    @SerializedName("in_newsletter")
+    private String isSubScribed;
+
+    public String getIsSubScribed() {
+        return isSubScribed;
+    }
+
     public String getCountryKey() {
         return countryKey;
     }

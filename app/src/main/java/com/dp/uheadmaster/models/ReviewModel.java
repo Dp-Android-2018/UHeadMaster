@@ -15,7 +15,10 @@ public class ReviewModel {
     private String user;
 
     @SerializedName("rate")
-    private float rate;
+    private String rate;
+
+    @SerializedName("user_image")
+    private String userImage;
 
     @SerializedName("comment")
     private String comment;
@@ -28,11 +31,15 @@ public class ReviewModel {
         return user;
     }
 
-    public float getRate() {
+    public String getRate() {
         return rate;
     }
 
     public String getComment() {
         return comment;
+    }
+
+    public String getUserImage() {
+        return userImage;
     }
 }

@@ -2,13 +2,14 @@ package com.dp.uheadmaster.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by DELL on 04/10/2017.
  */
 
-public class Content {
+public class Content implements Serializable{
 
     @SerializedName("id")
     private int id;

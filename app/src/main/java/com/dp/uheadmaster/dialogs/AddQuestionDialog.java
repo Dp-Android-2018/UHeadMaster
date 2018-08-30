@@ -3,15 +3,21 @@ package com.dp.uheadmaster.dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dp.uheadmaster.R;
+import com.dp.uheadmaster.fragments.QuestionAnswerFragment;
 import com.dp.uheadmaster.interfaces.RefreshFragmentInterface;
+import com.dp.uheadmaster.interfaces.RefreshRecyclerListener;
 import com.dp.uheadmaster.models.request.AddCourseQuestionRequest;
 import com.dp.uheadmaster.models.response.DefaultResponse;
 import com.dp.uheadmaster.utilities.ConfigurationFile;
@@ -20,7 +26,6 @@ import com.dp.uheadmaster.utilities.SharedPrefManager;
 import com.dp.uheadmaster.webService.ApiClient;
 import com.dp.uheadmaster.webService.EndPointInterfaces;
 
-import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,17 +37,20 @@ import retrofit2.Response;
 public class AddQuestionDialog extends Dialog {
 
 
-    Activity context;
+    Context context;
     private ProgressDialog progressDialog;
     private int courseID = -1;
     private SharedPrefManager sharedPrefManager;
-
-
-    public AddQuestionDialog(@NonNull Activity context, int courseId) {
+    private LinearLayout linearLayout;
+    private Activity mActivity;
+    private RefreshRecyclerListener refreshRecyclerListener;
+    public AddQuestionDialog(@NonNull Context context, int courseId, Activity mActivity, RefreshRecyclerListener refreshRecyclerListener) {
         super(context);
         this.context = context;
         this.courseID = courseId;
+        this.mActivity=mActivity;
         this.sharedPrefManager = new SharedPrefManager(context);
+        this.refreshRecyclerListener=refreshRecyclerListener;
 
     }
 
@@ -60,6 +68,7 @@ public class AddQuestionDialog extends Dialog {
     }
 
     private void initView() {
+        linearLayout=(LinearLayout) findViewById(R.id.content);
         edQuestionTitle = (EditText) findViewById(R.id.ed_question_title);
         edQuestionContent = (EditText) findViewById(R.id.ed_question_content);
         btnPost = (Button) findViewById(R.id.btn_question_post);
@@ -71,6 +80,11 @@ public class AddQuestionDialog extends Dialog {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                View view = mActivity.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)context.getSystemService(context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
 
                 String title = edQuestionTitle.getText().toString();
                 String content = edQuestionContent.getText().toString();
@@ -78,7 +92,7 @@ public class AddQuestionDialog extends Dialog {
 
                     addRequestAPI(title, content);
                 } else {
-                    Toasty.error(context, context.getString(R.string.enter_all_fields), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mActivity.findViewById(R.id.content), context.getString(R.string.enter_all_fields), Snackbar.LENGTH_LONG).show();
 
                 }
             }
@@ -87,8 +101,8 @@ public class AddQuestionDialog extends Dialog {
 
     private void addRequestAPI(String title, final String content) {
 
-        if (NetWorkConnection.isConnectingToInternet(context)) {
-            progressDialog = ConfigurationFile.showDialog(context);
+        if (NetWorkConnection.isConnectingToInternet(context,mActivity.findViewById(R.id.content))) {
+            progressDialog = ConfigurationFile.showDialog(mActivity);
 
             AddCourseQuestionRequest addQuestion = new AddCourseQuestionRequest(courseID, title, content);
             final EndPointInterfaces apiService =
@@ -103,13 +117,17 @@ public class AddQuestionDialog extends Dialog {
 
 
                         DefaultResponse defaultResponse = response.body();
+                        System.out.println("Code message :" + response.body().getStatus());
                         if (defaultResponse.getStatus() == 200) {
-                            Toasty.success(context, defaultResponse.getMessage(), Toast.LENGTH_LONG, true).show();
+                            /*RefreshRecyclerListener refreshRecyclerListener=new QuestionAnswerFragment();
+                            refreshRecyclerListener.refreshRecycler();*/
+                            refreshRecyclerListener.refreshRecycler();
+                            Snackbar.make(mActivity.findViewById(R.id.content), R.string.question_asked, Snackbar.LENGTH_LONG).show();
 
                         } else {
                             // parse the response body …
                             System.out.println("Add Question error Code message :" + response.body().getMessage());
-                            Toasty.error(context, defaultResponse.getMessage(), Toast.LENGTH_LONG, true).show();
+                            Snackbar.make(mActivity.findViewById(R.id.content), defaultResponse.getMessage(), Snackbar.LENGTH_LONG).show();
                         }
 
                     } catch (NullPointerException ex) {
@@ -127,7 +145,7 @@ public class AddQuestionDialog extends Dialog {
                 public void onFailure(Call<DefaultResponse> call, Throwable t) {
                     ConfigurationFile.hideDialog(progressDialog);
 
-                    Toasty.error(context, t.getMessage(), Toast.LENGTH_LONG, true).show();
+                    Snackbar.make(mActivity.findViewById(R.id.content), t.getMessage(), Snackbar.LENGTH_LONG).show();
                     System.out.println(" Fialer :" + t.getMessage());
                     dismiss();
                 }
